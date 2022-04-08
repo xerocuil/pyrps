@@ -1,0 +1,17 @@
+{% extends "cmanager/base.html" %}
+
+{% block title %}Pilot{% endblock %}
+
+{% block content %}
+
+<h2>{{ player.name }}</h2>
+
+<p>Rank: {{ player.rank }}</p>
+
+<p>Record {{ player.wins }}-{{ player.losses }}</p>
+
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}

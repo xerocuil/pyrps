@@ -1,0 +1,16 @@
+{% extends "cmanager/base.html" %}
+
+{% block content %}
+<h1>{% block title %}Campaigns{% endblock %}</h1>
+
+<p>We can't stop here...<br><br>...this is bat country.</p>
+
+{% for c in campaigns %}
+	<p>{{ c.name }}</p>
+{% endfor %}
+
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}

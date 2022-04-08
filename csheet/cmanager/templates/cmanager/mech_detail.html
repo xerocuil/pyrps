@@ -1,0 +1,67 @@
+{% extends "cmanager/base.html" %}
+
+{% load static helpers %}
+
+{% block title %}{{ mech.name }}{% endblock %}
+
+{% block content %}
+
+<p>Pilot: {{ mech.pilot }} / Rank: {{ mech.pilot.rank }}</p>
+
+<p>Available Skill Points: {{ mech.available_skill_points }}</p>
+
+<h2>{{ mech.name }}</h2>
+
+<p>Mech Class: {{ mech.mech_class }}</p>
+
+<p>HP: {{ mech.hitpoints }} / END: {{ mech.mech_class.base_endurance }} ({{ mech.mod_endurance }})</p>
+
+<p>Attack Damage: {{ mech.melee_attack_min }}-{{ mech.melee_attack_max }}</p>
+
+<table>
+	<tr>
+		<td>&nbsp;</td>
+		<td>BASE</td>
+		<td>MOD</td>
+	</tr>
+	<tr>
+		<th>STRENGTH</th>
+		<td>{% for s in mech.strength_range %}{% baseStat %} {% endfor %}</td>
+		<td>{% if mech.mod_strength %}+{{ mech.mod_strength }}{% endif %}</td>
+	</tr>
+	<tr>
+		<th>DEFENSE</th>
+		<td>{% for s in mech.defense_range %}{% baseStat %} {% endfor %}</td>
+		<td>{% if mech.mod_defense %}+{{ mech.mod_defense }}{% endif %}</td>
+	</tr>
+	<tr>
+		<th>DEXTERITY</th>
+		<td>{% for s in mech.dexterity_range %}{% baseStat %} {% endfor %}</td>
+		<td>{% if mech.mod_dexterity %}+{{ mech.mod_dexterity }}{% endif %}</td>
+	</tr>
+</table>
+
+<table>
+	<tr>
+		<td>&nbsp;</td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<th>ENERGY<br>POTIONS</th>
+		<td>{% for s in mech.potions_range %}{% potion %} {% endfor %}</td>
+	</tr>
+	<tr>
+		<th>ENERGY<br>SHIELDS</th>
+		<td>{% for s in mech.shields_range %}{% shield %} {% endfor %}</td>
+	</tr>
+	<tr>
+		<th>SKILL<br>POINTS</th>
+		<td>{% for s in mech.skill_points_range %}{% skill %} {% endfor %}</td>
+	</tr>
+</table>
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}

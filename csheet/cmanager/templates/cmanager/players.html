@@ -1,0 +1,28 @@
+{% extends "cmanager/base.html" %}
+
+{% block title %}Players{% endblock %}
+
+{% block content %}
+
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Rank</th>
+    <th>W-L</th>
+  </thead>
+  <tbody>
+  {% for p in players %}
+    <tr>
+      <td><a href="/admin/cmanager/player/{{ p.id }}/change/">{{ p.name }}</a></td>
+      <td>{{ p.rank }}</td>
+      <td>{{ p.wins }}-{{ p.losses }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}
