@@ -6,8 +6,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
-  <link rel="stylesheet" href="{% static 'css/skeleton.css' %}">
+  <link rel="stylesheet" href="{% static 'css/bulma.css' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <title>{% block title %}{% endblock %} | {% appName %}</title>
 </head>
@@ -15,14 +14,14 @@
 
   <body>
 
-  <div id="site-header" class="container" role="banner">
-    <header class="row">
-      <div class="six columns">
+  <div id="site-header" class="container no-print" role="banner">
+    <header class="columns">
+      <div class="column">
         <a class="site-title" rel="author" href="/"><img src="{% static 'images/dice-icon-32.png' %}"> {% appName %}</a>
       </div>
 
 
-      <div class="six columns">
+      <div class="column">
           <nav class="site-nav u-pull-right">
 
             <div class="trigger">
@@ -31,6 +30,7 @@
                  <li><a class="page-link" href="{% url 'cmanager:players' %}">Players</a></li>
                  <li><a class="page-link" href="{% url 'cmanager:mechs' %}">Mechs</a></li>
                  <li><a class="page-link" href="{% url 'cmanager:mech_classes' %}">Classes</a></li>
+                 <li><a class="page-link" href="{% url 'campaign:home' %}">Campaigns</a></li>
               </ul>
             </div>
           </nav>
@@ -40,10 +40,8 @@
 
 
     <main class="page-content container" aria-label="Content">
-      <div class="row">
+      <div class="columns">
         <div class="column">
-          
-          
           {% block content %}
 
           {% endblock %}
