@@ -1,0 +1,129 @@
+@charset "utf-8"
+
+@import "reset"
+
+html
+  font-size: 62.5%
+
+body
+  font-family: serif
+  font-size: 1.2em
+
+header
+  display: grid
+  grid-template-columns: 1fr 3fr
+
+  #siteTitle
+    display: grid
+    grid-template-columns: 1fr 3fr
+
+    img
+      height: 32px
+      // height: 100%
+      position: relative
+
+  nav
+    ul
+      li
+        display: inline
+
+#page
+  font-size: 1.2em
+  margin: 12mm auto
+  width: 201.90mm
+  padding: 4mm 14mm
+  height: 271.40mm
+  border: 1px solid #ff0000
+
+#dnd
+  #csheetInfo
+    margin: 0 0 1.6em 0
+    display: grid
+    grid-template-columns: 1fr 3fr
+
+  #csheetStats
+    width: 100%
+    font-size: 1.0rem
+    display: inline-grid
+    column-gap: 4mm
+    grid-template-columns: 1fr 1fr 1fr
+
+    #col1
+      display: grid
+      column-gap: 3mm
+      grid-template-columns: 1fr 2fr
+
+      #abilities
+        display: grid
+        row-gap: 4mm
+        .abilityScore
+          width: 18mm
+          height: 22mm
+          display: grid
+          text-align: center
+          background-image: url('/static/assets/dnd/csheet/abilityScore.svg')
+          background-size: 100%
+          background-repeat: no-repeat
+          .abilityInt, .abilityLabel
+            max-height: 1.6em
+          .abilityInt
+            font-size: 1.2em
+            font-weight: 600
+          .abilityLabel
+            padding-top: 0.8em
+
+      #addlAbilities
+        display: grid
+        row-gap: 4mm
+
+      #inspiration, #proficiency
+        width: 38mm
+        background-size: 100%
+        background-repeat: no-repeat
+
+      #inspiration
+        height: 9.460mm
+        background-image: url('/static/assets/dnd/csheet/inspiration.svg')
+        
+      #proficiency
+        height: 11.556mm
+        background-image: url('/static/assets/dnd/csheet/proficiency.svg')
+   
+    #col2
+      #battleStats
+        #bs-main
+          display: inline-grid
+          grid-template-columns: 1fr 1fr 1fr
+          #armorClass
+            height: 13.75mm
+            width: 12mm
+            background-image: url('/static/assets/dnd/csheet/armorClass.svg')
+            background-size: 100%
+            background-repeat: no-repeat
+
+    .box01
+      border: 10px solid transparent
+      border-image: url('/static/assets/dnd/csheet/box001.svg') 10%
+
+    .box-stat
+      display: grid
+      grid-template-columns: 2.4em 1fr
+      .bs-int, .bs-label
+        text-align: center
+        display: inline
+        padding-top: 0.8em
+
+    .statLabel
+      text-transform: uppercase
+      font-size: 0.72em
+      font-weight: 600
+
+    
+
+    
+
+    
+
+    
+
+
