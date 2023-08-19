@@ -1,0 +1,39 @@
+[{
+  "name": "Biggs",
+  "level": 8,
+  "char_class": "PALADIN",
+  "strength": 14,
+  "dexterity": 12,
+  "constitution": 10,
+  "intelligence": 10,
+  "wisdom": 12,
+  "charisma": 11,
+  "slug": "BIGGS1495",
+  "engine": "dnd"
+},
+{
+  "name": "Crystal King",
+  "level": 14,
+  "char_class": "FIGHTER",
+  "strength": 16,
+  "dexterity": 12,
+  "constitution": 10,
+  "intelligence": 8,
+  "wisdom": 10,
+  "charisma": 8,
+  "slug": "CRYSTALKING6277",
+  "engine": "dnd"
+},
+{
+  "name": "Wedge",
+  "level": 12,
+  "char_class": "RANGER",
+  "strength": 12,
+  "dexterity": 16,
+  "constitution": 10,
+  "intelligence": 11,
+  "wisdom": 13,
+  "charisma": 9,
+  "slug": "WEDGE3954",
+  "engine": "dnd"
+}]

@@ -6,15 +6,16 @@ APPLIB = os.path.dirname(CONFLIB)
 APPDIR = os.path.dirname(APPLIB)
 ENGINE_DIR = os.path.join(APPDIR, 'engine')
 USERDIR = os.path.expanduser('~')
-CONFIGDIR = os.path.join(USERDIR, '.config/pyttrpg')
+CONFIGDIR = os.path.join(USERDIR, '.config/pyrepg')
 CONFIGPATH = os.path.join(CONFIGDIR, 'config.ini')
 
 ## Init Config.ini
 def init_conf():
   conf = ConfigParser()
   conf["SYSTEM"] = {
-      "app_title": "PYTTRPG",
+      "app_title": "PYREPG",
       "app_dir": APPDIR,
+      "key": os.urandom(24).hex(),
       "engine": "dnd",
       "debug": True
     }
@@ -46,6 +47,7 @@ conf.read(CONFIGPATH)
 class Config:
   APP_TITLE=conf['SYSTEM']['app_title']
   ENGINE=conf['SYSTEM']['engine']
+  KEY=conf['SYSTEM']['key']
   DEBUG=conf['SYSTEM']['debug']
   CAMPAIGNS=conf['FILES']['campaigns']
   CHARACTERS=conf['FILES']['characters']

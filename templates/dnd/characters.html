@@ -4,21 +4,39 @@
 
 {% block content %}
 
-<h1>{{ title }}</h1>
+<h2>Characters</h2>
 
-{% for p in players %}
-  <table class="character">
+{% for c in characters %}
+  <table>
     <tbody>
-      <tr><th><img src="{{ char_default['profileUrl'] }}" /></th></tr>
-      <tr><th>Name</th><td>
-        <a href="{{ url_for('charSheet', char_id=p.id) }}">
-          {{ p.name }}
-        </a>
-        </td></tr>
-      <tr><th>ID</th><td>{{ p.id }}</td></tr>
-      <tr><th>LVL</th><td>{{ p.level }}</td></tr>
+      <tr>
+        <th>Name</th>
+        <td>{{ c['name'] }}</td>
+      </tr>
+      <tr>
+        <th>LVL</th>
+        <td>{{ c['level'] }}</td>
+      </tr>
+      <tr>
+        <th>Class</th>
+        <td>{{ c['char_class'] }}</td>
+      </tr>
+      <tr>
+        <th>STR</th>
+        <td>{{ c['strength'] }}</td>
+      </tr>
+      <tr>
+        <th>DEX</th>
+        <td>{{ c['dexterity'] }}</td>
+      </tr>
+      <tr>
+        <th>CON</th>
+        <td>{{ c['constitution'] }}</td>
+      </tr>
     </tbody>
   </table>
+
+  <hr>
 {% endfor %}
 
 {% endblock %}

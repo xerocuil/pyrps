@@ -13,17 +13,20 @@
 <div id="page">
   <header>
     <div id="siteTitle">
-      <span><img src="{{ url_for('static', filename='assets/img/d20.svg') }}"></span>
-      <span><a href="{{ url_for('characters') }}">PYTTRPG</a></span>
+      <span id="siteLogo">
+        <a href="{{ url_for('index') }}">
+          <img src="{{ url_for('static', filename='assets/img/siteLogo.svg') }}">
+        </a>
+      </span>
     </div>
 
-    <nav>
+<!--     <nav>
       <ul>
         
-        <li><a href="{{ url_for('characters') }}">Characters</a></li>
-        <li><a href="{{ url_for('charClasses') }}">Classes</a></li>
+        <li><a href="{{ url_for('index') }}">Characters</a></li>
+        <li><a href="{{ url_for('index') }}">Classes</a></li>
       </ul>
-    </nav>
+    </nav> -->
   </header>
   <article id="content">
     {% block content %}{% endblock %}

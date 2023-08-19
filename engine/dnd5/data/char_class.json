@@ -1,5 +1,6 @@
 [{
 "id": "425242415249414e",
+"slug": "BRBARIAN",
 "name": "Barbarian",
 "description": "A fierce warrior of primitive background who can enter a battle rage.",
 "hitDie": 12,
@@ -9,7 +10,9 @@
 },
 {
 "id": "0000000042415244",
+"slug": "BARD",
 "name": "Bard",
+"description": "",
 "hitDie": 8,
 "primary": ["CHA"],
 "stp": ["CHA", "DEX"],
@@ -17,46 +20,91 @@
 },
 {
 "id": "0000434c45524943",
+"slug": "CLERIC",
 "name": "Cleric",
-"hitDie": 8
+"description": "",
+"hitDie": 8,
+"primary": "",
+"stp": "",
+"awp": ""
 },
 {
 "id": "0046494748544552",
+"slug": "FIGHTER",
 "name": "Fighter",
-"hitDie": 10
+"description": "",
+"hitDie": 10,
+"primary": "",
+"stp": "",
+"awp": ""
 },
 {
 "id": "000000004d4f4e4b",
+"slug": "MONK",
 "name": "Monk",
-"hitDie": 8
+"description": "",
+"hitDie": 8,
+"primary": "",
+"stp": "",
+"awp": ""
 },
 {
 "id": "0050414c4144494e",
+"slug": "PALADIN",
 "name": "Paladin",
-"hitDie": 10
+"description": "",
+"hitDie": 10,
+"primary": "",
+"stp": "",
+"awp": ""
 },
 {
 "id": "000052414e474552",
+"slug": "RANGER",
 "name": "Ranger",
-"hitDie": 10
+"description": "",
+"hitDie": 10,
+"primary": "",
+"stp": "",
+"awp": ""
 },
 {
 "id": "000000524f475545",
+"slug": "ROGUE",
 "name": "Rogue",
-"hitDie": 8
+"description": "",
+"hitDie": 8,
+"primary": "",
+"stp": "",
+"awp": ""
 },
 {
 "id": "534f524345524552",
+"slug": "SORCERER",
 "name": "Sorcerer",
-"hitDie": 6
+"description": "",
+"hitDie": 6,
+"primary": "",
+"stp": "",
+"awp": ""
 },
 {
 "id": "005741524c4f434b",
+"slug": "WARLOCK",
 "name": "Warlock",
-"hitDie": 6
+"description": "",
+"hitDie": 6,
+"primary": "",
+"stp": "",
+"awp": ""
 },
 {
 "id": "000057495a415244",
+"slug": "WIZARD",
 "name": "Wizard",
-"hitDie": 6
+"description": "",
+"hitDie": 6,
+"primary": "",
+"stp": "",
+"awp": ""
 }]
