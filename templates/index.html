@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Characters{% endblock %}
+
+{% block content %}
+
+<h2>Characters</h2>
+
+{% for c in characters %}
+  <table>
+    <tbody>
+      <tr>
+        <th>Name</th>
+        <td>{{ c['name'] }}</td>
+      </tr>
+      <tr>
+        <th>LVL</th>
+        <td>{{ c['level'] }}</td>
+      </tr>
+      <tr>
+        <th>Class</th>
+        <td>{{ c['char_class'] }}</td>
+      </tr>
+      <tr>
+        <th>STR</th>
+        <td>{{ c['strength'] }}</td>
+      </tr>
+      <tr>
+        <th>DEX</th>
+        <td>{{ c['dexterity'] }}</td>
+      </tr>
+      <tr>
+        <th>CON</th>
+        <td>{{ c['constitution'] }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr>
+{% endfor %}
+
+{% endblock %}

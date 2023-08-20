@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}{% endblock %} | PYTTRPG</title>
+  <title>{% block title %}{% endblock %} | {{ APPTITLE }}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style.min.css') }}">
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/img/favicon.ico') }}">
 </head>
@@ -20,13 +20,17 @@
       </span>
     </div>
 
-<!--     <nav>
+    <nav>
       <ul>
         
         <li><a href="{{ url_for('index') }}">Characters</a></li>
         <li><a href="{{ url_for('index') }}">Classes</a></li>
       </ul>
-    </nav> -->
+    </nav>
+
+    <div id="engLogo">
+      <img src="{{ url_for('static', filename=ENG_LOGO) }}">
+    </div>
   </header>
   <article id="content">
     {% block content %}{% endblock %}

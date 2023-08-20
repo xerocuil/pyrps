@@ -4,31 +4,31 @@ from configparser import ConfigParser
 CONFLIB = os.path.dirname(os.path.realpath(__file__))
 APPLIB = os.path.dirname(CONFLIB)
 APPDIR = os.path.dirname(APPLIB)
-ENGINE_DIR = os.path.join(APPDIR, 'engine')
-USERDIR = os.path.expanduser('~')
-CONFIGDIR = os.path.join(USERDIR, '.config/pyrepg')
-CONFIGPATH = os.path.join(CONFIGDIR, 'config.ini')
+ENGINEDIR = os.path.join(APPDIR, 'engine')
+# USERDIR = os.path.expanduser('~')
+# CONFIGDIR = os.path.join(USERDIR, '.config/pyrepg')
+CONFIGPATH = os.path.join(APPDIR, 'config.ini')
+
+# Functions
 
 ## Init Config.ini
 def init_conf():
   conf = ConfigParser()
   conf["SYSTEM"] = {
-      "app_title": "PYREPG",
-      "app_dir": APPDIR,
-      "key": os.urandom(24).hex(),
-      "engine": "dnd",
-      "debug": True
+      "APPTITLE": "PyRPS",
+      "DEBUG": False,
+      "ENGINE": "dnd5",
+      "KEY": os.urandom(24).hex(),
     }
   conf["FILES"] = {
-      "campaigns": os.path.join(CONFIGDIR,'campaigns'),
-      "characters": os.path.join(CONFIGDIR,'characters'),
-      "engine_dir": ENGINE_DIR,
-      "img": os.path.join(CONFIGDIR,'img')
+      "APPDIR": APPDIR,
+      "ENGINEDIR": ENGINEDIR,
     }
 
   ### Write to config.ini
-  if not os.path.exists(CONFIGDIR):
-    os.makedirs(CONFIGDIR)
+
+  # if not os.path.exists(CONFIGPATH):
+    # os.makedirs(CONFIGDIR)
 
   with open(CONFIGPATH, 'w') as conf_data:
     conf.write(conf_data)
@@ -40,16 +40,12 @@ else:
   print("Config file found.")
 
 ## Load Config.ini
-conf = ConfigParser()
-conf.read(CONFIGPATH)
+settings = ConfigParser()
+settings.read(CONFIGPATH)
 
-## Init Config class
-class Config:
-  APP_TITLE=conf['SYSTEM']['app_title']
-  ENGINE=conf['SYSTEM']['engine']
-  KEY=conf['SYSTEM']['key']
-  DEBUG=conf['SYSTEM']['debug']
-  CAMPAIGNS=conf['FILES']['campaigns']
-  CHARACTERS=conf['FILES']['characters']
-  ENGINE_DIR=conf['FILES']['engine_dir']
-  IMG=conf['FILES']['img']
+# ## Init Config class
+# class Config:
+#   APPTITLE=settings['SYSTEM']['APPTITLE']
+#   DEBUG=settings['SYSTEM']['debug']
+#   ENGINEDIR=settings['FILES']['ENGINEDIR']
+#   KEY=settings['SYSTEM']['KEY']
