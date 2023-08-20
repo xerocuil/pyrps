@@ -1,6 +1,9 @@
 # Changelog
 
-<!-- ## [Unreleased] -->
+## [Unreleased]
+
+- GURPS 4th edition support
+- [GURPS Character Sheet](https://gurpscharactersheet.com/) >= 5.15 support
 
 ## [0.0.1] 2023.0813
 
