@@ -1,6 +1,3 @@
 # PyRPS
 
-PyRPS (Python Role-Playing System) is an app created as a TTRPG aid with modular game engines.
-
-- [Development Notes](docs/notes.md)
-- [Changelog](docs/changelog.md)
+PyRPS (Python RolePlaying System) is an app created as a table-top RPG aid with modular game engines.

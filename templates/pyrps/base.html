@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% endblock %} | {{ APPTITLE }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style.min.css') }}">
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/img/favicon.ico') }}">
+</head>
+
+<body>
+
+<header>
+  <div id="siteTitle">
+    <span id="siteLogo">
+      <a href="{{ url_for('index') }}">
+        <img src="{{ url_for('static', filename='assets/img/siteLogo.svg') }}">
+      </a>
+    </span>
+  </div>
+
+  <nav>
+    <ul>
+      <li><a href="{{ url_for('dnd5.index') }}">D&D 5</a></li>
+      <li><a href="{{ url_for('gurps4.index') }}">GURPS 4</a></li>
+      <li><a href="{{ url_for('rpgm2k.index') }}">RPGM 2K</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div id="display">
+  <div id="page">
+    <article id="content">
+      {% block content %}{% endblock %}
+    </article>
+  </div>
+
+  <div id="sidebar">
+    {% block sidebar %}{% endblock %}
+  </div>
+</div>
+
+</body>
+
+</html>

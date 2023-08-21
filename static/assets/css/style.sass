@@ -2,25 +2,76 @@
 
 @import "reset"
 
+$default-page-width: 96.0rem
+
+$mineshaft: #333333
+
 html
   font-size: 62.5%
 
 body
-  font-family: serif
-  font-size: 1.2em
+  font-family: sans-serif
+  
+
+h1, h2, h3, h4, h5, h6
+  margin-bottom: 0.8rem
+  
+
+h1
+  font-size: 3.0rem
+  font-weight: 600
+
+h2
+  font-size: 2.6rem
+  font-weight: 500
+
+h3
+  font-size: 2.2rem
+  font-weight: 400
+
+h4
+  font-size: 1.8rem
+  font-weight: 300
+  text-transform: uppercase
+
+h5
+  font-size: 1.4rem
+  font-weight: 200
+  text-transform: uppercase
+
+h6
+  font-size: 1.2rem
+  font-weight: 200
+  text-transform: uppercase
+  
+
+header > *
+  padding: 0.8rem
 
 header
+  width: $default-page-width
+  margin: 1.6rem auto
   display: grid
-  grid-template-columns: 1fr 3fr 1fr
+  grid-template-columns: 1fr 3fr
+  color: white
+  background: $mineshaft
+  // border: 1px solid #00FF00
+  a
+    color: white
+    font-weight: 600
+    text-decoration: none
+  
 
   nav
+    font-size: 1.2rem
+    text-align: right
     ul
+      position: relative
+      top: 50%
+      transform: translateY(-50%)
       li
         display: inline
-  #engLogo
-    text-align: right
-    img
-      height: 24px
+        margin-left: 1.6rem
   #siteTitle
     display: grid
     grid-template-columns: 1fr 3fr
@@ -30,96 +81,128 @@ header
         // height: 100%
         position: relative
 
-#page
-  font-size: 1.2em
-  margin: 12mm auto
-  width: 201.90mm
-  padding: 4mm 14mm
-  height: 271.40mm
-  border: 1px solid #ff0000
+#display
+  width: $default-page-width
+  margin: 0 auto
+  display: grid
+  grid-template-columns: 4fr 1fr
+  gap: 1.6rem
 
-#dnd
-  #csheetInfo
-    margin: 0 0 1.6em 0
-    display: grid
-    grid-template-columns: 1fr 3fr
+  #page, #sidebar
+    padding: 0.8rem
 
-  #csheetStats
-    width: 100%
-    font-size: 1.0rem
-    display: inline-grid
-    column-gap: 4mm
-    grid-template-columns: 1fr 1fr 1fr
+  #page
+    border: 1px solid #ff0000
 
-    #col1
-      display: grid
-      column-gap: 3mm
-      grid-template-columns: 1fr 2fr
+  #sidebar
+    border: 1px solid #0000ff
 
-      #abilities
-        display: grid
-        row-gap: 4mm
-        .abilityScore
-          width: 18mm
-          height: 22mm
-          display: grid
-          text-align: center
-          background-image: url('/static/assets/engine/dnd/abilityScore.svg')
-          background-size: 100%
-          background-repeat: no-repeat
-          .abilityInt, .abilityLabel
-            max-height: 1.6em
-          .abilityInt
-            font-size: 1.2em
-            font-weight: 600
-          .abilityLabel
-            padding-top: 0.8em
 
-      #addlAbilities
-        display: grid
-        row-gap: 4mm
+#characters
+  display: flex
+  gap: 2.4rem
+  .charCard
+    width: 12.8rem
+    border: 1px #CCC solid
+    tr
+      td, th
+        padding: 0.4rem 0.8rem
+      th
+        font-weight: 600
+        text-align: left 
 
-      #inspiration, #proficiency
-        width: 38mm
-        background-size: 100%
-        background-repeat: no-repeat
 
-      #inspiration
-        height: 9.460mm
-        background-image: url('/static/assets/engine/dnd/inspiration.svg')
+.sectionHeader
+  display: grid
+  grid-template-columns: 1fr 1fr
+  .sectionMenu
+    text-align: right
+
+.right
+  text-align: right
+
+// #dnd
+//   #csheetInfo
+//     margin: 0 0 1.6em 0
+//     display: grid
+//     grid-template-columns: 1fr 3fr
+
+//   #csheetStats
+//     width: 100%
+//     font-size: 1.0rem
+//     display: inline-grid
+//     column-gap: 4mm
+//     grid-template-columns: 1fr 1fr 1fr
+
+//     #col1
+//       display: grid
+//       column-gap: 3mm
+//       grid-template-columns: 1fr 2fr
+
+//       #abilities
+//         display: grid
+//         row-gap: 4mm
+//         .abilityScore
+//           width: 18mm
+//           height: 22mm
+//           display: grid
+//           text-align: center
+//           background-image: url('/static/assets/engine/dnd/abilityScore.svg')
+//           background-size: 100%
+//           background-repeat: no-repeat
+//           .abilityInt, .abilityLabel
+//             max-height: 1.6em
+//           .abilityInt
+//             font-size: 1.2em
+//             font-weight: 600
+//           .abilityLabel
+//             padding-top: 0.8em
+
+//       #addlAbilities
+//         display: grid
+//         row-gap: 4mm
+
+//       #inspiration, #proficiency
+//         width: 38mm
+//         background-size: 100%
+//         background-repeat: no-repeat
+
+//       #inspiration
+//         height: 9.460mm
+//         background-image: url('/static/assets/engine/dnd/inspiration.svg')
         
-      #proficiency
-        height: 11.556mm
-        background-image: url('/static/assets/engine/dnd/proficiency.svg')
+//       #proficiency
+//         height: 11.556mm
+//         background-image: url('/static/assets/engine/dnd/proficiency.svg')
    
-    #col2
-      #battleStats
-        #bs-main
-          display: inline-grid
-          grid-template-columns: 1fr 1fr 1fr
-          #armorClass
-            height: 13.75mm
-            width: 12mm
-            background-image: url('/static/assets/engine/dnd/armorClass.svg')
-            background-size: 100%
-            background-repeat: no-repeat
+//     #col2
+//       #battleStats
+//         #bs-main
+//           display: inline-grid
+//           grid-template-columns: 1fr 1fr 1fr
+//           #armorClass
+//             height: 13.75mm
+//             width: 12mm
+//             background-image: url('/static/assets/engine/dnd/armorClass.svg')
+//             background-size: 100%
+//             background-repeat: no-repeat
 
-    .box01
-      border: 10px solid transparent
-      border-image: url('/static/assets/engine/dnd/box001.svg') 10%
+//     .box01
+//       border: 10px solid transparent
+//       border-image: url('/static/assets/engine/dnd/box001.svg') 10%
 
-    .box-stat
-      display: grid
-      grid-template-columns: 2.4em 1fr
-      .bs-int, .bs-label
-        text-align: center
-        display: inline
-        padding-top: 0.8em
+//     .box-stat
+//       display: grid
+//       grid-template-columns: 2.4em 1fr
+//       .bs-int, .bs-label
+//         text-align: center
+//         display: inline
+//         padding-top: 0.8em
 
-    .statLabel
-      text-transform: uppercase
-      font-size: 0.72em
-      font-weight: 600
+//     .statLabel
+//       text-transform: uppercase
+//       font-size: 0.72em
+//       font-weight: 600
 
     
 

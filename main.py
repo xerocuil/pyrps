@@ -3,13 +3,13 @@ import base64
 import json
 
 from flask import Flask, render_template, request, url_for, flash, redirect
-# from flask import render_template
-from flask_table import *
 
 import lib.config as cfg
-import lib.utils as Utils
+import lib.utils as utils
 
-# import engine.dnd5 as dnd5
+from engine.dnd5 import dnd5
+from engine.gurps4 import gurps4
+from engine.rpgm2k import rpgm2k
 
 
 # Global variables
@@ -24,130 +24,30 @@ C_ENG_DATA = os.path.join(C_ENG_DIR, 'data')
 CHAR_FILE = os.path.join(C_ENG_DATA, 'characters.json')
 
 
-
-
-
-
-
-
-
-# Functions
-
-## Load JSON data
-def load_json(file):
-  f = open(file)
-  l = json.load(f)
-  return l
-
-
-# Load Characters
-if os.path.exists(CHAR_FILE):
-  characters = load_json(CHAR_FILE)
-else:
-  characters = []
-
-
-# Init Flask App
+# Init app
 app = Flask(__name__)
-app.config['SECRET_KEY'] = KEY
 
 
-# Context processors
-
+# Template tags
 @app.context_processor
 def APPTITLE():
     return {'APPTITLE': cfg.settings['SYSTEM']['APPTITLE']}
 
-@app.context_processor
-def ENG_LOGO():
-    return {'ENG_LOGO': '/assets/engine/' + ENGINE + '/logo.svg'}
+# @app.context_processor
+# def ENG_LOGO():
+#     return {'ENG_LOGO': '/assets/' + ENGINE + '/logo.svg'}
 
 
+# Register blueprints
+app.register_blueprint(dnd5, url_prefix='/dnd5')
+app.register_blueprint(gurps4, url_prefix='/gurps4')
+app.register_blueprint(rpgm2k, url_prefix='/rpgm2k')
 
 
 # Routes
-
-## Home
 @app.route('/')
 def index():
-    return render_template(ENGINE + '/characters.html', characters=characters)
-
-
-
-## DND5
-
-## DND: Add char
-@app.route('/dnd/add/char', methods=('GET', 'POST'))
-def dnd_add_char():
-  if request.method == 'POST':
-    name = request.form['name']
-    level = request.form['level']
-    char_class = request.form['char_class']
-    strength = request.form['strength']
-    dexterity = request.form['dexterity']
-    constitution = request.form['constitution']
-    
-    csheet = []
-    data = {
-      "name": name,
-      "level": level,
-      "char_class": char_class,
-      "strength": strength,
-      "dexterity": dexterity,
-      "constitution": constitution,
-    }
-    
-    # csheet = [data]
-    # print(csheet)
-
-    if not name:
-      flash('Name is required!')
-    elif not level:
-      flash('Level is required!')
-    else:
-      csheet.append(data)
-
-      if not os.path.exists(char_file):
-        os.makedirs(char_dir)
-        with open(char_file, "w") as outfile:
-          json.dump(csheet, outfile, indent=2)
-      else:
-        # characters = load_json(char_file)
-        characters.append(data)
-        with open(char_file, 'w') as outfile:
-          json.dump(characters, outfile, indent=2)
-
-
-      return redirect(url_for('index'))
-
-  return render_template('test2.html', characters=characters)
-
-
-
-# ## DND: Characters
-# @app.route('/dnd/characters')
-# def characters():
-#   return  render_template('dnd/characters.html', players=players, profileUrl=profileUrl)
-
-# ## DND: Char. classes
-# @app.route('/classes')
-# def charClasses():
-#   return  render_template('dnd/classes.html')
-
-# ## DND: Char. sheet
-# @app.route('/dnd/csheet/<char_id>', methods=['GET', 'POST'])
-# def charSheet(char_id):
-#   character = {}
-#   for c in players:
-#     if c['id'] == char_id:
-#       character = c
-#       print(type(character))
-#   return  render_template('dnd/csheet.html', character=character)
-
-
-
-
-
+  return render_template('pyrps/index.html')
 
 
 # Run App

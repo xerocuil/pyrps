@@ -4,9 +4,11 @@ import json
 import random
 import sys
 
-sys.path.append('../../lib')
+from flask import Blueprint, render_template, request, url_for, flash, redirect
 
-from lib import config as Config
+# sys.path.append('../../lib')
+
+# from lib import config as Config
 
 from collections import namedtuple
 from json import JSONEncoder
@@ -24,15 +26,12 @@ CHARACTERS = []
 
 # Functions
 
-
 ## Decode JSON dict to object
 def charClassDec(cDict):
     return namedtuple('Class', cDict.keys())(*cDict.values())
 
 def jsonDec(name, jdict):
     return namedtuple(name, jdict.keys())(*jdict.values())
-
-
 
 ## Load JSON file
 def load_json(file):
@@ -77,6 +76,8 @@ def str2id(string):
 char_data = load_json(ENG_DATA + '/characters.json')
 char_class = load_json(ENG_DATA + '/char_class.json')
 
+# print('ENG_DATA: ' + str(ENG_DATA))
+
 ## Convert JSON data to object
 for cc in char_class:
   globals()[cc['slug']] = charClassDec(cc)
@@ -86,3 +87,67 @@ for ch in char_data:
   CHARACTERS.append(globals()[ch['slug']])
 
 
+dnd5 = Blueprint('dnd5', __name__,
+  template_folder='templates',
+  static_folder='static',
+  static_url_path='assets')
+
+
+@dnd5.route('/')
+def index():
+  return render_template('dnd5/index.html', characters=CHARACTERS)
+
+
+## DND: Add char
+@dnd5.route('/addChar', methods=('GET', 'POST'))
+def addChar():
+  if request.method == 'POST':
+    name = request.form['name']
+    level = request.form['level']
+    char_class = request.form['char_class']
+    strength = request.form['strength']
+    dexterity = request.form['dexterity']
+    constitution = request.form['constitution']
+    
+    csheet = []
+    csheet_data = {
+      "name": name,
+      "level": level,
+      "char_class": char_class,
+      "strength": strength,
+      "dexterity": dexterity,
+      "constitution": constitution,
+    }
+    
+    csheet = [csheet_data]
+    print(csheet)
+
+    if not name:
+      flash('Name is required!')
+    elif not level:
+      flash('Level is required!')
+    else:
+      csheet.append(csheet_data)
+
+      char_file = os.path.join(ENG_DATA, 'characters.json')
+      if not os.path.exists(char_file):
+        os.makedirs(char_dir)
+        with open(char_file, "w") as outfile:
+          json.dump(csheet, outfile, indent=2)
+      else:
+        characters = load_json(char_file)
+        characters.append(csheet_data)
+        with open(char_file, 'w') as outfile:
+          json.dump(characters, outfile, indent=2)
+
+
+      return redirect(url_for('dnd5.index'))
+
+  return render_template('dnd5/addChar.html', characters=CHARACTERS)
+
+
+
+
+@dnd5.route('/editChar')
+def editChar():
+  return render_template('dnd5/editChar.html', characters=CHARACTERS)
