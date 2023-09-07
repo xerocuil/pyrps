@@ -5,6 +5,8 @@
 
 $default-page-width: 120.0rem
 $default-padding: 1.6rem
+$half-padding: math.div($default-padding, 2)
+$card-width: 12.8em
 
 $mineshaft: #333333
 $alert: rgba(255, 0, 0, 0.4)
@@ -88,6 +90,15 @@ header
         // height: 100%
         position: relative
 
+p, ul
+  margin: $default-padding
+
+ul
+  li
+    margin-left: $default-padding
+    list-style: square
+
+
 #display
   width: $default-page-width
   margin: 0 auto
@@ -110,14 +121,33 @@ header
   flex-wrap: wrap
   gap: 2.4rem
   .charCard
-    width: 12.8rem
+    width: $card-width
     border: 1px #CCC solid
     tr
       td, th
         padding: 0.4rem 0.8rem
+        position: relative
       th
         font-weight: 600
         text-align: left 
+
+#messages
+  margin: 0
+  padding: 0 
+  li
+    margin-left: 0
+    padding: $half-padding
+    list-style: none
+    background-color: #DDD
+
+img.avatar
+  width: auto
+  height: $card-width
+  display: block
+  margin: 0 auto
+  background-color: white
+  border: 0.1rem solid #dddddd
+  box-shadow: 0.1rem 0.1rem #dddddd
 
 
 .sectionHeader
@@ -125,7 +155,9 @@ header
   grid-template-columns: 1fr 1fr
   .sectionMenu
     text-align: right
-
+    ul
+      li
+        list-style: none
 ul.alerts
   li
     width: 50%
@@ -144,10 +176,63 @@ ul.alerts
 
 .board
   display: flex
-
+  gap: $default-padding * 2
 
 .right
   text-align: right
+
+
+
+.loginPopup
+  position: relative
+  text-align: center
+  width: 100%
+
+.formPopup
+  display: none
+  position: fixed
+  left: 45%
+  top: 5%
+  transform: translate(-50%, 5%)
+  border: 3px solid #999999
+  z-index: 9
+
+.formContainer
+  max-width: 300px
+  padding: 20px
+  background-color: #fff
+
+.formContainer input[type=text],
+.formContainer input[type=password]
+  width: 100%
+  padding: 15px
+  margin: 5px 0 20px 0
+  border: none
+  background: #eee
+
+.formContainer input[type=text]:focus,
+.formContainer input[type=password]:focus
+  background-color: #ddd
+  outline: none
+
+.formContainer .btn
+  padding: 12px 20px
+  border: none
+  background-color: #8ebf42
+  color: #fff
+  cursor: pointer
+  width: 100%
+  margin-bottom: 15px
+  opacity: 0.8
+
+.formContainer .cancel
+  background-color: #cc0000
+
+.formContainer .btn:hover,
+.openButton:hover
+  opacity: 1
+
+
 
 // #dnd
 //   #csheetInfo

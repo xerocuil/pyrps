@@ -1,0 +1,56 @@
+{% load helpers static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% endblock %} | {% app_title %}</title>
+  <link rel="stylesheet" href="{% static 'assets/css/style.min.css' %}">
+  <link rel="icon" type="image/x-icon" href="{% static 'assets/img/favicon.ico' %}">
+</head>
+
+<body>
+
+<header>
+  <div id="siteTitle">
+    <span id="siteLogo">
+      <a href="{% url 'main:index' %}">
+        <img src="{% static 'assets/img/siteLogo.svg' %}">
+      </a>
+    </span>
+  </div>
+
+  <nav>
+    <ul>
+      <li><a href="{% url 'dnd5:index' %}">D&D 5</a></li>
+      <li><a href="">GURPS 4</a></li>
+      <li><a href="">RPGM 2K</a></li>
+      <li><a href="/admin">ADMIN</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div id="display">
+  <div id="page">
+    <article id="content">
+      {% if messages %}
+      <ul id="messages">
+          {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
+      </ul>
+      {% endif %}
+
+      {% block content %}{% endblock %}
+    </article>
+  </div>
+
+  <div id="sidebar">
+    {% block sidebar %}{% endblock %}
+  </div>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+{% extends "pyrps/base.html" %}
+{% load helpers static %}
+{% block title %}Edit Character{% endblock %}
+{% block content %}  
+
+<div>
+  <h2>Edit {{ character.name }}</h4>
+</div>
+
+<div class="board">
+  <div class="form">
+    <h3>Info/Stats</h3>
+    <form method="post">
+      {% csrf_token %}
+      {{ char_form.as_div }}
+
+      <button type="submit">Save</button>
+    </form>
+  </div>
+
+  <div class="profilePic">
+    <h3>Avatar</h3>
+
+    <a href="{% url 'dnd5:editAvatar' character.id %}">
+      <img class="avatar" src="{% if character.avatar %}{{ character.avatar.url }}{% else %}{% default_avatar_url %}{% endif %}">
+    </a>
+
+   <!--  <div class="openBtn">
+      <button class="openButton" onclick="openForm()"><strong>Change avatar</strong></button>
+    </div> -->
+  </div>
+</div>
+
+<script>
+  var imgdata = ""
+  function openForm() {
+    document.getElementById("popupForm").style.display = "block";
+  }
+  function closeForm() {
+    document.getElementById("popupForm").style.display = "none";
+  }
+
+  function encodeImageFileAsURL(element) {
+    var file = element.files[0];
+    var reader = new FileReader();
+    reader.onloadend = function() {
+      console.log('RESULT', reader.result)
+    }
+    reader.readAsDataURL(file);
+  }
+</script>
+
+{% endblock %}
