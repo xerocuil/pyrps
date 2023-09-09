@@ -1,3 +1,6 @@
 bin
 config.ini
 test.*
+*/migrations
+media/*
+static/*

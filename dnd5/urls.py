@@ -10,6 +10,14 @@ app_name = 'dnd5'
 
 urlpatterns = [
   path('', views.index, name='index'),
+  # Characters
+  path('characters', views.listCharacters, name='listCharacters'),
   path('edit/char/<int:char_id>', views.editChar, name='editChar'),
   path('edit/avatar/<int:char_id>', views.editAvatar, name='editAvatar'),
+  # Cclass
+  path('classes', views.listClasses, name='listClasses'),
+  path('class/<int:class_id>', views.viewClass, name='viewClass'),
+  # Equipment
+  path('armor', views.listArmor, name='listArmor'),
+  path('weapons', views.listWeapons, name='listWeapons'),
 ]

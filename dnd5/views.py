@@ -6,19 +6,18 @@ from django.contrib import messages
 from django.contrib.messages import get_messages
 from django.shortcuts import get_object_or_404, render, redirect
 
-from .models import Character, Cclass
+from .models import Armor, Character, Cclass, Weapon
 from .forms import AvatarForm, CharacterForm
 
 from PIL import Image
 
 def index(request):
-  recently_added = Character.objects.order_by('date_added')
-  # Character.getStrMod
-  # Character.getDexMod
+  recently_added = Character.objects.order_by('date_added')[:5]
   return render(request, 'dnd5/index.html', {
     'recently_added': recently_added
   })
 
+## Characters
 def editChar(request, char_id):
   character = get_object_or_404(Character, pk=char_id)
 
@@ -43,7 +42,6 @@ def editChar(request, char_id):
     }
   )
 
-## Edit Avatar
 def editAvatar(request, char_id):
   character = get_object_or_404(Character, pk=char_id)
 
@@ -54,28 +52,28 @@ def editAvatar(request, char_id):
       avatar_form.save()
       messages.success(request, character.name + ' was successfully edited.')
 
-      ### Avatar file settings
-      # appdir = str(settings.BASE_DIR)
-      # avatarurl = 'dnd5/avatars'
-      # mediadir = os.path.join(appdir, 'media')
-      # avatardir = os.path.join(mediadir, avatarurl)
-      # image_file = os.path.join(appdir + character.avatar.url)
-      # filename, ext = os.path.splitext(image_file)
-      # newfilename = str(character.char_id) + '.png'
-      # newfile = os.path.join(avatardir, newfilename)
-      # newentry = avatarurl + '/' + newfilename
-      
-      # size = (256, 256)
+      if character.avatar:
 
-      ### Save thumbnail and remove original
-      # with Image.open(image_file) as im:
-        # im.thumbnail(size)
-        # im.save(newfile, 'PNG')
-        # os.remove(image_file)
-        # character.avatar = newentry
-        # character.save()
+        ## Avatar file settings
+        appdir = str(settings.BASE_DIR)
+        avatarurl = 'dnd5/avatars'
+        mediadir = os.path.join(appdir, 'media')
+        avatardir = os.path.join(mediadir, avatarurl)
+        image_file = os.path.join(appdir + character.avatar.url)
+        filename, ext = os.path.splitext(image_file)
+        newfilename = str(character.char_id) + '.png'
+        newfile = os.path.join(avatardir, newfilename)
+        newentry = avatarurl + '/' + newfilename
+        
+        size = (256, 256)
 
-          
+        ## Save thumbnail and remove original
+        with Image.open(image_file) as im:
+          im.thumbnail(size)
+          im.save(newfile, 'PNG')
+          os.remove(image_file)
+          character.avatar = newentry
+          character.save()
     else:
       messages.error(request, avatar_form.errors)
     return redirect("dnd5:editChar", character.id)
@@ -91,3 +89,35 @@ def editAvatar(request, char_id):
     }
   )
 
+def listCharacters(request):
+  characters = Character.objects.order_by('date_added')
+  return render(request, 'dnd5/index.html', {
+    'characters': characters
+  })
+
+## Classes
+def listClasses(request):
+  classes = Cclass.objects.all()
+  return render(request, 'dnd5/classes.html', {
+    'classes': classes
+    })
+
+def viewClass(request, class_id):
+  c = get_object_or_404(Cclass, pk=class_id)
+  return render(request, 'dnd5/viewClass.html', {
+    'c': c
+    })
+
+## Armor
+def listArmor(request):
+  armor = Armor.objects.all()
+  return render(request, 'dnd5/armor.html', {
+    'armor': armor
+    })
+
+## Weapons
+def listWeapons(request):
+  weapons = Weapon.objects.all()
+  return render(request, 'dnd5/weapons.html', {
+    'weapons': weapons
+    })

@@ -1,0 +1,13 @@
+{% extends "pyrps/base.html" %}
+
+{% load helpers %}
+
+{% block title %}{{ c.name }}{% endblock %}
+
+{% block content %}
+
+<h1>{{ c.name }}</h1>
+
+<p>{{ c.description }}</p>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "pyrps/base.html" %}
+
+{% load helpers %}
+
+{% block title %}Weapons{% endblock %}
+
+{% block content %}
+
+<h1>Weapons</h1>
+
+<table id="list">
+  <thead>
+    <th>Name</th>
+    <th>Category</th>
+    <th>Damage</th>
+    <th>Cost</th>
+    <th>Weight</th>
+  </thead>
+  <tbody>
+  {% for w in weapons %}
+    <tr>
+      <td><a href="">{{ w.name }}</a></td>
+      <td>{{ w.get_category_display }}</td>
+      <td>{{ w.damage }}</td>
+      <td>{% if w.cost %}{{ w.cost }}{% endif %}</td>
+      <td>{% if w.weight %}{{ w.weight }}{% endif %}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
+
+{% block sidebar %}
+  {% include 'dnd5/sidebar.html' %}
+{% endblock %}

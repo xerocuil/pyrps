@@ -1,27 +1,33 @@
 @charset "utf-8"
 @use 'sass:math'
-
 @import "reset"
 
-$default-page-width: 120.0rem
-$default-padding: 1.6rem
-$half-padding: math.div($default-padding, 2)
-$card-width: 12.8em
+// Palette: Greybande
+$alto: rgb(221, 221, 221)
+$silver: rgb(187, 187, 187)
+$boulder: rgb(120, 120, 120)
+$tundora: rgb(68, 68, 68)
+$mineshaft: rgb(34, 34, 34)
 
-$mineshaft: #333333
 $alert: rgba(255, 0, 0, 0.4)
 $success: rgba(0, 255, 0, 0.4)
+
+// Globals
+$card-width: 12.8em
+$default-border: 0.1rem solid $alto
+$default-padding: 1.6rem
+$default-page-width: 120.0rem
+$half-padding: math.div($default-padding, 2)
 
 html
   font-size: 62.5%
 
 body
+  font-size: 1.2rem
   font-family: sans-serif
   
-
 h1, h2, h3, h4, h5, h6
   margin: 0.8rem 0 2.4rem 0
-  
 
 h1
   font-size: 3.0rem
@@ -49,7 +55,11 @@ h6
   font-size: 1.2rem
   font-weight: 200
   text-transform: uppercase
-  
+
+hr
+  border-top: $default-border
+  border-top: 0px solid
+
 ul
   li
     margin: 0 0 1.2rem 0
@@ -64,13 +74,10 @@ header
   grid-template-columns: 1fr 3fr
   color: white
   background: $mineshaft
-  // border: 1px solid #00FF00
   a
     color: white
     font-weight: 600
     text-decoration: none
-  
-
   nav
     font-size: 1.2rem
     text-align: right
@@ -87,17 +94,31 @@ header
     #siteLogo
       img
         height: 24px
-        // height: 100%
         position: relative
 
 p, ul
-  margin: $default-padding
+  margin: $default-padding 0
 
 ul
   li
     margin-left: $default-padding
     list-style: square
 
+table#list
+  width: 100%
+  font-size: 1.2rem
+  border-collapse: collapse
+  tr
+    border-top: $default-border
+    border-bottom: $default-border
+    
+    th, td
+      min-width: 8.0rem
+      text-align: left
+      padding: $half-padding 0
+    th
+      background-color: $default-border
+      font-weight: 600
 
 #display
   width: $default-page-width
@@ -110,11 +131,13 @@ ul
     padding: $default-padding
 
   #page
-    border: 1px solid #ff0000
+    border: 1px solid $silver
 
   #sidebar
-    border: 1px solid #0000ff
-
+    border: 1px solid $silver
+    #sidebar-header
+      display: grid
+      grid-template-columns: 1fr 2fr
 
 #characters
   display: flex
@@ -122,7 +145,7 @@ ul
   gap: 2.4rem
   .charCard
     width: $card-width
-    border: 1px #CCC solid
+    border: 1px $silver solid
     tr
       td, th
         padding: 0.4rem 0.8rem
@@ -138,7 +161,7 @@ ul
     margin-left: 0
     padding: $half-padding
     list-style: none
-    background-color: #DDD
+    background-color: $alto
 
 img.avatar
   width: auto
@@ -146,8 +169,8 @@ img.avatar
   display: block
   margin: 0 auto
   background-color: white
-  border: 0.1rem solid #dddddd
-  box-shadow: 0.1rem 0.1rem #dddddd
+  border: 0.1rem solid $alto
+  box-shadow: 0.1rem 0.1rem $alto
 
 
 .sectionHeader
@@ -181,8 +204,6 @@ ul.alerts
 .right
   text-align: right
 
-
-
 .loginPopup
   position: relative
   text-align: center
@@ -194,13 +215,13 @@ ul.alerts
   left: 45%
   top: 5%
   transform: translate(-50%, 5%)
-  border: 3px solid #999999
+  border: 3px solid $boulder
   z-index: 9
 
 .formContainer
   max-width: 300px
   padding: 20px
-  background-color: #fff
+  background-color: white
 
 .formContainer input[type=text],
 .formContainer input[type=password]
@@ -208,25 +229,25 @@ ul.alerts
   padding: 15px
   margin: 5px 0 20px 0
   border: none
-  background: #eee
+  background: $alto
 
 .formContainer input[type=text]:focus,
 .formContainer input[type=password]:focus
-  background-color: #ddd
+  background-color: $alto
   outline: none
 
 .formContainer .btn
   padding: 12px 20px
   border: none
-  background-color: #8ebf42
-  color: #fff
+  background-color: $success
+  color: white
   cursor: pointer
   width: 100%
   margin-bottom: 15px
   opacity: 0.8
 
 .formContainer .cancel
-  background-color: #cc0000
+  background-color: $alert
 
 .formContainer .btn:hover,
 .openButton:hover
