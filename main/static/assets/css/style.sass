@@ -13,11 +13,13 @@ $alert: rgba(255, 0, 0, 0.4)
 $success: rgba(0, 255, 0, 0.4)
 
 // Globals
-$card-width: 12.8em
+$card-width: 12.8rem
 $default-border: 0.1rem solid $alto
 $default-padding: 1.6rem
-$default-page-width: 120.0rem
+$double-paddng: $default-padding * 2
 $half-padding: math.div($default-padding, 2)
+$default-page-width: 120.0rem
+
 
 html
   font-size: 62.5%
@@ -104,8 +106,7 @@ ul
     margin-left: $default-padding
     list-style: square
 
-table#list
-  width: 100%
+table.list
   font-size: 1.2rem
   border-collapse: collapse
   tr
@@ -115,14 +116,15 @@ table#list
     th, td
       min-width: 8.0rem
       text-align: left
-      padding: $half-padding 0
+      padding: $half-padding
+      vertical-align: middle
     th
       background-color: $default-border
       font-weight: 600
 
 #display
   width: $default-page-width
-  margin: 0 auto
+  margin: 0 auto $double-paddng auto
   display: grid
   grid-template-columns: 4fr 1fr
   gap: $default-padding
@@ -138,11 +140,16 @@ table#list
     #sidebar-header
       display: grid
       grid-template-columns: 1fr 2fr
+      #sidebar-logo
+        height: 1.8rem
+        width: auto
 
-#characters
+#home, #characters
   display: flex
   flex-wrap: wrap
   gap: 2.4rem
+
+#characters
   .charCard
     width: $card-width
     border: 1px $silver solid
@@ -172,6 +179,8 @@ img.avatar
   border: 0.1rem solid $alto
   box-shadow: 0.1rem 0.1rem $alto
 
+img.icon
+  height: 3.2rem
 
 .sectionHeader
   display: grid
@@ -203,6 +212,9 @@ ul.alerts
 
 .right
   text-align: right
+
+.full
+  width: 100%
 
 .loginPopup
   position: relative

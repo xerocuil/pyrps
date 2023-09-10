@@ -49,6 +49,10 @@ class equipmentCategory(models.TextChoices):
   WEAPONMARTL = 'WEAPONMARTL', _('Martial Weapon')
   WEAPONSIMPLE = 'WEAPONSIMPLE', _('Simple Weapon')
 
+class sources(models.TextChoices):
+  SRD = 'SRD', _('5th Edition System Reference Document')
+  HB = 'HB', _('Homebrew')
+  OGC = 'OGC', _('Open Game Content')
 
 # CLASSES
 class Armor(models.Model):
@@ -63,6 +67,8 @@ class Armor(models.Model):
   cost = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
   weight = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
   description = models.TextField(blank=True, null=True)
+  source = models.CharField(max_length=12, choices=sources.choices, blank=True, null=True)
+  date_added = models.DateTimeField('Date Added', auto_now_add=True)
 
   def __str__(self):
     return self.name
@@ -81,6 +87,8 @@ class Cclass(models.Model):
   stp = models.CharField('Saving Throw Prof.', max_length=128, blank=True, null=True)
   awp = models.CharField('Armor/Weapon Prof.', max_length=128, blank=True, null=True)
   description = models.TextField(blank=True, null=True)
+  source = models.CharField(max_length=12, choices=sources.choices, blank=True, null=True)
+  date_added = models.DateTimeField('Date Added', auto_now_add=True)
 
   def __str__(self):
     return self.name
@@ -96,6 +104,9 @@ class Spell(models.Model):
   name = models.CharField(max_length=128, unique=True)
   level = models.IntegerField(default=0,
     validators=[MinValueValidator(0), MaxValueValidator(9)])
+  description = models.TextField(blank=True, null=True)
+  source = models.CharField(max_length=12, choices=sources.choices, blank=True, null=True)
+  date_added = models.DateTimeField('Date Added', auto_now_add=True)
   # CONT
 
 
@@ -112,6 +123,8 @@ class Weapon(models.Model):
   v_damage = models.CharField(max_length=6, blank=True, null=True)
   source = models.CharField(max_length=64, blank=True, null=True)
   description = models.TextField(blank=True, null=True)
+  source = models.CharField(max_length=12, choices=sources.choices, blank=True, null=True)
+  date_added = models.DateTimeField('Date Added', auto_now_add=True)
 
   def __str__(self):
     return self.name

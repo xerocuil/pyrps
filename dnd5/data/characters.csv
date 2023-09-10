@@ -1,4 +1,11 @@
-"charid","name","level","cclass","strength","dexterity","constitution","intelligence","wisdom","charisma","weapon_main","weapon_secondary","armor","bio"
-871178,"Merric Thorngage",1,"ROGUE",9,13,11,12,10,13,"SHORTBOW",,,
-669278,"Tarin the Spearbreaker",1,"BARBARIAN",13,12,13,10,12,11,"GREATAXE",,,
-391900,"Lola Jani",1,"FIGHTER",13,10,13,11,12,12,"GREATAXE",,,
+"charid":"name":"level":"cclass":"strength":"dexterity":"constitution":"intelligence":"wisdom":"charisma":"weapon_main":"weapon_secondary":"armor":"bio"
+871178:"Merric Thorngage":1:"ROGUE":9:13:11:12:10:13:"SHORTBOW"::"LEATHERARM":
+669278:"Tarin the Spearbreaker":1:"BARBARIAN":13:12:13:10:12:11:"GREATAXE":"LONGSWORD"::
+391900:"Lola Jani":1:"FIGHTER":13:10:13:11:12:12:"GREATAXE":::
+685129:"Valanthe Liadon":1:"WIZARD":10:13:12:13:11:9:"SHORTSWORD":::
+427963:"Torgga Brawnanvil":1:"CLERIC":12:9:13:10:13:11:"WARHAMMER"::"CHAINMAILARM":
+280074:"Surina Daardendrian":1:"PALADIN":14:9:12:11:10:13:"GLAIVE"::"CHAINMAILARM":
+783528:"Vadania Amakiir":1:"RANGER":11:14:12:10:13:9:"LONGBOW"::"LEATHERARM":
+719082:"Sheppard Amberleaf":1:"DRUID":11:12:13:12:13:10:"QUARTERSTAFF"::"LEATHERARM":
+509182:"Cleira Oestwilde":1:"BARD":9:13:12:12:10:13:"RAPIER"::"LEATHERARM":
+821236:"Baradius":1:"WARLOCK":10:11:12:12:9:14:"DAGGER"::"LEATHERARM":

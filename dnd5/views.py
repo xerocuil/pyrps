@@ -12,14 +12,17 @@ from .forms import AvatarForm, CharacterForm
 from PIL import Image
 
 def index(request):
-  recently_added = Character.objects.order_by('date_added')[:5]
+  latest_characters = Character.objects.order_by('-date_added')[:5]
+  latest_classes = Cclass.objects.order_by('-date_added')[:5]
   return render(request, 'dnd5/index.html', {
-    'recently_added': recently_added
+    'latest_characters': latest_characters,
+    'latest_classes': latest_classes
   })
 
+
 ## Characters
-def editChar(request, char_id):
-  character = get_object_or_404(Character, pk=char_id)
+def editChar(request, charid):
+  character = get_object_or_404(Character, pk=charid)
 
   if request.method == 'POST':
     char_form = CharacterForm(request.POST, request.FILES, instance=character)
@@ -42,8 +45,8 @@ def editChar(request, char_id):
     }
   )
 
-def editAvatar(request, char_id):
-  character = get_object_or_404(Character, pk=char_id)
+def editAvatar(request, charid):
+  character = get_object_or_404(Character, pk=charid)
 
   ## Avatar form
   if request.method == 'POST':
@@ -61,7 +64,7 @@ def editAvatar(request, char_id):
         avatardir = os.path.join(mediadir, avatarurl)
         image_file = os.path.join(appdir + character.avatar.url)
         filename, ext = os.path.splitext(image_file)
-        newfilename = str(character.char_id) + '.png'
+        newfilename = str(character.charid) + '.png'
         newfile = os.path.join(avatardir, newfilename)
         newentry = avatarurl + '/' + newfilename
         
@@ -90,10 +93,11 @@ def editAvatar(request, char_id):
   )
 
 def listCharacters(request):
-  characters = Character.objects.order_by('date_added')
-  return render(request, 'dnd5/index.html', {
+  characters = Character.objects.all()
+  return render(request, 'dnd5/characters.html', {
     'characters': characters
   })
+
 
 ## Classes
 def listClasses(request):
@@ -108,12 +112,14 @@ def viewClass(request, class_id):
     'c': c
     })
 
+
 ## Armor
 def listArmor(request):
   armor = Armor.objects.all()
   return render(request, 'dnd5/armor.html', {
     'armor': armor
     })
+
 
 ## Weapons
 def listWeapons(request):

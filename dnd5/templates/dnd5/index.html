@@ -7,79 +7,41 @@
 {% block content %}
 
 <section>
-  <div class="sectionHeader">
-    <div><h1>Characters</h1></div>
+  <h1>D&D: 5e</h1>
 
-    <div class="sectionMenu">
-      <ul>
-        <li><a href="{% url 'dnd5:index' %}">Add</a></li>
-      </ul>
-    </div>
-  </div>
+  
 
-  <div id="characters">
-    {% for c in recently_added %}
-      <table class="charCard">
+  <div id="home">
+    <div id="latest_characters">
+      <h2>Latest Characters</h2>
+      <table class="list">
         <tbody>
+        {% for c in latest_characters %}
           <tr>
-            <td colspan="2">
-              <a href="{% url 'dnd5:editChar' c.id %}">
-                <img class="avatar" src="{% if c.avatar %}{{ c.avatar.url }}{% else %}{% default_avatar_url %}{% endif %}">
-              </a>
-            </td>
+            <td>{{ c.name }}</td>
+            <td>LVL {{ c.level }} {{ c.cclass.name }}</td>
           </tr>
-          <tr>
-            <th colspan="2">{{ c.name }}</th>
-          </tr>
-
-          <tr>
-            <td colspan="2">LVL {{ c.level }} {{ c.cclass.name }}</td>
-          </tr>
-
-          <tr>
-            <th>Char. ID</th>
-            <td class="right">
-              {{ c.char_id }}
-            </td>
-          </tr>
-
-          <tr>
-            <th>STR</th>
-            <td class="right">
-              {{ c.strength }} [{% stat_mod 'STR' c.cclass.primary %}]
-            </td>
-          </tr>
-          <tr>
-            <th>DEX</th>
-            <td class="right">
-              {{ c.dexterity }} [{% stat_mod 'DEX' c.cclass.primary %}]
-            </td>
-          </tr>
-          <tr>
-            <th>CON</th>
-            <td class="right">
-              {{ c.constitution }} [{% stat_mod 'CON' c.cclass.primary %}]
-            </td>
-          </tr>
-
-          <tr>
-            <th>INT</th>
-            <td class="right">
-              {{ c.intelligence }} [{% stat_mod 'INT' c.cclass.primary %}]</td>
-          </tr>
-          <tr>
-            <th>WIS</th>
-            <td class="right">
-              {{ c.wisdom }} [{% stat_mod 'WIS' c.cclass.primary %}]</td>
-          </tr>
-          <tr>
-            <th>CHA</th>
-            <td class="right">
-              {{ c.charisma }} [{% stat_mod 'CHA' c.cclass.primary %}]</td>
-          </tr>
+        {% endfor %}
         </tbody>
       </table>
-    {% endfor %}
+    </div>
+  
+
+    <div id="latest_classes">
+      <h2>Latest Classes</h2>
+      <table class="list">
+        <tbody>
+        {% for c in latest_classes %}
+          <tr>
+            <td>{{ c.name }}</td>
+            <td>{{ c.primary }}</td>
+            <td>{{ c.stp }}</td>
+            <td>{{ c.source }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>
 

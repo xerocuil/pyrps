@@ -12,8 +12,8 @@ urlpatterns = [
   path('', views.index, name='index'),
   # Characters
   path('characters', views.listCharacters, name='listCharacters'),
-  path('edit/char/<int:char_id>', views.editChar, name='editChar'),
-  path('edit/avatar/<int:char_id>', views.editAvatar, name='editAvatar'),
+  path('edit/char/<int:charid>', views.editChar, name='editChar'),
+  path('edit/avatar/<int:charid>', views.editAvatar, name='editAvatar'),
   # Cclass
   path('classes', views.listClasses, name='listClasses'),
   path('class/<int:class_id>', views.viewClass, name='viewClass'),

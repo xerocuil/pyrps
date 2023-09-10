@@ -8,7 +8,7 @@
 
 <h1>Weapons</h1>
 
-<table id="list">
+<table class="list">
   <thead>
     <th>Name</th>
     <th>Category</th>
@@ -22,8 +22,8 @@
       <td><a href="">{{ w.name }}</a></td>
       <td>{{ w.get_category_display }}</td>
       <td>{{ w.damage }}</td>
-      <td>{% if w.cost %}{{ w.cost }}{% endif %}</td>
-      <td>{% if w.weight %}{{ w.weight }}{% endif %}</td>
+      <td>{% if w.cost %}{{ w.cost }}{% else %}--{% endif %}</td>
+      <td>{% if w.weight %}{{ w.weight }}{% else %}--{% endif %}</td>
     </tr>
   {% endfor %}
   </tbody>
