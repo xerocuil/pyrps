@@ -22,8 +22,8 @@
       <td><a href="">{{ a.name }}</a></td>
       <td>{{ a.get_category_display }}</td>
       <td>{{ a.armor_class }}</td>
-      <td>{% if a.cost %}{{ a.cost }}{% endif %}</td>
-      <td>{% if a.weight %}{{ a.weight }}{% endif %}</td>
+      <td>{% if a.cost %}{{ a.cost }}{% else %}--{% endif %}</td>
+      <td>{% if a.weight %}{{ a.weight }}{% else %}--{% endif %}</td>
     </tr>
   {% endfor %}
   </tbody>

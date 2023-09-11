@@ -12,6 +12,7 @@ urlpatterns = [
   path('', views.index, name='index'),
   # Characters
   path('characters', views.listCharacters, name='listCharacters'),
+  path('csheet/<int:charid>', views.csheet, name='csheet'),
   path('edit/char/<int:charid>', views.editChar, name='editChar'),
   path('edit/avatar/<int:charid>', views.editAvatar, name='editAvatar'),
   # Cclass

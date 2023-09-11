@@ -14,13 +14,25 @@ from PIL import Image
 def index(request):
   latest_characters = Character.objects.order_by('-date_added')[:5]
   latest_classes = Cclass.objects.order_by('-date_added')[:5]
+  latest_weapons = Weapon.objects.order_by('-date_added')[:5]
   return render(request, 'dnd5/index.html', {
     'latest_characters': latest_characters,
-    'latest_classes': latest_classes
+    'latest_classes': latest_classes,
+    'latest_weapons': latest_weapons
   })
 
 
 ## Characters
+def csheet(request, charid):
+  character = get_object_or_404(Character, pk=charid)
+
+  return render(
+    request=request,
+    template_name="dnd5/csheet.html",
+    context = {
+      'character': character,
+    })
+
 def editChar(request, charid):
   character = get_object_or_404(Character, pk=charid)
 

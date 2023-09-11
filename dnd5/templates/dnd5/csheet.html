@@ -1,0 +1,55 @@
+{% extends "pyrps/base.html" %}
+{% load helpers static %}
+{% block title %}Edit Character{% endblock %}
+{% block content %}  
+
+<div>
+  <h2>{{ character.name }}</h2>
+</div>
+
+<p><pre>{{ character.charid }}</pre></p>
+
+<div class="profilePic">
+  <img src="{% if character.avatar %}{{ character.avatar.url }}{% else %}{% default_avatar_url %}{% endif %}">
+</div>
+
+<p>Lvl. {{ character.level }} {{ character.race.name }} {{ character.cclass.name }}</p>
+
+<h4>Abilities</h4>
+<ul>
+  <li>STR: {{ character.strength }}</li>
+  <li>DEX: {{ character.dexterity }}</li>
+  <li>CON: {{ character.constitution }}</li>
+  <li>INT: {{ character.intelligence }}</li>
+  <li>WIS: {{ character.wisdom }}</li>
+  <li>CHA: {{ character.charisma }}</li>
+</ul>
+
+<h4>Equipment</h4>
+<ul>
+  {% if character.weapon_main_id %}
+  <li>
+    {{ character.weapon_main.name }}
+  </li>
+  {% endif %}
+
+  {% if character.weapon_secondary_id %}
+  <li>
+    {{ character.weapon_secondary.name }}
+  </li>
+  {% endif %}
+
+  {% if character.armor_id %}
+  <li>
+    {{ character.armor.name }} 
+    ({{ character.armor.armor_class }})
+  </li>
+  {% endif %}
+</ul>
+
+{% if character.bio %}
+  <h4>Bio</h4>
+  <div>{{ character.bio }}</div>
+{% endif %}
+
+{% endblock %}

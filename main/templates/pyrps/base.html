@@ -9,7 +9,6 @@
   <link rel="stylesheet" href="{% static 'assets/css/style.min.css' %}">
   <link rel="icon" type="image/x-icon" href="{% static 'assets/img/favicon.ico' %}">
 </head>
-
 <body>
 
 <header>
@@ -36,9 +35,9 @@
     <article id="content">
       {% if messages %}
       <ul id="messages">
-          {% for message in messages %}
-          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-          {% endfor %}
+      {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
       </ul>
       {% endif %}
 
@@ -52,5 +51,4 @@
 </div>
 
 </body>
-
 </html>

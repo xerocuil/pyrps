@@ -23,7 +23,7 @@
         <tbody>
           <tr>
             <td colspan="2">
-              <a href="{% url 'dnd5:editChar' c.id %}">
+              <a href="{% url 'dnd5:csheet' c.id %}">
                 <img class="avatar" src="{% if c.avatar %}{{ c.avatar.url }}{% else %}{% default_avatar_url %}{% endif %}">
               </a>
             </td>
@@ -43,14 +43,10 @@
             <th>Class</th>
             <td class="right">{{ c.cclass.name }}</td>
           </tr>
-
           <tr>
             <th>LVL</th>
             <td class="right">{{ c.level }}</td>
           </tr>
-
-         
-
           <tr>
             <th>STR</th>
             <td class="right">
@@ -84,6 +80,11 @@
             <th>CHA</th>
             <td class="right">
               {{ c.charisma }} [{% stat_mod 'CHA' c.cclass.primary %}]</td>
+          </tr>
+          <tr>
+            <td class="right" colspan="2">
+              <a href="{% url 'dnd5:editChar' c.id %}">Edit</a>
+            </td>
           </tr>
         </tbody>
       </table>
