@@ -9,14 +9,18 @@ $boulder: rgb(120, 120, 120)
 $tundora: rgb(68, 68, 68)
 $mineshaft: rgb(34, 34, 34)
 
-$alert: rgba(255, 0, 0, 0.4)
-$success: rgba(0, 255, 0, 0.4)
+// Palette: Retrotronic
+$thunder: rgb(57, 43, 53)
+$sea_nymph: rgb(122, 156, 150)
+$bismark: rgb(72, 107, 127)
+$soft_amber: rgb(209, 191, 176)
+$chestnut: rgb(187, 71, 79)
 
 // Globals
 $card-width: 12.8rem
 $default-border: 0.1rem solid $alto
 $default-padding: 1.6rem
-$double-paddng: $default-padding * 2
+$double-padding: $default-padding * 2
 $half-padding: math.div($default-padding, 2)
 $default-page-width: 120.0rem
 
@@ -106,7 +110,7 @@ ul
     margin-left: $default-padding
     list-style: square
 
-table.list
+table
   font-size: 1.2rem
   border-collapse: collapse
   tr
@@ -124,7 +128,7 @@ table.list
 
 #display
   width: $default-page-width
-  margin: 0 auto $double-paddng auto
+  margin: 0 auto $double-padding auto
   display: grid
   grid-template-columns: 4fr 1fr
   gap: $default-padding
@@ -190,6 +194,7 @@ img.icon
     ul
       li
         list-style: none
+
 ul.alerts
   li
     width: 50%
@@ -201,15 +206,17 @@ ul.alerts
     
 
   li.error
-    background-color: $alert
+    background-color: $chestnut
 
   li.success
-    background-color: $success
+    background-color: $sea_nymph
 
 .board
   display: flex
   gap: $default-padding * 2
 
+.center
+  text-align: center
 .right
   text-align: right
 
@@ -251,7 +258,7 @@ ul.alerts
 .formContainer .btn
   padding: 12px 20px
   border: none
-  background-color: $success
+  background-color: $sea_nymph
   color: white
   cursor: pointer
   width: 100%
@@ -259,12 +266,18 @@ ul.alerts
   opacity: 0.8
 
 .formContainer .cancel
-  background-color: $alert
+  background-color: $chestnut
 
 .formContainer .btn:hover,
 .openButton:hover
   opacity: 1
 
+.sections
+  display: grid
+  gap: $double-padding
+  flex-wrap: wrap
+  section
+    margin-bottom: $double-padding
 
 
 // #dnd

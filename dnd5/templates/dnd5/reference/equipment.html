@@ -1,0 +1,79 @@
+{% extends "pyrps/base.html" %}
+
+{% load dnd5 markdownify %}
+
+{% block title %}Reference: Equipment{% endblock %}
+
+{% block content %}
+
+<h1>{{ page_title }}</h1>
+<div class="sections">
+  <section>
+    <h2>Equipment Categories</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {% for e in equipment_categories %}
+        <tr>
+          <td>{{ e.name }}</td>
+          <td><p>{{ e.description | markdownify }}</p></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Armor Properties</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {% for a in armor_properties %}
+        <tr>
+          <td>{{ a.name }}</td>
+          <td><p>{{ a.description | markdownify }}</p></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Weapon Properties</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {% for w in weapon_properties %}
+        <tr>
+          <td>{{ w.name }}</td>
+          <td><p>{{ w.description | markdownify }}</p></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</div>
+
+{% endblock %}
+
+{% block sidebar %}
+  {% include 'dnd5/sidebar.html' %}
+{% endblock %}

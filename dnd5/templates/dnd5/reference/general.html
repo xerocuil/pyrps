@@ -1,0 +1,58 @@
+{% extends "pyrps/base.html" %}
+
+{% load dnd5 markdownify %}
+
+{% block title %}Reference: Equipment{% endblock %}
+
+{% block content %}
+
+<h1>{{ page_title }}</h1>
+<div class="sections">
+  <section>
+    <h2>Abilities</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {% for a in abilities %}
+        <tr>
+          <td>{{ a.name }}</td>
+          <td><p>{{ a.description }}</p></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Ability Modifiers</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Score</th>
+          <th>Modifier</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {% for a in ability_modifiers %}
+        <tr>
+          <td>{% split_range  a.score %}</td>
+          <td><p>{{ a.modifier }}</p></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</div>
+
+{% endblock %}
+
+{% block sidebar %}
+  {% include 'dnd5/sidebar.html' %}
+{% endblock %}

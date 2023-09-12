@@ -125,6 +125,43 @@ class Spell(models.Model):
 
 
 # COMBAT
+## Challenge Ratings
+class ChallengeRatings(models.TextChoices):
+  CR0 = 'CR0', _('CR: 0')
+  CR1_8 = 'CR1/8', _('CR: 1/8')
+  CR1_4 = 'CR1/4', _('CR: 1/4')
+  CR1_2 = 'CR1/2', _('CR: 1/2')
+  CR1 = 'CR1', _('CR: 1')
+  CR2 = 'CR2', _('CR: 2')
+  CR3 = 'CR3', _('CR: 3')
+  CR4 = 'CR4', _('CR: 4')
+  CR5 = 'CR5', _('CR: 5')
+  CR6 = 'CR6', _('CR: 6')
+  CR7 = 'CR7', _('CR: 7')
+  CR8 = 'CR8', _('CR: 8')
+  CR9 = 'CR9', _('CR: 9')
+  CR10 = 'CR10', _('CR: 10')
+  CR11 = 'CR11', _('CR: 11')
+  CR12 = 'CR12', _('CR: 12')
+  CR13 = 'CR13', _('CR: 13')
+  CR14 = 'CR14', _('CR: 14')
+  CR15 = 'CR15', _('CR: 15')
+  CR16 = 'CR16', _('CR: 16')
+  CR17 = 'CR17', _('CR: 17')
+  CR18 = 'CR18', _('CR: 18')
+  CR19 = 'CR19', _('CR: 19')
+  CR20 = 'CR20', _('CR: 20')
+  CR21 = 'CR21', _('CR: 21')
+  CR22 = 'CR22', _('CR: 22')
+  CR23 = 'CR23', _('CR: 23')
+  CR24 = 'CR24', _('CR: 24')
+  CR25 = 'CR25', _('CR: 25')
+  CR26 = 'CR26', _('CR: 26')
+  CR27 = 'CR27', _('CR: 27')
+  CR28 = 'CR28', _('CR: 28')
+  CR29 = 'CR29', _('CR: 29')
+  CR30 = 'CR30', _('CR: 30')
+
 ## Monster Types
 class MonsterTypes(models.TextChoices):
   ABERRATION = 'ABERRATION', _('Aberration')
@@ -146,7 +183,9 @@ class MonsterTypes(models.TextChoices):
 class Monster(models.Model):
   objid = models.CharField(max_length=12, unique=True)
   name = models.CharField(max_length=255, unique=True)
-  challenge_rating = models.DecimalField(max_digits=6, decimal_places=3, default=1.0)
+  challenge_rating = models.CharField(max_length=255,
+    choices=ChallengeRatings.choices, 
+    blank=True, null=True)
   monster_type = models.CharField(max_length=12, choices=MonsterTypes.choices,
     blank=True, null=True)
   ### Abilities
@@ -170,8 +209,6 @@ class Monster(models.Model):
   actions = models.CharField(max_length=255, blank=True, null=True)
   damage_immunities = models.CharField(max_length=255, blank=True, null=True)
   condition_immunities = models.CharField(max_length=255, blank=True, null=True)
-  experience_points = models.IntegerField(default=10,
-    validators=[MinValueValidator(1), MaxValueValidator(999999)])
   ### Monster Profile
   language = models.CharField(max_length=255, blank=True, null=True)
   description = models.TextField(blank=True, null=True)

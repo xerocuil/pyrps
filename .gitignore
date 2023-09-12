@@ -1,3 +1,4 @@
+*.png
 bin
 config.ini
 test.*

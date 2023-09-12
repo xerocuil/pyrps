@@ -9,8 +9,12 @@ from django.shortcuts import get_object_or_404, render, redirect
 from .models import Armor, Character, Cclass, Weapon
 from .forms import AvatarForm, CharacterForm
 
+from .rules import Arcane, Combat, Equipment, General
+
 from PIL import Image
 
+
+# Main
 def index(request):
   latest_characters = Character.objects.order_by('-date_added')[:5]
   latest_classes = Cclass.objects.order_by('-date_added')[:5]
@@ -22,7 +26,7 @@ def index(request):
   })
 
 
-## Characters
+# Characters
 def csheet(request, charid):
   character = get_object_or_404(Character, pk=charid)
 
@@ -111,7 +115,7 @@ def listCharacters(request):
   })
 
 
-## Classes
+# Classes
 def listClasses(request):
   classes = Cclass.objects.all()
   return render(request, 'dnd5/classes.html', {
@@ -125,17 +129,70 @@ def viewClass(request, class_id):
     })
 
 
-## Armor
+# Equipment
 def listArmor(request):
   armor = Armor.objects.all()
   return render(request, 'dnd5/armor.html', {
     'armor': armor
     })
 
-
-## Weapons
 def listWeapons(request):
   weapons = Weapon.objects.all()
   return render(request, 'dnd5/weapons.html', {
     'weapons': weapons
     })
+
+
+# Reference
+def reference(request):
+  page_title = "Reference"
+  return render(request, 'dnd5/reference/index.html', {
+    'page_title': page_title})
+
+def ref_arcane(request):
+  page_title = "Arcane"
+  arcane_schools = Arcane.School.LIST
+  area_of_effect = Arcane.AreaOfEffect.LIST
+  spell_components = Arcane.Component.LIST
+  return render(request, 'dnd5/reference/arcane.html', {
+    'page_title': page_title,
+    'arcane_schools': arcane_schools,
+    'area_of_effect': area_of_effect,
+    'spell_components': spell_components
+  })
+
+def ref_combat(request):
+  page_title = "Combat"
+  challenge_ratings = Combat.ChallengeRating.LIST
+  conditions = Combat.Condition.LIST
+  damage_types = Combat.DamageType.LIST
+  monster_types = Combat.MonsterType.LIST
+  return render(request, 'dnd5/reference/combat.html', {
+    'page_title': page_title,
+    'challenge_ratings': challenge_ratings,
+    'conditions': conditions,
+    'damage_types': damage_types,
+    'monster_types': monster_types
+  })
+
+def ref_equipment(request):
+  page_title = "Equipment"
+  equipment_categories = Equipment.Category.LIST
+  armor_properties = Equipment.ArmorProperty.LIST
+  weapon_properties = Equipment.WeaponProperty.LIST
+  return render(request, 'dnd5/reference/equipment.html', {
+    'page_title': page_title,
+    'equipment_categories': equipment_categories,
+    'armor_properties': armor_properties,
+    'weapon_properties': weapon_properties
+  })
+
+def ref_general(request):
+  page_title = "General"
+  abilities = General.Ability.LIST
+  ability_modifiers = General.AbilityModifier.LIST
+  return render(request, 'dnd5/reference/general.html', {
+    'page_title': page_title,
+    'abilities': abilities,
+    'ability_modifiers': ability_modifiers
+  })

@@ -9,6 +9,15 @@ def engine_title():
   engine_title = 'D&D: 5th Edition'
   return engine_title
 
+@register.simple_tag
+def split_range(array):
+  if len(array) > 1:
+    x,y = array
+    r = str(x) + '-' + str(y)
+  else:
+    r = array[0]
+  return str(r)
+
 # Stat modifiers
 @register.simple_tag
 def stat_mod(stat, array):

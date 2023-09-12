@@ -77,6 +77,7 @@ def str2id(string):
   s = s.rjust(16, '0')
   return s
 
+### Import model from csv file
 def import_model(classname, query):
   file = pd.read_csv('dnd5/data/' + classname + '.csv', sep=';')
   data = file.to_dict(orient='records')
@@ -89,7 +90,7 @@ def import_model(classname, query):
     except Exception as e:
       print('Could not add ' + d['objid'] + '\nError message: ' + str(e) + '\n')
 
-
+### Import characters from csv file
 def import_characters():
   file = pd.read_csv('dnd5/data/characters.csv', sep=';')
   data = file.to_dict(orient='records')
@@ -213,8 +214,7 @@ def import_characters():
     except Exception as e:
       print('Could not add ' + str(d['charid']) + '\nError message: ' + str(e) + '\n')
 
-
-# Import .csv files into models
+# Import all models/character
 def import_all():
   ## Armor
   armor_query = 'INSERT INTO dnd5_armor VALUES(:id, \
@@ -283,6 +283,3 @@ def import_all():
   ## Characters
   import_characters()
   connection.close()
-
-# import_all()
-

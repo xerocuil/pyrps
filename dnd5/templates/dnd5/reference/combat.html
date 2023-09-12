@@ -1,0 +1,102 @@
+{% extends "pyrps/base.html" %}
+
+{% load dnd5 markdownify %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+
+<h1>{{ page_title }}</h1>
+<div class="sections">
+  <section>
+    <h2>Challenge Ratings</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Rating</th>
+          <th>Exp.<br>Points</th>
+          <th>Proficiency<br>Bonus</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {% for c in challenge_ratings %}
+        <tr>
+          <td>{{ c.rating }}</td>
+          <td>{{ c.experience_points }}</td>
+          <td>{{ c.proficiency_bonus }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+   <section>
+    <h2>Conditions</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {% for c in conditions %}
+        <tr>
+          <td>{{ c.name }}</td>
+          <td><p>{{ c.description | markdownify }}</p></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Damage Types</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {% for d in damage_types %}
+        <tr>
+          <td>{{ d.name }}</td>
+          <td><p>{{ d.description | markdownify }}</p></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Monster Types</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {% for m in monster_types %}
+        <tr>
+          <td>{{ m.name }}</td>
+          <td><p>{{ m.description | markdownify }}</p></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</div>
+
+{% endblock %}
+
+{% block sidebar %}
+  {% include 'dnd5/sidebar.html' %}
+{% endblock %}
