@@ -199,3 +199,26 @@ class General:
     AM28_29 = {"score": [28, 29], "modifier": 9}
     AM30 = {"score": [30], "modifier": 10}
     LIST = [AM01, AM02_03, AM04_05, AM06_07, AM08_09, AM10_11, AM12_13, AM14_15, AM16_17, AM18_19, AM20_21, AM22_23, AM24_25, AM26_27, AM28_29, AM30]
+
+  class CharacterAdvancement:
+    LVL01 = {"level": 1, "experience_points": 0, "proficiency_bonus": 2}
+    LVL02 = {"level": 2, "experience_points": 300, "proficiency_bonus": 2}
+    LVL03 = {"level": 3, "experience_points": 900, "proficiency_bonus": 2}
+    LVL04 = {"level": 4, "experience_points": 2700, "proficiency_bonus": 2}
+    LVL05 = {"level": 5, "experience_points": 6500, "proficiency_bonus": 3}
+    LVL06 = {"level": 6, "experience_points": 14000, "proficiency_bonus": 3}
+    LVL07 = {"level": 7, "experience_points": 23000, "proficiency_bonus": 3}
+    LVL08 = {"level": 8, "experience_points": 34000, "proficiency_bonus": 3}
+    LVL09 = {"level": 9, "experience_points": 48000, "proficiency_bonus": 4}
+    LVL10 = {"level": 10, "experience_points": 64000, "proficiency_bonus": 4}
+    LVL11 = {"level": 11, "experience_points": 85000, "proficiency_bonus": 4}
+    LVL12 = {"level": 12, "experience_points": 100000, "proficiency_bonus": 4}
+    LVL13 = {"level": 13, "experience_points": 120000, "proficiency_bonus": 5}
+    LVL14 = {"level": 14, "experience_points": 140000, "proficiency_bonus": 5}
+    LVL15 = {"level": 15, "experience_points": 165000, "proficiency_bonus": 5}
+    LVL16 = {"level": 16, "experience_points": 195000, "proficiency_bonus": 5}
+    LVL17 = {"level": 17, "experience_points": 225000, "proficiency_bonus": 6}
+    LVL18 = {"level": 18, "experience_points": 265000, "proficiency_bonus": 6}
+    LVL19 = {"level": 19, "experience_points": 305000, "proficiency_bonus": 6}
+    LVL20 = {"level": 20, "experience_points": 355000, "proficiency_bonus": 6}
+    LIST = [LVL01, LVL02, LVL03, LVL04, LVL05, LVL06, LVL07, LVL08, LVL09, LVL10, LVL11, LVL12, LVL13, LVL14, LVL15, LVL16, LVL17, LVL18, LVL19, LVL20]

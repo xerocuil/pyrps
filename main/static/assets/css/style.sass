@@ -16,6 +16,8 @@ $bismark: rgb(72, 107, 127)
 $soft_amber: rgb(209, 191, 176)
 $chestnut: rgb(187, 71, 79)
 
+$highlight: rgba(209, 191, 176, 0.25)
+
 // Globals
 $card-width: 12.8rem
 $default-border: 0.1rem solid $alto
@@ -24,15 +26,38 @@ $double-padding: $default-padding * 2
 $half-padding: math.div($default-padding, 2)
 $default-page-width: 120.0rem
 
-
 html
   font-size: 62.5%
 
 body
   font-size: 1.2rem
   font-family: sans-serif
-  
+
+a
+  color: $bismark
+  text-decoration: none
+  font-weight: 600
+a:hover
+  color: $chestnut
+
+article
+  margin-bottom: $double-padding
+
+article.layout1-1, article.layout1-3, article.layout3-1
+  display: inline-grid
+  column-gap: $double-padding
+
+article.layout1-1
+  grid-template-columns: 1fr 1fr
+
+article.layout3-1
+  grid-template-columns: 3fr 1fr
+
+article.layout1-3
+  grid-template-columns: 1fr 3fr
+
 h1, h2, h3, h4, h5, h6
+  color: $thunder
   margin: 0.8rem 0 2.4rem 0
 
 h1
@@ -70,12 +95,13 @@ ul
   li
     margin: 0 0 1.2rem 0
 
-header > *
-  padding: math.div($default-padding, 2) $default-padding
+// header > *
+//   padding: math.div($default-padding, 2) $default-padding
 
 header
   width: $default-page-width
   margin: $default-padding auto
+  padding: 0
   display: grid
   grid-template-columns: 1fr 3fr
   color: white
@@ -84,26 +110,30 @@ header
     color: white
     font-weight: 600
     text-decoration: none
-  nav
-    font-size: 1.2rem
-    text-align: right
-    ul
-      position: relative
-      top: 50%
-      transform: translateY(-50%)
-      li
-        display: inline
-        margin-left: $default-padding
-  #siteTitle
+  #site-title
     display: grid
     grid-template-columns: 1fr 3fr
-    #siteLogo
+    #site-logo
+      padding: $default-padding 0
+      margin-left: $default-padding
+      height: 24px
+      align-self: center
       img
         height: 24px
         position: relative
+  nav
+    font-size: 1.2rem
+    text-align: right
+    align-self: center
+    ul
+      margin: 0 $default-padding 0 0
+      li
+        display: inline
+        margin: 0 0 0 $default-padding
+  
 
 p, ul
-  margin: $default-padding 0
+  margin: 0 0 $default-padding 0
 
 ul
   li
@@ -219,9 +249,30 @@ ul.alerts
   text-align: center
 .right
   text-align: right
-
 .full
   width: 100%
+.highlight
+  background-color: $highlight
+img.banner, img.figure, img.thumbnail
+  border: $default-border
+  display: inline-block
+img.banner
+  width: 100%
+  height: auto
+img.figure, img.thumbnail
+  display: inline
+  float: left
+  width: auto
+  margin: 0 $default-padding $half-padding 0
+img.figure
+  max-height: 512px
+  
+img.thumbnail
+  max-height: 256px
+
+
+  display: inline-block
+  position: relative
 
 .loginPopup
   position: relative
@@ -272,12 +323,6 @@ ul.alerts
 .openButton:hover
   opacity: 1
 
-.sections
-  display: grid
-  gap: $double-padding
-  flex-wrap: wrap
-  section
-    margin-bottom: $double-padding
 
 
 // #dnd

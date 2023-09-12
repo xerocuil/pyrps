@@ -191,8 +191,10 @@ def ref_general(request):
   page_title = "General"
   abilities = General.Ability.LIST
   ability_modifiers = General.AbilityModifier.LIST
+  character_advancement = General.CharacterAdvancement.LIST
   return render(request, 'dnd5/reference/general.html', {
     'page_title': page_title,
     'abilities': abilities,
-    'ability_modifiers': ability_modifiers
+    'ability_modifiers': ability_modifiers,
+    'character_advancement': character_advancement
   })
