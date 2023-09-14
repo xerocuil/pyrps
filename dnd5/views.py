@@ -27,18 +27,19 @@ def index(request):
 
 
 # Characters
-def csheet(request, charid):
-  character = get_object_or_404(Character, pk=charid)
-
+def character_sheet(request, charid):
+  character = get_object_or_404(Character, charid=charid)
+  ability_modifiers = General.AbilityModifier.LIST
   return render(
     request=request,
-    template_name="dnd5/csheet.html",
+    template_name="dnd5/character/sheet.html",
     context = {
       'character': character,
+      'ability_modifiers': ability_modifiers,
     })
 
-def editChar(request, charid):
-  character = get_object_or_404(Character, pk=charid)
+def edit_char(request, charid):
+  character = get_object_or_404(Character, charid=charid)
 
   if request.method == 'POST':
     char_form = CharacterForm(request.POST, request.FILES, instance=character)
@@ -48,28 +49,28 @@ def editChar(request, charid):
       print(character)
     else:
       messages.error(request, char_form.errors)
-    return redirect("dnd5:index")
+    return redirect("dnd5:list_characters")
   else:
     char_form = CharacterForm(instance=character)
 
   return render(
     request=request,
-    template_name="dnd5/editChar.html",
+    template_name="dnd5/character/edit_char.html",
     context = {
       'character': character,
       'char_form': char_form
     }
   )
 
-def editAvatar(request, charid):
-  character = get_object_or_404(Character, pk=charid)
+def edit_avatar(request, charid):
+  character = get_object_or_404(Character, charid=charid)
 
   ## Avatar form
   if request.method == 'POST':
     avatar_form = AvatarForm(request.POST, request.FILES, instance=character)
     if avatar_form.is_valid():
       avatar_form.save()
-      messages.success(request, character.name + ' was successfully edited.')
+      messages.success(request, 'Sucessfully changed avatar for ' + character.name)
 
       if character.avatar:
 
@@ -95,22 +96,24 @@ def editAvatar(request, charid):
           character.save()
     else:
       messages.error(request, avatar_form.errors)
-    return redirect("dnd5:editChar", character.id)
+    return redirect("dnd5:edit_char", character.charid)
   else:
     avatar_form = AvatarForm(instance=character)
 
   return render(
     request=request,
-    template_name="dnd5/editAvatar.html",
+    template_name="dnd5/character/edit_avatar.html",
     context = {
       'character': character,
       'avatar_form': avatar_form
     }
   )
 
-def listCharacters(request):
+def list_characters(request):
+  page_title = "Characters"
   characters = Character.objects.all()
-  return render(request, 'dnd5/characters.html', {
+  return render(request, 'dnd5/character/list.html', {
+    'page_title': page_title,
     'characters': characters
   })
 

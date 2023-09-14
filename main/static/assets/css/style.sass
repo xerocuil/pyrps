@@ -2,20 +2,17 @@
 @use 'sass:math'
 @import "reset"
 
-// Palette: Greybande
+// Palette: Greybande /Retrotronic
 $alto: rgb(221, 221, 221)
 $silver: rgb(187, 187, 187)
 $boulder: rgb(120, 120, 120)
 $tundora: rgb(68, 68, 68)
 $mineshaft: rgb(34, 34, 34)
-
-// Palette: Retrotronic
 $thunder: rgb(57, 43, 53)
 $sea_nymph: rgb(122, 156, 150)
 $bismark: rgb(72, 107, 127)
 $soft_amber: rgb(209, 191, 176)
 $chestnut: rgb(187, 71, 79)
-
 $highlight: rgba(209, 191, 176, 0.25)
 
 // Globals
@@ -141,6 +138,7 @@ ul
     list-style: square
 
 table
+  width: 100%
   font-size: 1.2rem
   border-collapse: collapse
   tr
@@ -148,7 +146,6 @@ table
     border-bottom: $default-border
     
     th, td
-      min-width: 8.0rem
       text-align: left
       padding: $half-padding
       vertical-align: middle
@@ -184,16 +181,93 @@ table
   gap: 2.4rem
 
 #characters
-  .charCard
+  table.char-card
     width: $card-width
-    border: 1px $silver solid
+    border: $default-border
     tr
       td, th
-        padding: 0.4rem 0.8rem
+        padding: 0.4rem
         position: relative
+      td.avatar
+        height: 128px
+        padding: 0
+        background-color: white
+        img
+          height: 100%
+          width: auto
       th
         font-weight: 600
-        text-align: left 
+        text-align: left
+      th.name
+        height: 3.2rem
+
+.columns
+  display: inline-flex
+
+#csheet
+  #hdr
+    width: 100%
+    display: flex
+    column-gap: $default-padding
+  #main-stats
+    display: inline-flex
+    column-gap: $default-padding
+  #combat-stats
+    display: grid
+    grid-template-columns: 1fr 1fr 1fr
+    #armor-class
+      width: 7.0rem
+      height: 8.0rem
+      background-image: url('/static/dnd5/csheet/armor-class.svg')
+      background-repeat: no-repeat
+      background-size: 7.0rem 8.0rem
+      text-align: center
+      div
+        position: relative
+        top: 1.6rem
+  img.avatar
+    width: 64px
+    height: auto
+  .columns
+    width: 100%
+    display: inline-grid
+    grid-template-columns: 1fr 1fr 1fr
+    gap: $default-padding
+  .ability
+    padding: 0.2rem 0 0 0
+    width: 6.8rem
+    height: 8.0rem
+    display: grid
+    background-image: url('/static/dnd5/csheet/ability.svg')
+    background-repeat: no-repeat
+    background-size: 6.8rem 8.0rem
+    .ability-name, .ability-modifier, .ability-score
+      text-align: center
+    .ability-modifier
+      font-size: 1.5rem
+      font-weight: 400
+      // align-self: center
+    .ability-name, .ability-score
+      font-size: 1.0rem
+    .ability-name
+      font-weight: 600
+      text-transform: uppercase
+  .stat-field-01, .stat-field-02
+    width: 14.4rem
+    height: 3.6rem
+    display: inline-grid
+    grid-template-columns: 3.6rem 1fr
+    background-repeat: no-repeat
+    background-size: 14.4rem 3.6rem
+    font-size: 1.0rem
+    div
+      text-align: center
+      align-self: center
+  .stat-field-01
+    background-image: url('/static/dnd5/csheet/stat-field-01.svg')
+  .stat-field-02
+    background-image: url('/static/dnd5/csheet/stat-field-02.svg')
+    
 
 #messages
   margin: 0
@@ -203,15 +277,6 @@ table
     padding: $half-padding
     list-style: none
     background-color: $alto
-
-img.avatar
-  width: auto
-  height: $card-width
-  display: block
-  margin: 0 auto
-  background-color: white
-  border: 0.1rem solid $alto
-  box-shadow: 0.1rem 0.1rem $alto
 
 img.icon
   height: 3.2rem

@@ -1,0 +1,153 @@
+{% extends "pyrps/base.html" %}
+{% load dnd5 helpers static %}
+{% block title %}{{ character.name }}{% endblock %}
+{% block content %}  
+
+<div id="csheet">
+  <div id="hdr">
+    <section>
+       <a href="{% url 'dnd5:edit_char' character.charid %}">
+        <img class="avatar" src="{% if character.avatar %}{{ character.avatar.url }}{% else %}{% default_avatar_url %}{% endif %}">
+      </a>
+    </section>
+
+    <section>
+      <div>{{ character.name }}</div>
+
+      <div>Lvl. {{ character.level }} {{ character.race.name }} {{ character.cclass.name }}</div>
+    </section>
+  </div>
+  
+  <div class="columns">
+    <section id="main-stats" class="third">
+      <div id="abilities">
+        <div class="ability">
+          <div class="ability-name">STR</div>
+          <div class="ability-modifier">
+            {% ability_modifier character.strength %}
+          </div>
+          <div class="ability-score">
+            {{ character.strength }}
+          </div>
+        </div>
+
+        <div class="ability">
+          <div class="ability-name">DEX</div>
+          <div class="ability-modifier">
+            {% ability_modifier character.dexterity %}
+          </div>
+          <div class="ability-score">
+            {{ character.dexterity }}
+          </div>
+        </div>
+
+        <div class="ability">
+          <div class="ability-name">CON</div>
+          <div class="ability-modifier">
+            {% ability_modifier character.constitution %}
+          </div>
+          <div class="ability-score">
+            {{ character.constitution }}
+          </div>
+        </div>
+
+        <div class="ability">
+          <div class="ability-name">INT</div>
+          <div class="ability-modifier">
+            {% ability_modifier character.intelligence %}
+          </div>
+          <div class="ability-score">
+            {{ character.intelligence }}
+          </div>
+        </div>
+
+        <div class="ability">
+          <div class="ability-name">WIS</div>
+          <div class="ability-modifier">
+            {% ability_modifier character.wisdom %}
+          </div>
+          <div class="ability-score">
+            {{ character.wisdom }}
+          </div>
+        </div>
+
+        <div class="ability">
+          <div class="ability-name">CHA</div>
+          <div class="ability-modifier">
+            {% ability_modifier character.charisma %}
+          </div>
+          <div class="ability-score">
+            {{ character.charisma }}
+          </div>
+        </div>
+      </div>
+
+      <div id="ability-stats">
+        <div class="stat-field-01">
+          <div>X</div>
+          <div>Inspiration</div>
+        </div>
+        <div class="stat-field-02">
+          <div>X</div>
+          <div>Proficiency Bonus</div>
+        </div>
+      </div>
+    </section>
+
+    <div id="combat-stats">
+      <section id="armor-class">
+        <div>
+        {% if character.armor_id %}
+          {{ character.armor.armor_class }}
+        {% else %}
+          0
+        {% endif %}
+        </div>
+
+        <div>Armor<br>Class</div>
+      </section>
+
+      <section></section>
+
+      <section></section>
+
+    </div>
+
+    <section class="third">
+      &nbsp;
+    </section>
+  
+  </div>
+</div>
+
+
+
+
+
+<h4>Equipment</h4>
+<ul>
+  {% if character.weapon_main_id %}
+  <li>
+    {{ character.weapon_main.name }}
+  </li>
+  {% endif %}
+
+  {% if character.weapon_secondary_id %}
+  <li>
+    {{ character.weapon_secondary.name }}
+  </li>
+  {% endif %}
+
+  {% if character.armor_id %}
+  <li>
+    {{ character.armor.name }} 
+  </li>
+  {% endif %}
+</ul>
+
+{% if character.bio %}
+  <h4>Bio</h4>
+  <div>{{ character.bio }}</div>
+{% endif %}
+
+{% endblock %}

@@ -21,7 +21,7 @@
   <div class="profilePic">
     <h3>Avatar</h3>
 
-    <a href="{% url 'dnd5:editAvatar' character.id %}">
+    <a href="{% url 'dnd5:edit_avatar' character.charid %}">
       <img class="avatar" src="{% if character.avatar %}{{ character.avatar.url }}{% else %}{% default_avatar_url %}{% endif %}">
     </a>
 
