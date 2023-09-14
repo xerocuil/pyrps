@@ -10,10 +10,11 @@
   + Concept art, avatars, char. sheet graphics to assets
   + Character sheet
   + `ability_modifier` template tag
+  + Shield to model
 
 ### Changed
 
-- Refactored: Character templates, reference section
+- Refactored: Character templates, reference section, forms
 - Updated app logo
 
 ## [0.0.3] - 2023.0911

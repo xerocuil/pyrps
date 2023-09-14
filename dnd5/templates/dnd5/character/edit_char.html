@@ -12,7 +12,9 @@
     <h3>Info/Stats</h3>
     <form method="post">
       {% csrf_token %}
-      {{ char_form.as_div }}
+      <div id="character-form">
+        {{ char_form.as_div }}
+      </div>
 
       <button type="submit">Save</button>
     </form>
@@ -24,10 +26,6 @@
     <a href="{% url 'dnd5:edit_avatar' character.charid %}">
       <img class="avatar" src="{% if character.avatar %}{{ character.avatar.url }}{% else %}{% default_avatar_url %}{% endif %}">
     </a>
-
-   <!--  <div class="openBtn">
-      <button class="openButton" onclick="openForm()"><strong>Change avatar</strong></button>
-    </div> -->
   </div>
 </div>
 

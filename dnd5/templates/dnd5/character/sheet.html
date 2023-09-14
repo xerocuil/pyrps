@@ -120,10 +120,6 @@
   </div>
 </div>
 
-
-
-
-
 <h4>Equipment</h4>
 <ul>
   {% if character.weapon_main_id %}
@@ -141,6 +137,12 @@
   {% if character.armor_id %}
   <li>
     {{ character.armor.name }} 
+  </li>
+  {% endif %}
+
+  {% if character.shield_id %}
+  <li>
+    {{ character.shield.name }} 
   </li>
   {% endif %}
 </ul>

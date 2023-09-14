@@ -1,3 +1,4 @@
+import base64
 import datetime
 import json
 import os
@@ -6,6 +7,9 @@ import random
 import sqlite3
 from slugify import slugify
 
+APPDIR = os.path.dirname(os.path.realpath(__file__))
+MEDIA = os.path.join(APPDIR, 'media')
+DND5_AVATARS = os.path.join(MEDIA, 'dnd5/avatars')
 
 # Database
 
@@ -18,7 +22,14 @@ cursor = connection.cursor()
 
 # Functions
 
-def decode_b64img(img, filename):
+# Encode image to base63
+def encode_img(img):
+  with open(img, 'rb') as image_file:
+    image_bytes = image_file.read()
+    base64_img = base64.b64encode(image_bytes).decode('utf-8')
+    return base64_img
+
+def decode_img(img, filename):
   with open(filename, "wb") as f:
     f.write(base64.b64decode(img))
 
@@ -107,8 +118,8 @@ def import_characters():
 
     ## Get Race ID
     if isinstance(d['race'], str):
-      print("d['race']:")
-      print(d['race'])
+      # print("d['race']:")
+      # print(d['race'])
 
       race_query = "SELECT id from dnd5_race WHERE objid = '" + d['race'] +"';"
       try:
@@ -120,13 +131,13 @@ def import_characters():
         print(race_result)
         race_id = None
     else:
-      print(d['race'])
+      # print(d['race'])
       race_id = None
 
     ## Get main weapon ID
     if isinstance(d['weapon_main'], str):
-      print("d['weapon_main']:")
-      print(d['weapon_main'])
+      # print("d['weapon_main']:")
+      # print(d['weapon_main'])
 
       weapon_main_query = "SELECT id from dnd5_weapon WHERE objid = '" + d['weapon_main'] +"';"
       try:
@@ -135,16 +146,16 @@ def import_characters():
         weapon_main_id = weapon_main_r[0]
       except Exception as e:
         weapon_main_result = e
-        print(weapon_main_result)
+        # print(weapon_main_result)
         weapon_main_id = None
     else:
-      print(d['weapon_main'])
+      # print(d['weapon_main'])
       weapon_main_id = None
 
     ## Get secondary weapon ID
     if isinstance(d['weapon_secondary'], str):
-      print("d['weapon_secondary']:")
-      print(d['weapon_secondary'])
+      # print("d['weapon_secondary']:")
+      # print(d['weapon_secondary'])
 
       weapon_secondary_query = "SELECT id from dnd5_weapon WHERE objid = '" + d['weapon_secondary'] +"';"
       try:
@@ -153,16 +164,16 @@ def import_characters():
         weapon_secondary_id = weapon_secondary_r[0]
       except Exception as e:
         weapon_secondary_result = e
-        print(weapon_secondary_result)
+        # print(weapon_secondary_result)
         weapon_secondary_id = None
     else:
-      print(d['weapon_secondary'])
+      # print(d['weapon_secondary'])
       weapon_secondary_id = None
 
     ## Get armor ID
     if isinstance(d['armor'], str):
-      print("d['armor']:")
-      print(d['armor'])
+      # print("d['armor']:")
+      # print(d['armor'])
 
       armor_query = "SELECT id from dnd5_armor WHERE objid = '" + d['armor'] +"';"
       try:
@@ -171,22 +182,49 @@ def import_characters():
         armor_id = armor_r[0]
       except Exception as e:
         armor_result = e
-        print(armor_result)
+        # print(armor_result)
         armor_id = None
     else:
-      print(d['armor'])
+      # print(d['armor'])
       armor_id = None
 
+
+    ## Get shield ID
+    if isinstance(d['shield'], str):
+      # print("d['shield']:")
+      # print(d['shield'])
+
+      shield_query = "SELECT id from dnd5_shield WHERE objid = '" + d['shield'] +"';"
+      try:
+        shield_result = cursor.execute(shield_query)
+        shield_r = cursor.fetchone()
+        shield_id = shield_r[0]
+      except Exception as e:
+        shield_result = e
+        # print(shield_result)
+        shield_id = None
+    else:
+      # print(d['shield'])
+      shield_id = None
+
+    ## Get Avatar
+    if isinstance(d['avatar'], str):
+      file = os.path.join(DND5_AVATARS, str(d['charid']) + '.png')
+      decode_img(d['avatar'], file)
+      avatar = 'dnd5/avatars/' + str(d['charid']) + '.png'
+    else:
+      avatar = None
+
     d['id'] = None
-    d['avatar'] = None
     d['date_added'] = datetime.datetime.now()
     d['date_modified'] = datetime.datetime.now()
-    d['armor_id'] = None
     d['cclass_id'] = class_r[0][0]
     d['race_id'] = race_id
     d['weapon_main_id'] = weapon_main_id
     d['weapon_secondary_id'] = weapon_secondary_id
     d['armor_id'] = armor_id
+    d['shield_id'] = shield_id
+    d['avatar'] = avatar
 
     add_character = 'INSERT INTO dnd5_character VALUES(:id, \
       :charid, \
@@ -198,13 +236,14 @@ def import_characters():
       :intelligence, \
       :wisdom, \
       :charisma, \
-      :avatar, \
       :bio, \
+      :avatar, \
       :date_added, \
       :date_modified, \
       :armor_id, \
       :cclass_id, \
       :race_id, \
+      :shield_id, \
       :weapon_main_id, \
       :weapon_secondary_id)'
 
@@ -262,6 +301,27 @@ def import_all():
     :source, \
     :date_added)'
   import_model('race', race_query)
+
+  ## Armor
+  shield_query = 'INSERT INTO dnd5_shield VALUES(:id, \
+    :objid, \
+    :name, \
+    :category, \
+    :armor_class, \
+    :strength, \
+    :stealth_disadvantage, \
+    :modifier, \
+    :modifier_max, \
+    :damage, \
+    :damage_type, \
+    :stat_mod, \
+    :properties, \
+    :cost, \
+    :weight, \
+    :description, \
+    :source, \
+    :date_added)'
+  import_model('shield', shield_query)
 
   ## Weapon
   weapon_query = 'INSERT INTO dnd5_weapon VALUES(:id, \

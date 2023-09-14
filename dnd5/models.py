@@ -85,6 +85,32 @@ class Armor(models.Model):
     verbose_name = "Armor"
     verbose_name_plural = "Armor"
 
+## Shield
+class Shield(models.Model):
+  objid = models.CharField(max_length=12, unique=True)
+  name = models.CharField(max_length=255, unique=True)
+  category = models.CharField(max_length=12, choices=equipmentCategory.choices)
+  armor_class = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], blank=True, null=True)
+  strength = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], blank=True, null=True)
+  stealth_disadvantage = models.BooleanField(default=False, blank=True, null=True)
+  modifier = models.CharField(max_length=12, choices=abilities.choices, blank=True, null=True)
+  modifier_max = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(99)], blank=True, null=True)
+  damage = models.CharField(max_length=6, blank=True, null=True)
+  damage_type = models.CharField(max_length=12, choices=damageType.choices, blank=True, null=True)
+  stat_mod = models.CharField(max_length=96, blank=True, null=True)
+  properties = models.CharField(max_length=255, blank=True, null=True)
+  cost = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
+  weight = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+  description = models.TextField(blank=True, null=True)
+  source = models.CharField(max_length=12, choices=sources.choices, blank=True, null=True)
+  date_added = models.DateTimeField('Date Added', auto_now_add=True)
+
+  def __str__(self):
+    return self.name
+
+  class Meta:
+    ordering = ["name"]
+
 ## Weapon
 class Weapon(models.Model):
   objid = models.CharField(max_length=12, unique=True)
@@ -300,13 +326,17 @@ class Character(models.Model):
     related_name='weapon_secondary')
   armor = models.ForeignKey(Armor,
     on_delete=models.SET_NULL,
+    blank=True, null=True,
+    related_name='armor')
+  shield = models.ForeignKey(Shield,
+    on_delete=models.SET_NULL,
     blank=True, null=True)
   ### Character Profile
-  avatar = models.ImageField(upload_to='dnd5/avatars',
-    blank=True, null=True)
   race = models.ForeignKey(Race, on_delete=models.SET_NULL,
     blank=True, null=True)
   bio = models.TextField(blank=True, null=True)
+  avatar = models.ImageField(upload_to='dnd5/avatars',
+    blank=True, null=True)
 
   ### DB Info
   date_added = models.DateTimeField('Date Added', auto_now_add=True)
