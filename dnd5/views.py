@@ -7,7 +7,7 @@ from django.contrib.messages import get_messages
 from django.shortcuts import get_object_or_404, render, redirect
 
 from .models import Armor, Character, Cclass, Weapon
-from .forms import AvatarForm, CharacterForm
+from .forms import AvatarForm, CclassForm, CharacterForm
 
 from .rules import Arcane, Combat, Equipment, General
 
@@ -16,7 +16,7 @@ from PIL import Image
 
 # Main
 def index(request):
-  latest_characters = Character.objects.order_by('-date_added')[:5]
+  latest_characters = Character.objects.order_by('-date_modified')[:5]
   latest_classes = Cclass.objects.order_by('-date_added')[:5]
   latest_weapons = Weapon.objects.order_by('-date_added')[:5]
   return render(request, 'dnd5/index.html', {
@@ -37,6 +37,27 @@ def character_sheet(request, charid):
       'character': character,
       'ability_modifiers': ability_modifiers,
     })
+
+def add_char(request):
+  if request.method == "POST":
+    try:
+      char_form = CharacterForm(request.POST, request.FILES)
+      if char_form.is_valid():
+        char_form.save()
+        messages.success(request, 'Character was successfully added!', extra_tags='safe')
+    except (IntegrityError, DatabaseError) as err:
+      messages.error(request, err)
+    return redirect("dnd5:list_characters")
+  else:
+    char_form = CharacterForm()
+
+  return render(
+    request=request,
+    template_name="dnd5/character/add.html",
+    context={
+      'char_form': char_form
+    }
+  )
 
 def edit_char(request, charid):
   character = get_object_or_404(Character, charid=charid)
@@ -85,7 +106,7 @@ def edit_avatar(request, charid):
         newfile = os.path.join(avatardir, newfilename)
         newentry = avatarurl + '/' + newfilename
         
-        size = (256, 256)
+        size = (128, 128)
 
         ## Save thumbnail and remove original
         with Image.open(image_file) as im:
@@ -111,7 +132,7 @@ def edit_avatar(request, charid):
 
 def list_characters(request):
   page_title = "Characters"
-  characters = Character.objects.all()
+  characters = Character.objects.order_by('-date_modified')
   return render(request, 'dnd5/character/list.html', {
     'page_title': page_title,
     'characters': characters
@@ -119,16 +140,29 @@ def list_characters(request):
 
 
 # Classes
-def listClasses(request):
+def list_classes(request):
   classes = Cclass.objects.all()
-  return render(request, 'dnd5/classes.html', {
+  return render(request, 'dnd5/class/list.html', {
     'classes': classes
     })
 
-def viewClass(request, class_id):
-  c = get_object_or_404(Cclass, pk=class_id)
-  return render(request, 'dnd5/viewClass.html', {
-    'c': c
+def edit_class(request, class_id):
+  cclass = get_object_or_404(Cclass, pk=class_id)
+  if request.method == 'POST':
+    class_form = CclassForm(request.POST, request.FILES, instance=cclass)
+    if class_form.is_valid():
+      class_form.save()
+      messages.success(request, cclass.name + ' was successfully edited.')
+      print(cclass)
+    else:
+      messages.error(request, class_form.errors)
+    return redirect("dnd5:list_classes")
+  else:
+    class_form = CclassForm(instance=cclass)
+
+  return render(request, 'dnd5/class/edit.html', {
+    'cclass': cclass,
+    'class_form': class_form
     })
 
 

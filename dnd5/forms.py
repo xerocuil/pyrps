@@ -20,6 +20,7 @@ class CharacterForm(ModelForm):
       'intelligence',
       'wisdom',
       'charisma',
+      'inspiration',
       'weapon_main',
       'weapon_secondary',
       'armor',
@@ -34,6 +35,7 @@ class CharacterForm(ModelForm):
       'intelligence' : NumberInput(attrs={'class': 'integer'}),
       'wisdom' : NumberInput(attrs={'class': 'integer'}),
       'charisma' : NumberInput(attrs={'class': 'integer'}),
+      'inspiration' : NumberInput(attrs={'class': 'integer'})
     }
 
 class AvatarForm(ModelForm):

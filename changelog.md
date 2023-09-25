@@ -6,16 +6,18 @@
 
 - Design document
 - D&D5
-  + Character Advancement to Rules
+  + Test modules for urls, views
+  + `proficiency_bonus`, `ability_mod`, `hit_points` functions to Character model
+  + Character Advancement to rules module
   + Concept art, avatars, char. sheet graphics to assets
-  + Character sheet
-  + `ability_modifier` template tag
+  + Character sheet view
   + Shield to model
 
 ### Changed
 
 - Refactored: Character templates, reference section, forms
 - Updated app logo
+- Updated data models, styling
 
 ## [0.0.3] - 2023.0911
 

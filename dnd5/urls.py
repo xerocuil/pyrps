@@ -12,12 +12,13 @@ urlpatterns = [
   path('', views.index, name='index'),
   # Characters
   path('characters', views.list_characters, name='list_characters'),
+  path('char/add', views.add_char, name='add_char'),
   path('char/sheet/<int:charid>', views.character_sheet, name='character_sheet'),
   path('char/edit/<int:charid>', views.edit_char, name='edit_char'),
   path('avatar/edit/<int:charid>', views.edit_avatar, name='edit_avatar'),
   # Classes
-  path('classes', views.listClasses, name='listClasses'),
-  path('class/<int:class_id>', views.viewClass, name='viewClass'),
+  path('classes', views.list_classes, name='list_classes'),
+  path('class/<int:class_id>', views.edit_class, name='edit_class'),
   # Equipment
   path('armor', views.listArmor, name='listArmor'),
   path('weapons', views.listWeapons, name='listWeapons'),

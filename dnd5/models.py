@@ -1,11 +1,14 @@
 import datetime
+import os
 import random
+import sys
 from django.db import models
 
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
+
+from . rules import Arcane, Combat, Equipment, General
 
 
 # FUNCTIONS
@@ -15,6 +18,7 @@ def gen_charid():
 
 
 # TEXT CHOICES
+
 class abilities(models.TextChoices):
   STR = 'STR', _('Strength: Natural athleticism, bodily power')
   DEX = 'DEX', _('Dexterity: Physical agility, reflexes, balance, poise')
@@ -45,6 +49,7 @@ class sources(models.TextChoices):
 
 
 # EQUIPMENT
+
 ## Categories
 class equipmentCategory(models.TextChoices):
   AMMO = 'AMMO', _('Ammunition')
@@ -138,6 +143,7 @@ class Weapon(models.Model):
 
 
 # ARCANE
+
 ## Spell
 class Spell(models.Model):
   objid = models.CharField(max_length=12, unique=True)
@@ -151,6 +157,7 @@ class Spell(models.Model):
 
 
 # COMBAT
+
 ## Challenge Ratings
 class ChallengeRatings(models.TextChoices):
   CR0 = 'CR0', _('CR: 0')
@@ -244,7 +251,8 @@ class Monster(models.Model):
   date_added = models.DateTimeField('Date Added', auto_now_add=True)
 
 
-# PLAYERS
+# CHARACTERS
+
 ## Character Class
 class Cclass(models.Model):
   objid = models.CharField(max_length=12, unique=True)
@@ -274,7 +282,9 @@ class Race(models.Model):
   objid = models.CharField(max_length=12, unique=True)
   name = models.CharField(max_length=255, unique=True)
   ability_score = models.CharField(max_length=96, blank=True, null=True)
-  speed = models.CharField('Speed (ft.)', max_length=16, blank=True, null=True)
+  # speed = models.CharField('Speed (ft.)', max_length=16, blank=True, null=True)
+  speed = models.IntegerField(
+    validators=[MinValueValidator(0),MaxValueValidator(500)], default=25)
   language = models.CharField(max_length=255, blank=True, null=True)
   addl_language = models.IntegerField(
     validators=[MinValueValidator(1),MaxValueValidator(99)],
@@ -315,6 +325,9 @@ class Character(models.Model):
     validators=[MinValueValidator(1), MaxValueValidator(99)])
   charisma = models.IntegerField(default=10,
     validators=[MinValueValidator(1), MaxValueValidator(99)])
+  ### Misc Stats
+  inspiration = models.IntegerField(default=0,
+    validators=[MinValueValidator(0), MaxValueValidator(99)])
   ### Equipment
   weapon_main = models.ForeignKey(Weapon,
     on_delete=models.SET_NULL,
@@ -345,5 +358,47 @@ class Character(models.Model):
   def __str__(self):
     return self.name
 
+  ### Prof. Bonus
+  def get_proficiency_bonus(self, level):
+    for c in General.CharacterAdvancement.LIST:
+      if level == c['level']:
+        return c['proficiency_bonus']
+
+  def proficiency_bonus(self):
+    return self.get_proficiency_bonus(self.level)
+
+  ### Ability Modifiers
+  def ability_mod(self, score):
+    for a in General.AbilityModifier.LIST:
+      if score in a['score']:
+        return a['modifier']
+
+  def strength_mod(self):
+    return self.ability_mod(self.strength)
+
+  def dexterity_mod(self):
+    return self.ability_mod(self.dexterity)
+
+  def constitution_mod(self):
+    return self.ability_mod(self.constitution)
+
+  def intelligence_mod(self):
+    return self.ability_mod(self.intelligence)
+
+  def wisdom_mod(self):
+    return self.ability_mod(self.wisdom)
+
+  def charisma_mod(self):
+    return self.ability_mod(self.charisma)
+
+  ### Hit Points
+  def hit_points(self):
+    hp = self.level * (self.constitution_mod() + (self.cclass.hit_die/2) + 1)
+    return int(hp)
+
+  ### Meta
   class Meta:
     ordering = ["name"]
+
+
+

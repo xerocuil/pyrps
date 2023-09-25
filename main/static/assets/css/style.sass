@@ -178,7 +178,7 @@ table
 #home, #characters
   display: flex
   flex-wrap: wrap
-  gap: 2.4rem
+  gap: $double-padding
 
 #characters
   table.char-card
@@ -220,6 +220,10 @@ table
   #main-stats
     display: inline-flex
     column-gap: $default-padding
+    #general-stats
+      display: inline-grid
+      row-gap: $half-padding
+      align-content: start
   #combat-stats
     display: grid
     grid-template-columns: 1fr 1fr 1fr

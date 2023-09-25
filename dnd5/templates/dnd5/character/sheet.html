@@ -12,9 +12,9 @@
     </section>
 
     <section>
-      <div>{{ character.name }}</div>
+      <div>{{ character.name }} {{ character.hit_points }}</div>
 
-      <div>Lvl. {{ character.level }} {{ character.race.name }} {{ character.cclass.name }}</div>
+      <div>Lvl. {{ character.level }} {{ character.race.name }} {{ character.cclass.name }} {{ character.str_mod }}</div>
     </section>
   </div>
   
@@ -24,7 +24,7 @@
         <div class="ability">
           <div class="ability-name">STR</div>
           <div class="ability-modifier">
-            {% ability_modifier character.strength %}
+            {{ character.strength_mod }}
           </div>
           <div class="ability-score">
             {{ character.strength }}
@@ -34,7 +34,7 @@
         <div class="ability">
           <div class="ability-name">DEX</div>
           <div class="ability-modifier">
-            {% ability_modifier character.dexterity %}
+            {{ character.dexterity_mod }}
           </div>
           <div class="ability-score">
             {{ character.dexterity }}
@@ -44,7 +44,7 @@
         <div class="ability">
           <div class="ability-name">CON</div>
           <div class="ability-modifier">
-            {% ability_modifier character.constitution %}
+            {{ character.constitution_mod }}
           </div>
           <div class="ability-score">
             {{ character.constitution }}
@@ -54,7 +54,7 @@
         <div class="ability">
           <div class="ability-name">INT</div>
           <div class="ability-modifier">
-            {% ability_modifier character.intelligence %}
+            {{ character.intelligence_mod }}
           </div>
           <div class="ability-score">
             {{ character.intelligence }}
@@ -64,7 +64,7 @@
         <div class="ability">
           <div class="ability-name">WIS</div>
           <div class="ability-modifier">
-            {% ability_modifier character.wisdom %}
+            {{ character.wisdom_mod }}
           </div>
           <div class="ability-score">
             {{ character.wisdom }}
@@ -74,7 +74,7 @@
         <div class="ability">
           <div class="ability-name">CHA</div>
           <div class="ability-modifier">
-            {% ability_modifier character.charisma %}
+            {{ character.charisma_mod }}
           </div>
           <div class="ability-score">
             {{ character.charisma }}
@@ -82,13 +82,15 @@
         </div>
       </div>
 
-      <div id="ability-stats">
+      <div id="general-stats">
+        {% if character.inspiration %}
         <div class="stat-field-01">
-          <div>X</div>
+          <div>{{ character.inspiration }}</div>
           <div>Inspiration</div>
         </div>
+        {% endif %}
         <div class="stat-field-02">
-          <div>X</div>
+          <div>{{ character.proficiency_bonus }}</div>
           <div>Proficiency Bonus</div>
         </div>
       </div>
@@ -107,9 +109,9 @@
         <div>Armor<br>Class</div>
       </section>
 
-      <section></section>
+      <section id="speed">{{ character.race.speed }} ft.<br>Speed</section>
 
-      <section></section>
+      <section>{{ character.hit_points }}</section>
 
     </div>
 

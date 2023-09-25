@@ -22,10 +22,13 @@
         <tbody>
         {% for c in latest_characters %}
           <tr>
-            <td>{{ c.name }}</td>
+            <td><a href="{% url 'dnd5:character_sheet' c.charid %}">{{ c.name }}</a></td>
             <td>LVL {{ c.level }} {{ c.cclass.name }}</td>
           </tr>
         {% endfor %}
+          <tr>
+            <td><a href="{% url 'dnd5:list_characters' %}">View All ></a></td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -44,12 +47,15 @@
         <tbody>
         {% for c in latest_classes %}
           <tr>
-            <td>{{ c.name }}</td>
+            <td><a href="{% url 'dnd5:edit_class' c.id %}">{{ c.name }}</a></td>
             <td>{{ c.primary }}</td>
             <td>{{ c.stp }}</td>
             <td>{{ c.source }}</td>
           </tr>
         {% endfor %}
+        <tr>
+          <td><a href="{% url 'dnd5:list_classes' %}">View All ></a></td>
+        </tr>
         </tbody>
       </table>
     </div>

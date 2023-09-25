@@ -7,9 +7,12 @@ import random
 import sqlite3
 from slugify import slugify
 
+
+# Globals
 APPDIR = os.path.dirname(os.path.realpath(__file__))
 MEDIA = os.path.join(APPDIR, 'media')
 DND5_AVATARS = os.path.join(MEDIA, 'dnd5/avatars')
+
 
 # Database
 
@@ -22,7 +25,7 @@ cursor = connection.cursor()
 
 # Functions
 
-# Encode image to base63
+## Encode/Decode image to base64
 def encode_img(img):
   with open(img, 'rb') as image_file:
     image_bytes = image_file.read()
@@ -216,15 +219,17 @@ def import_characters():
       avatar = None
 
     d['id'] = None
-    d['date_added'] = datetime.datetime.now()
-    d['date_modified'] = datetime.datetime.now()
+    
     d['cclass_id'] = class_r[0][0]
+    d['inspiration'] = 0
     d['race_id'] = race_id
     d['weapon_main_id'] = weapon_main_id
     d['weapon_secondary_id'] = weapon_secondary_id
     d['armor_id'] = armor_id
     d['shield_id'] = shield_id
     d['avatar'] = avatar
+    d['date_added'] = datetime.datetime.now()
+    d['date_modified'] = datetime.datetime.now()
 
     add_character = 'INSERT INTO dnd5_character VALUES(:id, \
       :charid, \
@@ -236,6 +241,7 @@ def import_characters():
       :intelligence, \
       :wisdom, \
       :charisma, \
+      :inspiration, \
       :bio, \
       :avatar, \
       :date_added, \
@@ -343,3 +349,4 @@ def import_all():
   ## Characters
   import_characters()
   connection.close()
+
