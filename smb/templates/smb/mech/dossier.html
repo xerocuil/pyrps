@@ -1,0 +1,59 @@
+{% extends "pyrps/base.html" %}
+{% load smb helpers static %}
+{% block title %}{{ mech.name }}{% endblock %}
+{% block content %}  
+
+<div id="csheet">
+  <div id="hdr">
+    <h1>{{ mech.name }}</h1>
+  </div>
+  
+  <div class="columns">
+    <section>
+      <table>
+        <tr>
+          <th>Rank</th>
+          <td>{{ mech.rank }}</td>
+        </tr>
+        <tr>
+          <th>Class</th>
+          <td>{{ mech.mech_class }}</td>
+        </tr>
+        <tr>
+          <th>HP (Max)</th>
+          <td>{{ mech.max_hit_points }}</td>
+        </tr>
+        <tr>
+          <th>Strength</th>
+          <td>{{ mech.total_strength }} ({{ mech.strength_hit_die }})</td>
+        </tr>
+        <tr>
+          <th>Defense</th>
+          <td>{{ mech.total_defense }} ({{ mech.defense_hit_die }})</td>
+        </tr>
+        <tr>
+          <th>Dexterity</th>
+          <td>{{ mech.total_dexterity }} ({{ mech.dexterity_hit_die }})</td>
+        </tr>
+        <tr>
+          <th>Hull</th>
+          <td>{{ mech.total_hull }}</td>
+        </tr>
+        <tr>
+          <th>Repair Kits</th>
+          <td>{{ mech.total_repair_kits }}</td>
+        </tr>
+        <tr>
+          <th>Shields</th>
+          <td>{{ mech.total_shields }}</td>
+        </tr>
+        <tr>
+          <th>Skill Points</th>
+          <td>{{ mech.total_skill_points }}</td>
+        </tr>
+      </table>
+    </section>
+  </div>
+</div>
+
+{% endblock %}

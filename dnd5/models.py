@@ -10,11 +10,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 from . rules import Arcane, Combat, Equipment, General
 
-
-# FUNCTIONS
-def gen_charid():
-  int = random.randint(100000, 999999)
-  return int
+import lib.utils as utils
 
 
 # TEXT CHOICES
@@ -304,15 +300,16 @@ class Race(models.Model):
 
 ## Character
 class Character(models.Model):
-  ## Character Info
-  charid = models.IntegerField(default=gen_charid,
+  ''' Character Info '''
+  charid = models.IntegerField(default=utils.gen_charid(),
     unique=True, editable=False)
   name = models.CharField(max_length=255, unique=True)
   level = models.IntegerField(default=1,
     validators=[MinValueValidator(1), MaxValueValidator(99)])
   cclass = models.ForeignKey('Cclass', blank=True, null=True,
     on_delete=models.SET_NULL)
-  ### Abilities
+
+  ''' Abilities '''
   strength = models.IntegerField(default=10,
     validators=[MinValueValidator(1), MaxValueValidator(99)])
   dexterity = models.IntegerField(default=10,
@@ -325,7 +322,8 @@ class Character(models.Model):
     validators=[MinValueValidator(1), MaxValueValidator(99)])
   charisma = models.IntegerField(default=10,
     validators=[MinValueValidator(1), MaxValueValidator(99)])
-  ### Misc Stats
+
+  ''' Misc Stats '''
   inspiration = models.IntegerField(default=0,
     validators=[MinValueValidator(0), MaxValueValidator(99)])
   ### Equipment
@@ -344,21 +342,19 @@ class Character(models.Model):
   shield = models.ForeignKey(Shield,
     on_delete=models.SET_NULL,
     blank=True, null=True)
-  ### Character Profile
+
+  ''' Character Profile '''
   race = models.ForeignKey(Race, on_delete=models.SET_NULL,
     blank=True, null=True)
   bio = models.TextField(blank=True, null=True)
   avatar = models.ImageField(upload_to='dnd5/avatars',
     blank=True, null=True)
 
-  ### DB Info
+  ''' DB Info '''
   date_added = models.DateTimeField('Date Added', auto_now_add=True)
   date_modified = models.DateTimeField('Date Modified', auto_now=True)
 
-  def __str__(self):
-    return self.name
-
-  ### Prof. Bonus
+  ''' Prof. Bonus '''
   def get_proficiency_bonus(self, level):
     for c in General.CharacterAdvancement.LIST:
       if level == c['level']:
@@ -367,7 +363,7 @@ class Character(models.Model):
   def proficiency_bonus(self):
     return self.get_proficiency_bonus(self.level)
 
-  ### Ability Modifiers
+  ''' Ability Modifiers '''
   def ability_mod(self, score):
     for a in General.AbilityModifier.LIST:
       if score in a['score']:
@@ -391,14 +387,17 @@ class Character(models.Model):
   def charisma_mod(self):
     return self.ability_mod(self.charisma)
 
-  ### Hit Points
+  ''' Hit Points '''
   def hit_points(self):
     hp = self.level * (self.constitution_mod() + (self.cclass.hit_die/2) + 1)
     return int(hp)
 
-  ### Meta
+  ''' Meta '''
   class Meta:
     ordering = ["name"]
+
+  def __str__(self):
+    return self.name
 
 
 

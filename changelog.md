@@ -10,8 +10,11 @@
   + `proficiency_bonus`, `ability_mod`, `hit_points` functions to Character model
   + Character Advancement to rules module
   + Concept art, avatars, char. sheet graphics to assets
-  + Character sheet view
-  + Shield to model
+  + Character sheet to views
+  + Shield to models
+- SMB (Homebrew engine)
+  + Mech, MechClass to models
+  + Index, dossier to views
 
 ### Changed
 

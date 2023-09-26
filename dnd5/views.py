@@ -14,7 +14,7 @@ from .rules import Arcane, Combat, Equipment, General
 from PIL import Image
 
 
-# Main
+# D&D5 Main
 def index(request):
   latest_characters = Character.objects.order_by('-date_modified')[:5]
   latest_classes = Cclass.objects.order_by('-date_added')[:5]
