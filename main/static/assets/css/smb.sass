@@ -1,0 +1,57 @@
+// SMB
+
+$docWidth: 30.0rem
+
+#smb
+  #dossier
+    width: $docWidth
+    display: inline-grid
+    #mechName, #hull, #hitDie
+      border-bottom: $default-border
+      padding: $half-block 0
+    // #hdr
+    //   margin: $half-block 0 $half-block 0
+    //   display: inline-flex
+    //   justify-content: space-between
+    //   align-items: flex-start
+    #hitDie
+      width: 100%
+      display: inline-flex
+      flex-direction: row
+      flex-wrap: nowrap
+      gap: $block*2
+      justify-content: space-evenly
+      .ability
+        display: grid
+        justify-items: center
+    #hull
+      display: inline-grid
+      grid-template-columns: 1fr 1fr
+      #hullMeter
+        display: inline-grid
+        grid-template-columns: 5.0rem 1fr
+        .meter
+          align-items: center
+      #hullPoints
+        text-align: right
+        align-self: center
+    #mechName
+      font-size: 2.4rem
+      font-weight: 500
+    .meter
+      width: 8.0rem
+      display: inline-flex
+      flex-wrap: wrap
+      gap: 0.4rem
+      .tick
+        height: 0.4rem
+        width: 0.4rem
+        background-color: black
+    .tokens
+      display: inline-flex
+      flex-wrap: wrap
+      gap: $half-block
+      float: right
+      img
+        width: 2.4rem
+        height: auto

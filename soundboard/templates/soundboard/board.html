@@ -1,0 +1,106 @@
+{% extends "pyrps/base.html" %}
+
+{% load soundboard %}
+
+{% block title %}{% engine_title %}{% endblock %}
+
+{% block content %}
+<div id="soundboard">
+
+<h1>{{ board.name }}</h1>
+
+<div id="board">
+  <div id="sfx">
+    {% for s in sfx %}
+      {% if s.obj %}
+      <div class="sfxTrack">
+        <button class="sfxBtn" 
+          onclick="sfxTrack{{ s.index }}.play();">
+          {{ s.index }}<br>
+          {{ s.obj.name }}
+        </button>
+
+        <input type="hidden" id="sfx{{ s.index }}File" name="sfx{{ s.index }}File" value="{{ s.obj.file.url }}">
+      </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div id="music">
+    {% for m in music %}
+      {% if m.obj %}
+        <div class="musicTrack">
+          <div class="trackControls">
+            <button id="music{{ m.index }}Play"
+              class="play"
+              onclick="musicTrack{{ m.index }}.play();">
+              Play
+            </button>
+
+            <button id="music{{ m.index }}Pause"
+              class="pause" 
+              onclick="musicTrack{{ m.index }}.pause();">
+              Pause
+            </button>
+
+            <button id="music{{ m.index }}Stop"
+              class="stopBtn"
+              onclick="musicTrack{{ m.index }}.stop();">
+              Stop<br>
+            </button>
+
+            <span id="music{{ m.index }}Display"></span>
+          </div>
+
+          <div class="trackInfo">
+            <div>{{ m.obj.name }}</div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  {% for s in sfx %}{% if s.obj %}
+  var sfxTrack{{ s.index }} = new Howl({
+      src: ["{{ s.obj.file.url }}"],
+      autoplay: false,
+      onplay: function () {
+        console.log('SFX ', '{{ s.obj.name }}');
+      }
+  });
+  {% endif %}{% endfor %}
+
+  {% for m in music %}{% if m.obj %}
+  var musicTrack{{ m.index }} = new Howl({
+      src: ["{{ m.obj.file.url }}"],
+      autoplay: false,
+      onpause: function() {
+        document.getElementById('music{{ m.index }}Play').style.display = 'inline';
+        document.getElementById('music{{ m.index }}Pause').style.display = 'none';
+        document.getElementById('music{{ m.index }}Display').innerHTML = 'Paused';
+        console.log(musicTrack{{ m.index }}.seek())
+      },
+      onplay: function() {
+        document.getElementById('music{{ m.index }}Play').style.display = 'none';
+        document.getElementById('music{{ m.index }}Pause').style.display = 'inline';
+        document.getElementById('music{{ m.index }}Display').innerHTML = 'Playing';
+      },
+      onstop: function(){
+        document.getElementById('music{{ m.index }}Play').style.display = 'inline';
+        document.getElementById('music{{ m.index }}Pause').style.display = 'none';
+        document.getElementById('music{{ m.index }}Display').innerHTML = '';
+        musicTrack{{ m.index }}.rate(1);
+      }
+  });
+  {% endif %}{% endfor %}
+
+</script>
+
+</div>
+{% endblock %}
+
+{% block sidebar %}
+{% include 'smb/sidebar_default.html' %}
+{% endblock %}

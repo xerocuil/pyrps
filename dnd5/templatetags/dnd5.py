@@ -3,6 +3,7 @@ import sys
 from django import template
 from django.template.defaultfilters import stringfilter
 from django.conf import settings
+from dnd5.apps import Dnd5Config
 
 # Add parent directory to path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -14,8 +15,7 @@ register = template.Library()
 # Engine title
 @register.simple_tag
 def engine_title():
-  engine_title = 'D&D: 5th Edition'
-  return engine_title
+  return Dnd5Config.verbose_name
 
 # Ability Modifier
 @register.simple_tag

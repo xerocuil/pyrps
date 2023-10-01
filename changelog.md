@@ -5,6 +5,7 @@
 ### Added
 
 - Design document
+- Utils library
 - D&D5
   + Test modules for urls, views
   + `proficiency_bonus`, `ability_mod`, `hit_points` functions to Character model
@@ -15,6 +16,7 @@
 - SMB (Homebrew engine)
   + Mech, MechClass to models
   + Index, dossier to views
+  + Ability Score to rules
 
 ### Changed
 

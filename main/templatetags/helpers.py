@@ -1,13 +1,12 @@
 from django import template
 from django.template.defaultfilters import stringfilter
-from django.conf import settings
+from main.apps import MainConfig
 
 register = template.Library()
 
 @register.simple_tag
 def app_title():
-  app_title = settings.APP_TITLE
-  return app_title
+  return MainConfig.verbose_name
 
 @register.simple_tag
 def default_avatar_url():

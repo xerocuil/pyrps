@@ -5,29 +5,33 @@
 {% block title %}{% engine_title %}{% endblock %}
 
 {% block content %}
-
-<section>
+<div id="smb">
+<div id="home">
   <h1>{% engine_title %}</h1>
 
-  <div id="home">
-    <h2>Characters</h2>
-    <table class="list">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Level</th>
-        </tr>
-      </thead>
-      <tbody>
-      {% for m in latest_mechs %}
-        <tr>
-          <td><a href="{% url 'smb:dossier' m.mech_id %}">{{ m.name }}</a></td>
-          <td>{{ m.rank }}</td>
-        </tr>
-      {% endfor %}
-      </tbody>
-    </table>
-  </div>
-</section>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Rank</th>
+        <th>Class</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for m in latest_mechs %}
+      <tr>
+        <td><a href="{% url 'smb:dossier' m.mech_id %}">{{ m.name }}</a></td>
+        <td>{{ m.rank }}</td>
+        <td>{{ m.mech_class }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
 
+</div>
+{% endblock %}
+
+{% block sidebar %}
+{% include 'smb/sidebar_default.html' %}
 {% endblock %}

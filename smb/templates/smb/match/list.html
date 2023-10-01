@@ -1,0 +1,15 @@
+{% extends "pyrps/base.html" %}
+{% load smb helpers static %}
+{% block title %}{{ mech.name }}{% endblock %}
+{% block content %}
+<div id="smb">
+  {% for m in matches %}
+    <p><a href="{% url 'smb:arena' m.id %}">{{ m.name }}</a></p>
+    <ul>
+      {% for mech in m.mechs.all %}
+        <li>{{ mech }}</li>
+      {% endfor %}
+    </ul>
+  {% endfor %}
+</div>
+{% endblock %}

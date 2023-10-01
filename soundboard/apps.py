@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 
 
-class MainConfig(AppConfig):
+class SoundboardConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'main'
-    verbose_name = 'PyRPS'
+    name = 'soundboard'
+    verbose_name = 'Soundboard'

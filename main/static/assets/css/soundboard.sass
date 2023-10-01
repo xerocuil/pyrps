@@ -1,0 +1,31 @@
+#board
+  $sfxBox: 9.6rem
+  display: inline-flex
+  flex-direction: row
+  justify-content: space-between
+  // grid-template-columns: 3fr 1fr
+  gap: $block*2
+  #sfx
+    display: inline-grid
+    grid-template-columns: 1fr 1fr 1fr 1fr
+    gap: $block*2
+    .sfxTrack
+      width: $sfxBox
+      height: $sfxBox
+      border: $default-border
+      button.sfxBtn
+        width: $sfxBox
+        height: 7.2rem
+  #music
+    display: grid
+    gap: $block
+    .musicTrack
+      width: 25.6rem
+      border: $default-border
+      button.pause
+        display: none
+      button.play
+        background-color: white
+
+    
+
