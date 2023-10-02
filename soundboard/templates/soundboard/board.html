@@ -1,6 +1,6 @@
 {% extends "pyrps/base.html" %}
 
-{% load soundboard %}
+{% load soundboard static %}
 
 {% block title %}{% engine_title %}{% endblock %}
 
@@ -16,9 +16,14 @@
       <div class="sfxTrack">
         <button class="sfxBtn" 
           onclick="sfxTrack{{ s.index }}.play();">
-          {{ s.index }}<br>
+          <div id="sfx{{ s.index }}Display" class="sfxWave">
+            <img class="waveIcon" src="{% static '/assets/img/sound.gif' %}">
+          </div>
+
           {{ s.obj.name }}
         </button>
+
+        
 
         <input type="hidden" id="sfx{{ s.index }}File" name="sfx{{ s.index }}File" value="{{ s.obj.file.url }}">
       </div>
@@ -30,31 +35,53 @@
     {% for m in music %}
       {% if m.obj %}
         <div class="musicTrack">
-          <div class="trackControls">
-            <button id="music{{ m.index }}Play"
-              class="play"
-              onclick="musicTrack{{ m.index }}.play();">
-              Play
-            </button>
-
-            <button id="music{{ m.index }}Pause"
-              class="pause" 
-              onclick="musicTrack{{ m.index }}.pause();">
-              Pause
-            </button>
-
-            <button id="music{{ m.index }}Stop"
-              class="stopBtn"
-              onclick="musicTrack{{ m.index }}.stop();">
-              Stop<br>
-            </button>
-
-            <span id="music{{ m.index }}Display"></span>
-          </div>
-
           <div class="trackInfo">
             <div>{{ m.obj.name }}</div>
           </div>
+          <div class="trackControls">
+            <div class="tc1">
+              <button id="music{{ m.index }}Play"
+                class="play"
+                onclick="playback(musicTrack{{ m.index }}, 'play');">
+              </button>
+
+              <button id="music{{ m.index }}Pause"
+                class="pause" 
+                onclick="playback(musicTrack{{ m.index }}, 'pause');">
+              </button>
+
+              <button id="music{{ m.index }}Stop"
+                class="stop"
+                onclick="playback(musicTrack{{ m.index }}, 'stop');">
+              </button>
+            </div>
+
+            <div class="tc2">
+              <button id="music{{ m.index }}VolDown"
+                class="volDown"
+                onclick="volumeAdjust(musicTrack{{ m.index }} ,'d');">
+              </button>
+
+              <div class="vol"></div>
+
+              <button id="music{{ m.index }}VolUp"
+                class="volUp"
+                onclick="volumeAdjust(musicTrack{{ m.index }} ,'u');">
+              </button>
+            </div>
+
+            <div class="tc3">
+              <div id="music{{ m.index }}Display">
+                <div id="music{{ m.index }}Playing" class="trackPlaying">
+                   <img src="{% static '/assets/img/sound.gif' %}">
+                </div>
+
+                <div id="music{{ m.index }}Paused" class="trackPaused">Paused</div>
+              </div>
+            </div>
+          </div>
+
+          
         </div>
       {% endif %}
     {% endfor %}
@@ -62,39 +89,126 @@
 </div>
 
 <script>
+  // Create object id for each sfx
   {% for s in sfx %}{% if s.obj %}
   var sfxTrack{{ s.index }} = new Howl({
-      src: ["{{ s.obj.file.url }}"],
-      autoplay: false,
-      onplay: function () {
-        console.log('SFX ', '{{ s.obj.name }}');
-      }
+    src: ["{{ s.obj.file.url }}"],
+    onplay: function () {
+      document.getElementById('sfx{{ s.index }}Display').style.display = 'inline';
+    },
+    onend: function () {
+      document.getElementById('sfx{{ s.index }}Display').style.display = 'none';
+    }
   });
   {% endif %}{% endfor %}
 
+  // Create object id for each track
   {% for m in music %}{% if m.obj %}
   var musicTrack{{ m.index }} = new Howl({
-      src: ["{{ m.obj.file.url }}"],
-      autoplay: false,
-      onpause: function() {
-        document.getElementById('music{{ m.index }}Play').style.display = 'inline';
-        document.getElementById('music{{ m.index }}Pause').style.display = 'none';
-        document.getElementById('music{{ m.index }}Display').innerHTML = 'Paused';
-        console.log(musicTrack{{ m.index }}.seek())
-      },
-      onplay: function() {
-        document.getElementById('music{{ m.index }}Play').style.display = 'none';
-        document.getElementById('music{{ m.index }}Pause').style.display = 'inline';
-        document.getElementById('music{{ m.index }}Display').innerHTML = 'Playing';
-      },
-      onstop: function(){
-        document.getElementById('music{{ m.index }}Play').style.display = 'inline';
-        document.getElementById('music{{ m.index }}Pause').style.display = 'none';
-        document.getElementById('music{{ m.index }}Display').innerHTML = '';
-        musicTrack{{ m.index }}.rate(1);
-      }
+    src: ["{{ m.obj.file.url }}"]
   });
+  musicTrack{{ m.index }}.name = "{{ m.obj.name }}"
+  musicTrack{{ m.index }}.index = "{{ m.index }}"
   {% endif %}{% endfor %}
+
+  // Fade out music track
+  function fadeOut(sound) {
+    var getVol = getVolLevel(sound);
+    sound.fade(getVol, 0, 1200);
+    // Wait for track to fade then stop track and reset volume level
+    setTimeout(function(){
+      sound.stop();
+      sound.volume(getVol);
+    }, 2200);
+  }
+
+  // Get current volume level
+  function getVolLevel(sound) {
+    return sound.volume()
+  }
+
+  // Play Control
+  function playback(sound, opt){
+    if (opt == 'play'){
+      togglePause(sound, 'inline');
+      togglePlay(sound, 'none');
+      toggleDisplay(sound, opt);
+      sound.play()
+    } else if (opt == 'pause'){
+      togglePause(sound, 'none');
+      togglePlay(sound, 'inline');
+      toggleDisplay(sound, opt);
+      sound.pause()
+    } else if (opt == 'stop'){
+      togglePause(sound, 'none');
+      togglePlay(sound, 'inline');
+      toggleDisplay(sound, opt);
+      fadeOut(sound);
+      
+    }
+  }
+
+
+  // function togglePlayBtn(sound, opt){
+  //   if (opt == 'play'){
+  //     document.getElementById('music'+sound.index+'Play').style.display = 'none';
+  //     document.getElementById('music'+sound.index+'Pause').style.display = 'inline';
+  //   } else {
+  //     document.getElementById('music'+sound.index+'Play').style.display = 'inline';
+      
+  //   }
+  // }
+
+  function togglePause(sound, display) {
+    document.getElementById('music'+sound.index+'Pause').style.display = display;
+  }
+
+  function togglePlay(sound, display) {
+    document.getElementById('music'+sound.index+'Play').style.display = display;
+  }
+
+  function togglePlaying(sound, display) {
+    document.getElementById('music'+sound.index+'Playing').style.display = display;
+  }
+
+  function togglePaused(sound, display) {
+    document.getElementById('music'+sound.index+'Paused').style.display = display;
+  }
+
+  function toggleDisplay(sound, opt) {
+    if (opt == 'play'){
+      togglePaused(sound, 'none');
+      togglePlaying(sound, 'inline');
+      sound.play()
+    } else if (opt == 'pause'){
+      togglePaused(sound, 'inline');
+      togglePlaying(sound, 'none');
+      sound.pause()
+    } else if (opt == 'stop'){
+      togglePaused(sound, 'none');
+      togglePlaying(sound, 'none');
+      fadeOut(sound);
+    }
+  }
+
+  // Adjust volume level
+  function volumeAdjust(sound, opt) {
+    stepDec = 0.2
+    var getVol = getVolLevel(sound)
+    if (opt == 'u') {
+      var step = getVol+stepDec
+    } else if (opt == 'd') {
+      var step = getVol-stepDec
+    }
+    var step = Math.round(step*100)/100
+    if (step < 0) {
+      step = 0
+    } else if (step > 1) {
+      step = 1
+    }
+    sound.volume(step)
+    console.log(sound.name +' volume:', getVolLevel(sound))
+  }
 
 </script>
 

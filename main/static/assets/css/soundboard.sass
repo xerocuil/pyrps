@@ -1,31 +1,94 @@
 #board
   $sfxBox: 9.6rem
+  width: 100%
   display: inline-flex
   flex-direction: row
   justify-content: space-between
   // grid-template-columns: 3fr 1fr
-  gap: $block*2
+  gap: $block*6
   #sfx
     display: inline-grid
+    align-content: start
     grid-template-columns: 1fr 1fr 1fr 1fr
-    gap: $block*2
+    column-gap: $block*2
+    row-gap: 0
     .sfxTrack
+      display: grid
+      gap: $half-block
       width: $sfxBox
       height: $sfxBox
-      border: $default-border
       button.sfxBtn
         width: $sfxBox
         height: 7.2rem
+        position: relative
+      .sfxWave
+        width: 100%
+        height: 3.2rem
+        position: absolute
+        top: $half-block
+        bottom: 0
+        left: 0
+        right: 0
+        margin: auto auto
+        display: none
+        img.waveIcon
+          width: 60%
+          height: 1.6rem
+          text-align: center
   #music
+    width: 100%
     display: grid
     gap: $block
     .musicTrack
-      width: 25.6rem
-      border: $default-border
-      button.pause
-        display: none
-      button.play
-        background-color: white
-
-    
-
+      border-top: $default-border
+      border-bottom: $default-border
+      margin: 0 0 $half-block 0
+      .trackInfo
+        padding: $half-block 0
+      .trackControls
+        padding: $half-block 0
+        display: inline-flex
+        flex-flow: row nowrap
+        gap: 0 $block*2
+        .tc1, .tc2, .tc3
+          display: inline-flex
+          align-items: center
+        .tc3
+          width: $block*8
+          height: $block*2
+          .trackPaused
+            display: none
+          .trackPlaying
+            width: $block*8
+            height: $block*2
+            display: none
+            img
+              width: $block*4
+              height: $block
+        button
+          width: $block*2
+          height: $block*2
+          background-position: center
+          background-repeat: no-repeat
+          background-size: 2.4rem 2.4rem
+        button.pause
+          display: none
+          background-image: url('/static/assets/img/icons/pause.svg')
+        button.play
+          background-image: url('/static/assets/img/icons/play.svg')
+        button.stop
+          background-image: url('/static/assets/img/icons/stop.svg')
+        button.volDown
+          width: 2.4rem
+          height: 2.4rem
+          background-image: url('/static/assets/img/icons/minus.svg')
+          background-size: 1.6rem 1.6rem
+        button.volUp
+          width: 2.4rem
+          height: 2.4rem
+          background-image: url('/static/assets/img/icons/plus.svg')
+          background-size: 1.6rem 1.6rem
+        .vol
+          width: $block*2
+          height: $block*2
+          background-image: url('/static/assets/img/icons/vol.svg')
