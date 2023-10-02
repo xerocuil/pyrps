@@ -5,6 +5,7 @@
 // Palette: Greybande /Retrotronic
 $alto: rgb(221, 221, 221)
 $silver: rgb(187, 187, 187)
+$silver-sheer: rgba(187, 187, 187, 0.5)
 $boulder: rgb(120, 120, 120)
 $tundora: rgb(68, 68, 68)
 $mineshaft: rgb(34, 34, 34)
@@ -28,6 +29,7 @@ html
 body
   font-size: 1.2rem
   font-family: sans-serif
+  background-color: $alto
 
 a
   color: $bismark
@@ -86,9 +88,6 @@ h6
 hr
   border-top: $default-border
   border-top: 0px solid
-
-// header > *
-//   padding: math.div($block, 2) $block
 
 header
   width: $default-page-width
@@ -177,6 +176,7 @@ ul.alerts
 
   #page, #sidebar
     padding: $block
+    background-color: white
 
   #page
     border: 1px solid $silver
@@ -291,5 +291,3 @@ img.thumbnail
 .formContainer .btn:hover,
 .openButton:hover
   opacity: 1
-
-

@@ -17,6 +17,10 @@
   + Mech, MechClass to models
   + Index, dossier to views
   + Ability Score to rules
+- Soundboard
+  + Music, Sfx to model
+  + Index, board to views
+  + Music playback control to board
 
 ### Changed
 

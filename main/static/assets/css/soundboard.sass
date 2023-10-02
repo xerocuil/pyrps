@@ -1,36 +1,40 @@
 #board
+  $roundBorder: 0.4rem
   $sfxBox: 9.6rem
   width: 100%
   display: inline-flex
   flex-direction: row
   justify-content: space-between
-  // grid-template-columns: 3fr 1fr
-  gap: $block*6
   #sfx
     display: inline-grid
     align-content: start
     grid-template-columns: 1fr 1fr 1fr 1fr
-    column-gap: $block*2
-    row-gap: 0
+    gap: $block*2
     .sfxTrack
       display: grid
       gap: $half-block
-      width: $sfxBox
-      height: $sfxBox
       button.sfxBtn
         width: $sfxBox
-        height: 7.2rem
+        height: $sfxBox
+        position: relative
+        background-color: $boulder
+      .sfxName
+        z-index: 100
+        color: $alto
+        font-size: 1.4rem
+        font-weight: 600
         position: relative
       .sfxWave
         width: 100%
         height: 3.2rem
         position: absolute
-        top: $half-block
+        top: $block
         bottom: 0
         left: 0
         right: 0
         margin: auto auto
         display: none
+        z-index: 1
         img.waveIcon
           width: 60%
           height: 1.6rem
@@ -43,23 +47,38 @@
       border-top: $default-border
       border-bottom: $default-border
       margin: 0 0 $half-block 0
-      .trackInfo
+      .trackInfo, .trackControls
         padding: $half-block 0
       .trackControls
-        padding: $half-block 0
         display: inline-flex
         flex-flow: row nowrap
         gap: 0 $block*2
         .tc1, .tc2, .tc3
           display: inline-flex
           align-items: center
-        .tc3
-          width: $block*8
+        .tc1
+          gap: 0 $half-block
+        .meter
+          margin-left: $block
           height: $block*2
+          width: 1.2rem
+          background-color: $silver-sheer
+          border-radius: $roundBorder
+          position: relative
+          display: block
+        .level
+          width: 100%
+          height: 100%
+          background-color: $silver
+          border-radius: $roundBorder
+          position: absolute
+          bottom: 0
+        .tc3
+          width: $block*4
           .trackPaused
             display: none
           .trackPlaying
-            width: $block*8
+            width: $block*10
             height: $block*2
             display: none
             img
@@ -73,22 +92,22 @@
           background-size: 2.4rem 2.4rem
         button.pause
           display: none
-          background-image: url('/static/assets/img/icons/pause.svg')
+          background-image: url('/static/soundboard/controls/pause.svg')
         button.play
-          background-image: url('/static/assets/img/icons/play.svg')
+          background-image: url('/static/soundboard/controls/play.svg')
         button.stop
-          background-image: url('/static/assets/img/icons/stop.svg')
+          background-image: url('/static/soundboard/controls/stop.svg')
         button.volDown
           width: 2.4rem
           height: 2.4rem
-          background-image: url('/static/assets/img/icons/minus.svg')
+          background-image: url('/static/soundboard/controls/minus.svg')
           background-size: 1.6rem 1.6rem
         button.volUp
           width: 2.4rem
           height: 2.4rem
-          background-image: url('/static/assets/img/icons/plus.svg')
+          background-image: url('/static/soundboard/controls/plus.svg')
           background-size: 1.6rem 1.6rem
         .vol
           width: $block*2
           height: $block*2
-          background-image: url('/static/assets/img/icons/vol.svg')
+          background-image: url('/static/soundboard/controls/vol.svg')
