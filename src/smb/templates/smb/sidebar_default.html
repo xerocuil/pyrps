@@ -1,0 +1,13 @@
+{% load smb static %}
+<div id="sidebar">
+
+<div id="sidebar-header">
+  <div><img id="sidebar-logo" src="{% static 'smb/logo.svg' %}"></div>
+  <div class="right">{% engine_title %}</div>
+</div>
+<hr>
+<ul>
+  <li><a href="{% url 'smb:list_matches' %}">Matches</a></li>
+</ul>
+
+</div>

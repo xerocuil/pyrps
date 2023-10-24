@@ -1,0 +1,200 @@
+{% extends "main/base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<!-- <div id="article-header">
+  <div id="article-title">
+    <h1>HOME</h1>
+  </div>
+
+  <div id="article-links">
+    
+  </div>
+</div> -->
+
+<div id="main">
+  {% if 'dnd5' in apps %}
+    <div id="dnd5">
+      <h2>D&D 5</h2>
+
+      <h3>Characters</h3>
+      <table>
+        <tbody>
+          {% for c in dnd5_chars %}
+            <tr>
+              <td><a href="{% url 'dnd5:character_sheet' c.charid %}">{{ c.name }}</a></td>
+              <td>LVL {{ c.level }}</td>
+              <td>{{ c.cclass }}</td>
+            </tr>
+          {% endfor %}
+
+          {% if dnd5_chars_count > 5 %}
+            <tr>
+              <td>
+                <a href="{% url 'dnd5:list_characters' %}">More >></a>
+              </td>
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+
+  {% if 'smb' in apps %}
+    <div id="dnd5">
+      <h2>SMB</h2>
+
+      <h3>Mechs</h3>
+      <table>
+        <tbody>
+          {% for m in smb_mechs %}
+            <tr>
+              <td>{{ m.name }}</td>
+              <td>LVL {{ m.rank }}</td>
+              <td>{{ m.mech_class }}</td>
+            </tr>
+          {% endfor %}
+
+          {% if smb_mechs_count > 5 %}
+            <tr>
+              <td></td>
+              <td>
+                <a href="">More >></a>
+              </td>
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+
+      <h3>Matches</h3>
+      <table>
+        <tbody>
+          {% for m in smb_matches %}
+            <tr>
+              <td>
+                <a href="{% url 'smb:arena' m.id %}">{{ m.name }}</a>
+              </td>
+
+              <td>
+                {{ m.date_modified | date:'Y-m-d' }}                
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+</div>  
+
+<h2>Sound Library</h2>
+<div id="sound-library">
+  <div>
+    <h3>Boards</h3>
+    <table>
+      {% for b in boards %}
+        <tr>
+          <td>
+            <a href="{% url 'soundboard:board' b.id 'default' %}">{{ b.name }}</a>
+          </td>
+
+          <td>{{ b.sfx.all.count }} effects, {{ b.music.all.count }} songs</td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  <div>
+  <h3>Music</h3>
+  <table>
+    <tbody>
+      {% for m in music %}
+        <tr>
+          <td id="name{{ m.id }}">
+            <a href="{% url 'soundboard:view_track' m.id %}">{{ m.name }}</a>
+          </td>
+          <td>
+            <span id="play{{ m.id }}" style="display: inline;">
+              <button class="playback play" onclick="musicTrack{{ m.id }}.play()" ></button>
+            </span>
+
+            <span id="stop{{ m.id }}" style="display: none;">
+              <button class="playback stop" onclick="musicTrack{{ m.id }}.stop()" ></button>
+            </span>
+          </td>
+        </tr>
+      {% endfor %}
+
+      {% if music_count > 5 %}
+        <tr>
+          <td>
+            <a href="{% url 'soundboard:list_music' %}">More >></a>
+          </td>
+        </tr>
+      {% endif %}
+    </tbody>
+  </table>
+  </div>
+
+  <div>
+    <h3>SFX</h3>
+    <table>
+      <tbody>
+        {% for s in sfx %}
+          <tr>
+            <td>
+              <a href="">{{ s.name }}</a>
+            </td>
+
+            <td>
+              <span id="sfx{{ m.id }}">
+                <button class="playback play" onclick="sfxTrack{{ s.id }}.play()" ></button>
+              </span>
+            </td>
+          </tr>
+        {% endfor %}
+
+        {% if sfx_count > 5 %}
+        <tr>
+          <td>
+            <a href="#">More >></a>
+          </td>
+        </tr>
+      {% endif %}
+      </tbody>
+    </table>
+  </div>
+
+  <script type="text/javascript">
+    // Music script loop
+    // Create object for each music track
+    {% for m in music %}
+      var musicTrack{{ m.id }} = new Howl({
+        src: ["{{ m.file.url }}"],
+        onend: function() {
+          togglePlayButton(musicTrack{{ m.id }}, 'stop');
+        },
+        onplay: function() {
+          togglePlayButton(musicTrack{{ m.id }}, 'play');
+          // document.getElementById('play'+sound.id).style.display = 'none';
+        },
+        onstop: function() {
+          togglePlayButton(musicTrack{{ m.id }}, 'stop');
+        }
+      });
+      musicTrack{{ m.id }}.name = "{{ m.name }}"
+      musicTrack{{ m.id }}.id = "{{ m.id }}"
+    {% endfor %}
+
+    function togglePlayButton(sound, toggle){
+      if (toggle == 'play'){
+        document.getElementById('play'+sound.id).style.display = 'none';
+        document.getElementById('stop'+sound.id).style.display = 'inline';
+      } else if (toggle == 'stop'){
+        document.getElementById('play'+sound.id).style.display = 'inline';
+        document.getElementById('stop'+sound.id).style.display = 'none';
+      }
+    }
+  </script>
+</div>
+{% endblock %}

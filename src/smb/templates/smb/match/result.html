@@ -1,0 +1,16 @@
+{% extends "main/base.html" %}
+{% load smb static %}
+{% block title %}Select Mech{% endblock %}
+{% block content %}
+<div id="smb">
+  <div>
+    <p>{{ attacker.name }}</p>
+    <p>{{ attacker.hull_points }}</p>
+  </div>
+
+  <div>
+    <p>{{ defender.name }}</p>
+    <p>{{ defender.hull_points }}</p>
+  </div>
+</div>
+{% endblock %}

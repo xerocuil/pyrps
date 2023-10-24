@@ -1,0 +1,128 @@
+{% extends "main/base.html" %}
+{% load smb static %}
+{% block title %}{{ mech.name }}{% endblock %}
+{% block content %}  
+<div id="smb">
+
+<div id="dossier">
+  <div id="mechName">{{ mech.name }}</div>
+  <table>
+    <tbody>
+      <tr>
+        <td><label>Rank</label></td>
+        <td>{{ mech.rank }}</td>
+        <td><label>Class</label></td>
+        <td>{{ mech.mech_class }}</td>
+      </tr>
+
+      <tr>
+        <td><label>Hull</label></td>
+        <td>
+          <div class="meter">
+            {% for r in mech.hull_range %}
+              <div class="tick"></div>
+            {% endfor %}
+          </div>
+            </td>
+        <td><label>HP</label></td>
+        <td>{{ mech.max_hit_points }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+<!--   <section id="hdr">
+    <div>
+      <label>RANK</label>
+      {{ mech.rank }}
+    </div>
+
+    <div>
+      <label>CLASS</label>
+      {{ mech.mech_class }}
+    </div>
+  </section> -->
+
+
+<!--   <section id="hull">
+    <div id="hullMeter">
+      <label>HULL</label>
+      <div class="meter">
+        {% for r in mech.hull_range %}
+          <div class="tick"></div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div id="hullPoints">
+      <label>HP</label>
+      {{ mech.max_hit_points }}
+    </div>
+  </section> -->
+
+  <section id="hitDie">
+    <div class="ability">
+      <label>STR</label>
+      <div>
+        <img src="{% static 'assets/img/dice/'|add:mech.strength_hit_die|add:'.svg' %}">
+      </div>
+      <label>{{ mech.total_strength }}</label>
+    </div>
+
+    <div class="ability">
+      <label>DEF</label>
+      <div>
+        <img src="{% static 'assets/img/dice/'|add:mech.defense_hit_die|add:'.svg' %}">
+      </div>
+      <label>{{ mech.total_defense }}</label>
+    </div>
+
+    <div class="ability">
+      <label>DEX</label>
+      <div>
+        <img src="{% static 'assets/img/dice/'|add:mech.dexterity_hit_die|add:'.svg' %}">
+      </div>
+      <label>{{ mech.total_dexterity }}</label>
+    </div>
+  </section>
+
+  <section>
+    <table>
+      <tbody>
+        <tr>
+          <td><label>Repair</label></td>
+          <td class="tokens">
+          {% if mech.stock_repair_kits > 0 %}
+            {% for r in mech.repair_kit_range %}
+              <img src="/static/smb/repair_kit.svg">
+            {% endfor %}
+          {% endif %}
+          </td>
+        </tr>
+
+        <tr>
+          <td><label>Shields</label></td>
+          <td class="tokens">
+          {% if mech.stock_shields > 0 %}
+            {% for r in mech.shields_range %}
+              <img src="/static/smb/shield.svg">
+            {% endfor %}
+          {% endif %}
+          </td>
+        </tr>
+
+        <tr>
+          <td><label>Skill</label></td>
+          <td class="tokens">
+          {% if mech.stock_skill_points > 0 %}
+            {% for r in mech.skill_points_range %}
+              <img src="/static/smb/skill_point.svg">
+            {% endfor %}
+          {% endif %}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>
+{% endblock %}

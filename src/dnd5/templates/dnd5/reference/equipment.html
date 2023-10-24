@@ -1,0 +1,86 @@
+{% extends "main/base.html" %}
+
+{% load dnd5 static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+
+<h1>{{ page_title }}</h1>
+<article>
+  <section>
+    <h2>Equipment Categories</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {% for e in equipment_categories %}
+        <tr>
+          <td>{{ e.name }}</td>
+          <td><p>{{ e.description | safe }}</p></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</article>
+
+<h2>Armor Properties</h2>
+<article class="layout3-1">
+  <section>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {% for a in armor_properties %}
+        <tr>
+          <td>{{ a.name }}</td>
+          <td><p>{{ a.description | safe }}</p></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  <section>
+    <img class="banner" src="{% static 'dnd5/img/armor00.jpg' %}" alt="Concept art" title="Armor">
+  </section>
+</article>
+
+<article>
+  <section>
+    <h2>Weapon Properties</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {% for w in weapon_properties %}
+        <tr>
+          <td>{{ w.name }}</td>
+          <td><p>{{ w.description | safe }}</p></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</article>
+
+{% endblock %}
+
+{% block sidebar %}
+  {% include 'dnd5/sidebar.html' %}
+{% endblock %}

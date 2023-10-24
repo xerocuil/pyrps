@@ -1,0 +1,10 @@
+{% extends "main/base.html" %}
+{% load smb static %}
+{% block title %}Select Mech{% endblock %}
+{% block content %}
+<div id="smb">
+  {% for m in mechs %}
+    <p><a href="{% url 'smb:melee_attack_result' attacker.mech_id m.mech_id  %}">{{ m.name }}</a></p>
+  {% endfor %}
+</div>
+{% endblock %}

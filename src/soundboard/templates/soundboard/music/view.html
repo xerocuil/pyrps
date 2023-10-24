@@ -1,0 +1,162 @@
+{% extends "main/base.html" %}
+
+{% load soundboard static %}
+
+{% block title %}{{ music.name }}{% endblock %}
+
+{% block header %}
+  {% include 'soundboard/header.html' %}
+{% endblock %}
+
+{% block content %}
+<div id="soundboard">
+<!-- Start content block -->
+
+<h2>{{ music.name }}</h2>
+
+<div id="view-track">
+  <div class="inline-buttons">
+    <button id="Play" class="playback play" onclick="musicTrack.play();">
+    </button>
+    
+    <button id="Pause" class="playback pause" onclick="musicTrack.pause();">
+    </button>
+
+    <button id="Stop" class="playback stop" onclick="musicTrack.stop();">
+    </button>
+  </div>
+
+  <div class="inline-buttons">
+    <button id="VolDown" class="volDown" onclick="volumeAdjust(musicTrack ,'d');">
+    </button>
+
+    <div class="vol"></div>
+
+    <button id="VolUp" class="volUp" onclick="volumeAdjust(musicTrack ,'u');">
+    </button>
+    
+    <div id="volMeter" class="meter">
+      <div id="volBar"  class="level"></div>
+    </div>
+  </div>
+
+  <div>
+    <div id="Playing">
+      <img src="{% static 'soundboard/controls/wave.gif' %}">
+    </div>
+
+    <div id="Paused">Paused</div>
+  </div>
+</div>
+
+<div>
+  <p>Duration: <span id="duration">&nbsp;</span></p>
+  <p>Format: {{ music.get_format }}</p>
+  <p>File: {{ music.get_filename }}</p>
+</div>
+
+<script type="text/javascript">
+  pauseButton = document.getElementById('Pause')
+  pauseDiv = document.getElementById('Paused')
+  playButton = document.getElementById('Play')
+  playingDiv = document.getElementById('Playing')
+  var musicTrack = new Howl({
+    src: ["{{ music.file.url }}"],
+    onend: function() {
+      pauseButton.style.display = 'none';
+      pauseDiv.style.display = 'none';
+      playButton.style.display = 'inline';
+      playingDiv.style.display = 'none';
+    },
+    onload: function() {
+      showDuration(musicTrack);
+    },
+    onpause: function() {
+      pauseButton.style.display = 'none';
+      pauseDiv.style.display = 'inline';
+      playButton.style.display = 'inline';
+      playingDiv.style.display = 'none';
+    },
+    onplay: function() {
+      pauseButton.style.display = 'inline';
+      pauseDiv.style.display = 'none';
+      playButton.style.display = 'none';
+      playingDiv.style.display = 'inline-block';
+    },
+    onstop: function() {
+      pauseButton.style.display = 'none';
+      pauseDiv.style.display = 'none';
+      playButton.style.display = 'inline';
+      playingDiv.style.display = 'none';
+    }
+  });
+
+
+  // Get track duration
+  function getDuration() {
+    var duration = Math.round(musicTrack.duration())
+    return duration
+  }
+
+  function hrTime(s) {
+    var duration = Math.round(s)
+    var minutes = Math.floor(duration / 60);
+    var seconds = duration - (minutes*60);
+    var seconds = ('0'+seconds).slice(-2);
+    var time = minutes+':'+seconds
+    return time
+  }
+
+  // Display track duration on load
+  function showDuration(sound) {
+    var duration = getDuration(sound)
+    var time = hrTime(duration)
+    document.getElementById('duration').innerHTML = time
+  }
+
+  // Get current volume level
+  function getVolLevel(sound) {
+    return sound.volume()
+  }
+
+  // Volume Control
+  function volumeAdjust(sound, opt) {
+    stepDec = 0.2
+    var getVol = getVolLevel(sound)
+    if (opt == 'u') {
+      var step = getVol+stepDec
+    } else if (opt == 'd') {
+      var step = getVol-stepDec
+    }
+    var step = Math.round(step*100)/100
+    if (step < 0) {
+      step = 0
+    } else if (step > 1) {
+      step = 1
+    }
+    sound.volume(step)
+    volMeter(sound)
+  }
+
+  function volMeter(sound) {
+    var currentVol = sound._volume
+    currentVol = currentVol*100
+    volPercent = currentVol+'%'
+    document.getElementById('volBar').style.height = volPercent;
+  }
+</script>
+
+<!-- End content end -->
+</div>
+{% endblock %}
+
+{% block sidebar %}
+  <div id="sidebar">
+    <div id="tags">
+      <h3>Tags</h3>
+      {% for t in music.tags.all %}
+        <p>{{ t }}</p>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

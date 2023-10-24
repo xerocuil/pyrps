@@ -1,0 +1,101 @@
+#characters
+  display: flex
+  flex-wrap: wrap
+  gap: $block*2
+  table.char-card
+    width: $card-width
+    border-collapse: collapse
+    tr
+      border: $default-border
+      td, th
+        padding: 0.4rem
+        position: relative
+      td.avatar
+        padding: 0
+        background-color: white
+        img
+          height: 12.8rem
+          width: 12.8rem
+          display: block
+          position: relative
+      th
+        font-weight: 600
+        text-align: left
+      th.name
+        height: 3.2rem
+
+#character-form
+  display: grid
+  row-gap: $block
+  div
+    display: grid
+    grid-template-columns: 1fr 3fr
+    input.integer
+      width: 6.4rem
+
+#csheet
+  #hdr
+    width: 100%
+    display: flex
+    column-gap: $block
+  #main-stats
+    display: inline-flex
+    column-gap: $block
+    #general-stats
+      display: inline-grid
+      row-gap: $half-block
+      align-content: start
+  #combat-stats
+    display: grid
+    grid-template-columns: 1fr 1fr 1fr
+    #armor-class
+      width: 7.0rem
+      height: 8.0rem
+      background-image: url('/static/dnd5/assets/img/armor-class.svg')
+      background-repeat: no-repeat
+      background-size: 7.0rem 8.0rem
+      text-align: center
+      div
+        position: relative
+        top: 1.6rem
+  img.avatar
+    width: 64px
+    height: auto
+  .columns
+    width: 100%
+    display: inline-grid
+    grid-template-columns: 1fr 1fr 1fr
+    gap: $block
+  .ability
+    padding: 0.2rem 0 0 0
+    width: 6.8rem
+    height: 8.0rem
+    display: grid
+    background-image: url('/static/dnd5/assets/img/ability.svg')
+    background-repeat: no-repeat
+    background-size: 6.8rem 8.0rem
+    .ability-name, .ability-modifier, .ability-score
+      text-align: center
+    .ability-modifier
+      font-size: 1.5rem
+      font-weight: 600
+    .ability-name, .ability-score
+      font-size: 1.0rem
+    .ability-name
+      font-weight: 600
+      text-transform: uppercase
+  .stat-field-01, .stat-field-02
+    width: 14.4rem
+    height: 3.6rem
+    display: inline-grid
+    grid-template-columns: 3.6rem 1fr
+    background-repeat: no-repeat
+    background-size: 14.4rem 3.6rem
+    font-size: 1.0rem
+    div
+      text-align: center
+      align-self: center
+  .stat-field-01
+    background-image: url('/static/dnd5/assets/img/stat-field-01.svg')
+  .stat-field-02
+    background-image: url('/static/dnd5/assets/img/stat-field-02.svg')

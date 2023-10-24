@@ -1,0 +1,93 @@
+{% extends "main/base.html" %}
+
+{% load dnd5 %}
+
+{% block title %}{% engine_title %}{% endblock %}
+
+{% block content %}
+
+<section>
+  <h1>{% engine_title %}</h1>
+
+  <div id="home">
+    <div id="latest_characters">
+      <h2>Characters</h2>
+      <table class="list">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Class</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for c in latest_characters %}
+          <tr>
+            <td><a href="{% url 'dnd5:character_sheet' c.charid %}">{{ c.name }}</a></td>
+            <td>LVL {{ c.level }} {{ c.cclass.name }}</td>
+          </tr>
+        {% endfor %}
+          <tr>
+            <td><a href="{% url 'dnd5:list_characters' %}">View All ></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="latest_classes">
+      <h2>Classes</h2>
+      <table class="list">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Primary</th>
+            <th>Saving Throw</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for c in latest_classes %}
+          <tr>
+            <td><a href="{% url 'dnd5:edit_class' c.id %}">{{ c.name }}</a></td>
+            <td>{{ c.primary }}</td>
+            <td>{{ c.stp }}</td>
+            <td>{{ c.source }}</td>
+          </tr>
+        {% endfor %}
+        <tr>
+          <td><a href="{% url 'dnd5:list_classes' %}">View All ></a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="latest_weapons">
+      <h2>Weapons</h2>
+      <table class="list">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Damage</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for c in latest_weapons %}
+          <tr>
+            <td>{{ c.name }}</td>
+            <td>{{ c.get_category_display }}</td>
+            <td>{{ c.damage }}</td>
+            <td>{{ c.source }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block sidebar %}
+  {% include 'dnd5/sidebar.html' %}
+{% endblock %}

@@ -1,0 +1,414 @@
+// Globals
+$card-width: 12.8rem
+$default-border: 0.1rem solid $alto
+$light-border: 0.1rem solid $alto-sheer
+$block: 1.6rem
+$half-block: 0.8rem
+$default-page-width: 96.0rem
+$roundBorder: 0.4rem
+
+html
+  font-size: 62.5%
+
+body
+  font-size: 1.2rem
+  font-family: sans-serif
+  background-color: $alto
+
+a
+  color: $bismark
+  text-decoration: none
+  font-weight: 600
+a:hover
+  color: $chestnut
+
+article#content
+  width: 100%
+
+article
+  // padding: $half-block 0
+  margin-bottom: $block*2
+
+article.layout1-1, article.layout1-3, article.layout3-1
+  display: inline-grid
+  column-gap: $block*2
+
+article.layout1-1
+  grid-template-columns: 1fr 1fr
+
+article.layout3-1
+  grid-template-columns: 3fr 1fr
+
+article.layout1-3
+  grid-template-columns: 1fr 3fr
+
+h1, h2, h3, h4, h5, h6
+  color: $thunder
+  margin: $block 0
+
+h1
+  padding: 0
+  margin: 0
+  font-size: 2.0rem
+  color: white
+  text-transform: uppercase
+h2
+  font-size: 1.8rem
+  text-transform: uppercase
+  border-bottom: $default-border
+
+h3
+  font-size: 1.6rem
+  font-weight: 400
+  text-transform: uppercase
+
+h4
+  font-size: 1.4rem
+  font-weight: 400
+  text-transform: uppercase
+
+h5
+  font-size: 1.4rem
+  font-weight: 200
+  text-transform: uppercase
+
+h6
+  font-size: 1.2rem
+  font-weight: 200
+  text-transform: uppercase
+
+hr
+  border-top: $default-border
+  border-top: 0px solid
+
+header
+  width: 100%
+  margin: $block auto
+  padding: 0
+  display: grid
+  grid-template-columns: 1fr 3fr
+  color: white
+  background-color: $mineshaft
+  background: $mineshaft
+  a
+    color: white
+    font-weight: 600
+    text-decoration: none
+  #site-title
+    display: grid
+    grid-template-columns: 1fr 3fr
+    #site-logo
+      padding: $block 0
+      margin-left: $block
+      height: 24px
+      align-self: center
+      img
+        height: 24px
+        position: relative
+  nav
+    font-size: 1.2rem
+    text-align: right
+    align-self: center
+    ul
+      margin: 0 $block 0 0
+      li
+        display: inline
+        margin: 0 0 0 $block
+
+label
+  font-weight: 600
+  text-transform: uppercase
+
+ 
+p, ul
+  margin: 0 0 $block 0
+
+table
+  width: 100%
+  font-size: 1.2rem
+  border-collapse: collapse
+  tr
+    border-top: $light-border
+    border-bottom: $light-border
+    
+    th, td
+      text-align: left
+      padding: $half-block
+      vertical-align: middle
+    th
+      background-color: $light-border
+      font-weight: 600
+
+ul
+  li
+    margin: $block 0
+    list-style: none
+
+ul.alerts
+  li
+    width: 50%
+    padding: $block
+    margin: $block 0
+    font-size: 1.2rem
+    font-weight: 400
+    border-radius: $half-block
+    
+
+  li.error
+    background-color: $chestnut
+
+  li.success
+    background-color: $sea_nymph
+
+#article-header
+  width: 100%
+  padding: $half-block 0
+  margin: 0 0 $block 0
+  display: inline-flex
+  flex-flow: row nowrap
+  justify-content: space-between
+  align-items: center
+  color: white
+  background-color: $tundora
+  #article-title
+    margin-left: $block
+  #article-links
+    margin-right: $block
+
+#debug
+  padding: $block
+  border-radius: $half-block 0 0 $half-block
+  position: fixed
+  top: $block*4
+  right: 0
+  color: white
+  background-color: rgba(0, 0, 0, 0.5)
+  z-index: 50
+  a
+    color: $alto
+    font-weight: 600
+  a:hover
+    color: $soft_amber
+
+#display
+  width: $default-page-width
+  max-width: 120.0rem
+  margin: 0 auto $block*2 auto
+  display: grid
+
+  #page, #sidebar
+    background-color: white
+
+  #page
+    padding: $block
+    display: inline-flex
+    flex-flow: row nowrap
+    justify-content: space-between
+    border: $default-border
+
+  #sidebar
+    min-width: 12.8rem
+    margin-left: $block
+    padding: $half-block
+    border-left: $default-border
+    #sidebar-logo
+      height: 1.8rem
+      width: auto
+
+#messages
+  margin: 0
+  padding: 0 
+  li
+    margin-left: 0
+    padding: $half-block
+    list-style: none
+    background-color: $alto
+
+
+#main
+  max-height: 76.8rem
+  display: grid
+  grid-template-columns: 1fr 1fr
+  gap: $block*2
+
+#sound-library
+  margin: $block 0
+  width: 100%
+  display: inline-grid
+  // flex-flow: row wrap
+  // align-content: stretch
+  grid-template-columns: 1fr 1fr 1fr
+  justify-content: space-between
+  // align-items: flex-start
+  gap: $block*2
+
+.sectionHeader
+  display: grid
+  grid-template-columns: 1fr 1fr
+  .sectionMenu
+    text-align: right
+    ul
+      li
+        list-style: none
+.board
+  display: flex
+  gap: $block * 2
+.columns
+  display: inline-flex
+.center
+  text-align: center
+.right
+  text-align: right
+.full
+  width: 100%
+.highlight
+  background-color: $highlight
+
+
+// Images
+img.banner, img.figure, img.thumbnail
+  border: $default-border
+  display: inline-block
+img.banner
+  width: 100%
+  height: auto
+img.figure, img.thumbnail
+  display: inline
+  float: left
+  width: auto
+  margin: 0 $block $half-block 0
+img.figure
+  max-height: 512px
+img.icon
+  height: $block*2
+img.small-icon
+  height: $block
+  width: auto
+img.thumbnail
+  max-height: 256px
+  display: inline-block
+  position: relative
+
+
+// Music Playback
+button.playback
+  width: $block*2
+  height: $block*2
+  background-position: center
+  background-repeat: no-repeat
+  background-size: 2.4rem 2.4rem
+button.pause
+  display: none
+  background-image: url('/static/soundboard/controls/pause.svg')
+button.play
+  background-image: url('/static/soundboard/controls/play.svg')
+button.stop
+  background-image: url('/static/soundboard/controls/stop.svg')
+button.volDown
+  width: 2.4rem
+  height: 2.4rem
+  background-image: url('/static/soundboard/controls/minus.svg')
+  background-size: 1.6rem 1.6rem
+button.volUp
+  width: 2.4rem
+  height: 2.4rem
+  background-image: url('/static/soundboard/controls/plus.svg')
+  background-size: 1.6rem 1.6rem
+.vol
+  width: $block*2
+  height: $block*2
+  background-image: url('/static/soundboard/controls/vol.svg')
+.meter
+  margin-left: $block
+  height: $block*2
+  width: 1.2rem
+  background-color: $silver-sheer
+  border-radius: $roundBorder
+  position: relative
+  display: block
+.level
+  width: 100%
+  height: 100%
+  background-color: $silver
+  border-radius: $roundBorder
+  position: absolute
+  bottom: 0
+
+
+/* Modal */
+.modal
+  display: none
+  position: fixed
+  z-index: 1
+  left: 0
+  top: 0
+  width: 100%
+  height: 100%
+  overflow: auto
+  background-color: rgb(0,0,0)
+  background-color: rgba(0,0,0,0.8)
+
+/* Modal Content/Box */
+.modal-content
+  background-color: white
+  margin: $block*2 auto /* 15% from the top and centered */
+  padding: $block
+  border: $default-border
+  width: 70%
+
+/* The Close Button */
+.close
+  color: $tundora
+  float: right
+  font-size: $block*2
+  font-weight: bold
+  line-height: 0
+.close:hover,
+.close:focus
+  color: black
+  text-decoration: none
+  cursor: pointer
+
+
+// Forms (deprecated)
+.loginPopup
+  position: relative
+  text-align: center
+  width: 100%
+.formPopup
+  display: none
+  position: fixed
+  left: 45%
+  top: 5%
+  transform: translate(-50%, 5%)
+  border: 3px solid $boulder
+  z-index: 9
+.formContainer
+  max-width: 300px
+  padding: 20px
+  background-color: white
+.formContainer input[type=text],
+.formContainer input[type=password]
+  width: 100%
+  padding: 15px
+  margin: 5px 0 20px 0
+  border: none
+  background: $alto
+.formContainer input[type=text]:focus,
+.formContainer input[type=password]:focus
+  background-color: $alto
+  outline: none
+.formContainer .btn
+  padding: 12px 20px
+  border: none
+  background-color: $sea_nymph
+  color: white
+  cursor: pointer
+  width: 100%
+  margin-bottom: 15px
+  opacity: 0.8
+.formContainer .cancel
+  background-color: $chestnut
+.formContainer .btn:hover,
+.openButton:hover
+  opacity: 1

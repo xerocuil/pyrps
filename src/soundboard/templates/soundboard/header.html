@@ -1,0 +1,20 @@
+{% load static %}
+<header>
+  <div id="site-title">
+    <span id="site-logo">
+      <a href="{% url 'main:index' %}">
+        <img src="{% static 'assets/img/app-logo.svg' %}">
+      </a>
+    </span>
+  </div>
+
+  <nav>
+    <ul>
+      <li><a href="#">Music</a></li>
+      <li>SFX</li>
+      <li><a href="{% url 'soundboard:index' %}">
+        Boards
+      </a></li>
+    </ul>
+  </nav>
+</header>

@@ -1,0 +1,57 @@
+{% extends "main/base.html" %}
+
+{% load soundboard %}
+
+{% block title %}{% engine_title %}{% endblock %}
+
+{% block header %}
+  {% include 'soundboard/header.html' %}
+{% endblock %}
+
+{% block content %}
+<div id="soundboard"><!-- Start Content -->
+
+<div id="soundboard-index">
+  <section>
+    <h2>Boards</h2>
+
+    <div id="boards">
+      {% for b in boards %}
+        <div class="primary-field">
+          <a href="{% url 'soundboard:board' b.id 'default' %}">{{ b.name }}</a>
+        </div>
+
+        <div>
+          {{ b.sfx.all|length }} sound effects, {{ b.music.all|length }} songs
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section>
+    <h2>Sound Effects</h2>
+
+    <div id="sfx">
+      {% for s in sfx %}
+        <div>{{ s.name }}</div>
+        <div id="sfxDuration{{ s.id }}"></div>
+        <div>Format: {{ s.file.url }}</div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section>
+    <h2>Music</h2>
+
+    <div id="music">
+      {% for m in music %}
+        <div><a href="{% url 'soundboard:view_track' m.id %}"> {{ m.name }}</div>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+</div><!-- End Content -->
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

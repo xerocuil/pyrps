@@ -1,0 +1,270 @@
+{% extends "main/base.html" %}
+
+{% load soundboard static %}
+
+{% block title %}{% engine_title %}{% endblock %}
+
+{% block header %}
+  {% if page_header == 'default' %}
+    {% include 'soundboard/header.html' %}
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<div id="soundboard"><!-- Start Content -->
+
+<div id="article-header">
+  <div id="article-title">
+    <h1>{{ board.name }}</h1>
+  </div>
+
+  <div id="article-links">
+    {% if page_header %}
+      <a href="#" onclick="newWindow()" title="Open soundboard in new window" alt="New window icon">
+        <img src="{% static 'soundboard/img/link.svg' %}">
+      </a>
+    {% endif %}
+  </div>
+</div>
+
+<div id="board">
+  <div id="col1">
+    <h2>SFX</h2>
+    <div id="sfx">
+      {% for s in board.sfx.all %}
+      <div class="sfxTrack">
+        <button class="sfxBtn" 
+          onclick="sfxTrack{{ s.id }}.play();">
+          <div class="sfxName">{{ s.name }}</div>
+          <div id="sfx{{ s.id }}Display" class="sfxWave">
+            <img class="waveIcon" src="{% static 'soundboard/controls/wave.gif' %}">
+          </div>
+        </button>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div  id="col2">
+    <h2>Music</h2>
+    <div id="music">
+      {% for m in board.music.all %}
+        <div class="musicTrack">
+          <div class="trackInfo">
+            <div>{{ m.name }}</div>
+            <div>
+              <span id="duration{{ m.id }}"></span>
+            </div>
+          </div>
+
+          <div class="trackControls">
+            <div class="tc1">
+              <button id="music{{ m.id }}Play"
+                class="play"
+                onclick="musicTrack{{ m.id }}.play();">
+              </button>
+
+              <button id="music{{ m.id }}Pause"
+                class="pause" 
+                onclick="musicTrack{{ m.id }}.pause();">
+              </button>
+
+              <button id="music{{ m.id }}Stop"
+                class="stop"
+                onclick="musicTrack{{ m.id }}.stop();">
+              </button>
+            </div>
+
+            <div class="tc2">
+              <button id="music{{ m.id }}VolDown"
+                class="volDown"
+                onclick="volumeAdjust(musicTrack{{ m.id }} ,'d');">
+              </button>
+
+              <div class="vol"></div>
+
+              <button id="music{{ m.id }}VolUp"
+                class="volUp"
+                onclick="volumeAdjust(musicTrack{{ m.id }} ,'u');">
+              </button>
+              
+              <div id="music{{ m.id }}volMeter" class="meter">
+                <div id="music{{ m.id }}volBar"  class="level"></div>
+              </div>
+            </div>
+
+            <div class="tc3">
+              <div id="music{{ m.id }}Display">
+                <div id="music{{ m.id }}Playing" class="trackPlaying">
+                   <img src="{% static 'soundboard/controls/wave.gif' %}">
+                </div>
+
+                <div id="music{{ m.id }}Paused" class="trackPaused">Paused</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script>
+  // SFX script loop
+  // Create object for each sfx
+  {% for s in board.sfx.all %}
+    var sfxTrack{{ s.id }} = new Howl({
+      src: ["{{ s.file.url }}"],
+      onplay: function () {
+        document.getElementById('sfx{{ s.id }}Display').style.display = 'inline';
+        document.getElementById('music'+sound.id+'Pause').style.display = 'inline';
+      },
+      onend: function () {
+        document.getElementById('sfx{{ s.id }}Display').style.display = 'none';
+      }
+    });
+  {% endfor %}
+
+  // Music script loop
+  // Create object for each music track
+  {% for m in board.music.all %}
+    var musicTrack{{ m.id }} = new Howl({
+      src: ["{{ m.file.url }}"],
+      onend: function() {
+        toggleDisplay(musicTrack{{ m.id }}, 'stop');
+      },
+      onload: function() {
+        showDuration(musicTrack{{ m.id }});
+        // showPos(musicTrack{{ m.id }});
+      },
+      onpause: function() {
+        toggleDisplay(musicTrack{{ m.id }}, 'pause');
+      },
+      onplay: function() {
+        toggleDisplay(musicTrack{{ m.id }}, 'play');
+      },
+      onstop: function() {
+        toggleDisplay(musicTrack{{ m.id }}, 'stop');
+      }
+    });
+    musicTrack{{ m.id }}.name = "{{ m.name }}"
+    musicTrack{{ m.id }}.id = "{{ m.id }}"
+  {% endfor %}
+
+
+  // Get track duration
+  function getDuration(sound) {
+    var duration = Math.round(sound.duration())
+    return duration
+  }
+
+  function hrTime(s) {
+    var duration = Math.round(s)
+    var minutes = Math.floor(duration / 60);
+    var seconds = duration - (minutes*60);
+    var seconds = ('0'+seconds).slice(-2);
+    var time = minutes+':'+seconds
+    return time
+  }
+
+  // Display track duration on load
+  function showDuration(sound) {
+    var duration = getDuration(sound)
+    var time = hrTime(duration)
+    document.getElementById('duration'+sound.id+'').innerHTML = time
+  }
+
+  // Fade out music track
+  function fadeOut(sound) {
+    var getVol = getVolLevel(sound);
+    sound.fade(getVol, 0, 1200);
+    // Wait for track to fade then stop track and reset volume level
+    setTimeout(function(){
+      sound.stop();
+      sound.volume(getVol);
+    }, 2200);
+  }
+
+  // Get current volume level
+  function getVolLevel(sound) {
+    return sound.volume()
+  }
+
+  // Playback display
+  function togglePause(sound, display) {
+    document.getElementById('music'+sound.id+'Pause').style.display = display;
+  }
+
+  function togglePaused(sound, display) {
+    document.getElementById('music'+sound.id+'Paused').style.display = display;
+  }
+
+  function togglePlay(sound, display) {
+    document.getElementById('music'+sound.id+'Play').style.display = display;
+  }
+
+  function togglePlaying(sound, display) {
+    document.getElementById('music'+sound.id+'Playing').style.display = display;
+  }
+
+  function toggleDisplay(sound, opt) {
+    if (opt == 'play'){
+      togglePause(sound, 'inline');
+      togglePaused(sound, 'none');
+      togglePlay(sound, 'none');
+      togglePlaying(sound, 'inline');
+    } else if (opt == 'pause') {
+      togglePause(sound, 'none');
+      togglePaused(sound, 'inline');
+      togglePlay(sound, 'inline');
+      togglePlaying(sound, 'none');
+    } else if (opt == 'stop') {
+      togglePause(sound, 'none');
+      togglePaused(sound, 'none');
+      togglePlay(sound, 'inline');
+      togglePlaying(sound, 'none');
+    }
+  }
+
+  // Volume Control
+  function volumeAdjust(sound, opt) {
+    stepDec = 0.2
+    var getVol = getVolLevel(sound)
+    if (opt == 'u') {
+      var step = getVol+stepDec
+    } else if (opt == 'd') {
+      var step = getVol-stepDec
+    }
+    var step = Math.round(step*100)/100
+    if (step < 0) {
+      step = 0
+    } else if (step > 1) {
+      step = 1
+    }
+    sound.volume(step)
+    volMeter(sound)
+  }
+
+  function volMeter(sound) {
+    var currentVol = sound._volume
+    currentVol = currentVol*100
+    volPercent = currentVol+'%'
+    document.getElementById('music'+sound.id+'volBar').style.height = volPercent;
+  }
+
+  // Open board in new window (no header)
+  function newWindow() {
+    window.open(
+      "{% url 'soundboard:board' board.id 'none' %}",
+      "_blank",
+      "width=960,height=720",
+      "menubar=no",
+      "status=no"
+    );
+  }
+</script>
+
+</div><!-- End Content -->
+{% endblock %}
+
+{% block sidebar %}{% endblock %}

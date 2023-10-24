@@ -1,0 +1,42 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% block title %}Edit Character{% endblock %}
+{% block content %}  
+
+<div>
+  <h2>Edit {{ cclass.name }}</h4>
+</div>
+
+<div class="board">
+  <div class="form">
+    <form method="post">
+      {% csrf_token %}
+      <div id="character-form">
+        {{ class_form.as_div }}
+      </div>
+
+      <button type="submit">Save</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  var imgdata = ""
+  function openForm() {
+    document.getElementById("popupForm").style.display = "block";
+  }
+  function closeForm() {
+    document.getElementById("popupForm").style.display = "none";
+  }
+
+  function encodeImageFileAsURL(element) {
+    var file = element.files[0];
+    var reader = new FileReader();
+    reader.onloadend = function() {
+      console.log('RESULT', reader.result)
+    }
+    reader.readAsDataURL(file);
+  }
+</script>
+
+{% endblock %}

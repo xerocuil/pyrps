@@ -1,0 +1,130 @@
+{% extends "main/base.html" %}
+
+{% load dnd5 static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+
+<h1>{{ page_title }}</h1>
+
+<h2>Abilities</h2>
+
+<article class="layout1-1">
+  <section>
+    <p>Much of what your character does in the game depends on his or her six abilities: <b>Strength</b>, <b>Dexterity</b>, <b>Constitution</b>, <b>Intelligence</b>, <b>Wisdom</b>, and <b>Charisma</b>.</p>
+
+    <p>Is a character muscle-bound and insightful? Brilliant and charming? Nimble and hardy? Ability scores define these qualities—a creature’s assets as well as weaknesses. The three main rolls of the game—the ability check, the saving throw, and the attack roll—rely on the six ability scores. Roll a d20, add an ability modifier derived from one of the six ability scores, and compare the total to a target number.</p>
+
+    <img class="banner" src="{% static 'dnd5/img/archer00.jpg' %}"  alt="Concept art" title="Ranger">
+  </section>
+
+  <section>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {% for a in abilities %}
+        <tr>
+          <td>{{ a.name }}</td>
+          <td><p>{{ a.description }}</p></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  
+</article>
+
+  <h2>Ability Scores and Modifiers</h2>
+  <article class="layout3-1">
+    <section>
+      <img class="figure" src="{% static 'dnd5/img/warrior01.jpg' %}"  alt="Concept art" title="Warrior">
+      <p>Each of a creature's Abilities has a score, a number that defines the magnitude of that ability. An ability score is not just a measure of innate capabilities, but also encompasses a creature's Training and competence in activities related to that ability.</p>
+      
+      <p>A score of 10 or 11 is the normal human average, but Adventurers and many Monsters are a cut above average in most Abilities. A score of 18 is the highest that a person usually reaches. Adventurers can have scores as high as 20, and Monsters and divine beings can have scores as high as 30.</p>
+
+      <p>Each ability also has a modifier, derived from the score and ranging from −5 (for an ability score of 1) to +10 (for a score of 30). The Ability Scores and Modifiers table notes the ability Modifiers for the range of possible Ability Scores, from 1 to 30.</p>
+
+      <p>To determine an ability modifier without consulting the table, subtract 10 from the ability score and then divide the total by 2 (round down).</p>
+
+      <p>Because ability Modifiers affect almost every attack roll, ability check, and saving throw, ability Modifiers come up in play more often than their associated scores.</p>
+    </section>
+
+    <section>
+      <table>
+        <thead>
+          <tr>
+            <th>Score</th>
+            <th>Modifier</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {% for a in ability_modifiers %}
+          <tr>
+            <td>{% split_range  a.score %}</td>
+            <td>{{ a.modifier }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+  <h2>Character Advancement</h2>
+  <article class="layout3-1">
+    <section>
+      <img class="thumbnail" src="{% static 'dnd5/img/warrior00.jpg' %}" alt="Concept art" title="Fighter">
+      <p>The Character Advancement table summarizes the <b> experience points (XP)</b> you need to advance in levels from level 1 through level 20, and the <b>proficiency bonus (PB)</b> for a character of that level. Consult the information in your character's class description to see what other improvements you gain at each level.</p>
+
+      <h3>Tiers of Play</h3>
+      <p>The shading in the Character Advancement table shows the four tiers of play. The tiers don't have any rules associated with them; they are a general description of how the play experience changes as characters gain levels.</p>
+
+      <p>In the first tier (levels 1–4), characters are effectively apprentice adventurers. They are learning the features that define them as members of particular classes, including the major choices that flavor their class features as they advance (such as a wizard's Arcane Tradition or a fighter's Martial Archetype). The threats they face are relatively minor, usually posing a danger to local farmsteads or villages.</p>
+
+      <p>In the second tier (levels 5–10), characters come into their own. Many spellcasters gain access to 3rd-level spells at the start of this tier, crossing a new threshold of magical power with spells such as fireball and lightning bolt. At this tier, many weapon-using classes gain the ability to make multiple attacks in one round. These characters have become important, facing dangers that threaten cities and kingdoms.</p>
+
+      <p>In the third tier (levels 11–16), characters have reached a level of power that sets them high above the ordinary populace and makes them special even among adventurers. At 11th level, many spellcasters gain access to 6th-level spells, some of which create effects previously impossible for player characters to achieve. Other characters gain features that allow them to make more attacks or do more impressive things with those attacks. These mighty adventurers often confront threats to whole regions and continents.</p>
+
+      <p>At the fourth tier (levels 17–20), characters achieve the pinnacle of their class features, becoming heroic (or villainous) archetypes in their own right. The fate of the world or even the fundamental order of the multiverse might hang in the balance during their adventures.</p>
+    </section>
+
+    <section>
+      <table>
+        <thead>
+          <tr>
+            <th>Level</th>
+            <th>XP</th>
+            <th>PB</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {% for c in character_advancement %}
+          {% if c.level < 5 or c.level > 10 and c.level < 17 %}
+          <tr class="highlight">
+          {% else %}
+          <tr>
+          {% endif %}
+            <td>{{ c.level }}</td>
+            <td>{{ c.experience_points }}</td>
+            <td>{{ c.proficiency_bonus }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  </article>
+
+{% endblock %}
+
+{% block sidebar %}
+  {% include 'dnd5/sidebar.html' %}
+{% endblock %}

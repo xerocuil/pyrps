@@ -1,0 +1,12 @@
+{% load dnd5 static %}
+<div id="sidebar">
+  <div id="sidebar-header">
+    <img id="sidebar-logo" src="{% static 'dnd5/assets/img/logo.svg' %}">
+  </div>
+  <hr>
+  <p><a href="{% url 'dnd5:list_characters' %}">Characters</a></p>
+  <p><a href="{% url 'dnd5:list_classes' %}">Classes</a></p>
+  <p><a href="{% url 'dnd5:listArmor' %}">Armor</a></p>
+  <p><a href="{% url 'dnd5:listWeapons' %}">Weapons</a></p>
+  <p><a href="{% url 'dnd5:reference' %}">Reference</a></p>
+</div>

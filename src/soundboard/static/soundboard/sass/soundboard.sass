@@ -1,0 +1,159 @@
+$sfxBox: 9.6rem
+
+#soundboard
+  %text-wrap
+    overflow: hidden
+    text-overflow: ellipsis
+    word-wrap: break-word
+
+  .primary-field
+    font-size: 1.2em
+
+  #soundboard-index
+    padding: $block
+    display: flex
+    flex-flow: row nowrap
+    gap: $block $block*4
+    // justify-content: space-between
+    #boards
+      display: inline-grid
+      grid-template-columns: 1fr 1fr
+      align-items: center
+    #sfx
+      display: inline-grid
+      grid-template-columns: 1fr 1fr
+
+  #board
+    width: 100%
+    // padding: $half-block
+    display: inline-flex
+    flex-flow: row nowrap
+    justify-content: space-between
+    gap: $block*4
+    #col1
+      margin-left: $block
+    #col2
+      margin-right: $block
+    #sfx
+      display: inline-grid
+      align-content: start
+      grid-template-columns: 1fr 1fr 1fr 1fr
+      gap: $block*2
+      .sfxTrack
+        display: grid
+        gap: $half-block
+        .sfxBtn
+          width: $sfxBox
+          height: $sfxBox
+          padding: $half-block
+          position: relative
+          background-color: $silver
+          border-radius: $half-block
+          @extend %text-wrap
+        .sfxBtn:active
+          background-color: $bismark
+        .sfxName
+          z-index: 100
+          color: $mineshaft
+          font-size: 1.4rem
+          font-weight: 600
+          position: relative
+        .sfxWave
+          width: 100%
+          height: 3.2rem
+          position: absolute
+          top: $block
+          bottom: 0
+          left: 0
+          right: 0
+          margin: auto auto
+          display: none
+          z-index: 1
+          img.waveIcon
+            width: 60%
+            height: 1.6rem
+            text-align: center
+    #music
+      display: grid
+      gap: $half-block
+      .musicTrack
+        margin: 0 0 $half-block 0
+        padding: $half-block $block
+        background-color: $alto-sheer
+        border-radius: $half-block
+        .trackInfo, .trackControls
+          padding: $half-block 0
+        .trackInfo
+          @extend %text-wrap
+          display: flex
+          flex-flow: row nowrap
+          justify-content: space-between
+        .trackControls
+          display: inline-flex
+          flex-flow: row nowrap
+          gap: 0 $block*2
+          .tc1, .tc2, .tc3
+            display: inline-flex
+            align-items: center
+          .tc1
+            gap: 0 $half-block
+          .meter
+            margin-left: $block
+            height: $block*2
+            width: 1.2rem
+            background-color: $silver-sheer
+            border-radius: $roundBorder
+            position: relative
+            display: block
+          .level
+            width: 100%
+            height: 100%
+            background-color: $silver
+            border-radius: $roundBorder
+            position: absolute
+            bottom: 0
+          .tc3
+            width: $block*4
+            .trackPaused
+              display: none
+            .trackPlaying
+              width: $block*10
+              height: $block*2
+              display: none
+              img
+                width: $block*4
+                height: $block
+          button
+            width: $block*2
+            height: $block*2
+            background-position: center
+            background-repeat: no-repeat
+            background-size: 2.4rem 2.4rem
+
+
+  #view-track
+    width: 50%
+    margin: $block 0
+    padding: $block
+    display: flex
+    flex-flow: row nowrap
+    gap: $block*2
+    align-items: center
+    background-color: $alto-sheer
+    #Paused, #Playing
+      display: none
+      img
+        width: $block*4
+    .inline-buttons
+      display: inline-flex
+      flex-flow: row nowrap
+      gap: 0 $block
+      align-items: center
+  #list-music
+    span.tags
+      margin-right: 0.4rem
+      display: inline
+    span:not(:last-child)::after
+      content: ","
+  #sidebar
+    min-width: 12.8rem

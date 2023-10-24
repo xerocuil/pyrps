@@ -1,0 +1,48 @@
+{% extends "main/base.html" %}
+
+{% load soundboard %}
+
+{% block title %}{% engine_title %}{% endblock %}
+
+{% block header %}
+  {% include 'soundboard/header.html' %}
+{% endblock %}
+
+{% block content %}<div id="list-music">
+<!-- Start Content -->
+
+<h2>Music</h2>
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Format</th>
+    <th>Tags</th>
+  </thead>
+  <tbody>
+    {% for m in music %}
+      <tr>
+        <td>{{ m.name }}</td>
+        <td>{{ m.get_format }}</td>
+        <td>
+          {% for t in m.tags.all %}
+            <span class="tag">{{ t.name }}</span>
+          {% endfor %}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<!-- End Content -->
+</div>{% endblock %}
+
+{% block sidebar %}
+<div id="sidebar">
+  <h3>Tags</h3>
+  <ul>
+    {% for t in tags %}
+      <li>{{ t.name }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

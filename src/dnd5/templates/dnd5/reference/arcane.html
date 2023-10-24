@@ -1,0 +1,79 @@
+{% extends "main/base.html" %}
+
+{% load dnd5 %}
+
+{% block title %}Arcane{% endblock %}
+
+{% block content %}
+
+<h1>{{ page_title }}</h1>
+<div class="sections">
+  <section>
+    <h2>Arcane Schools</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {% for a in arcane_schools %}
+        <tr>
+          <td>{{ a.name }}</td>
+          <td><p>{{ a.description | safe }}</p></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section> 
+
+  <section>
+    <h2>Area of Effect</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {% for a in area_of_effect %}
+        <tr>
+          <td>{{ a.name }}</td>
+          <td><p>{{ a.description | safe }}</p></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Spell Components</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {% for s in spell_components %}
+        <tr>
+          <td>{{ s.name }}</td>
+          <td><p>{{ s.description | safe }}</p></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</div>
+
+{% endblock %}
+
+{% block sidebar %}
+  {% include 'dnd5/sidebar.html' %}
+{% endblock %}

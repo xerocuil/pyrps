@@ -1,0 +1,36 @@
+{% load main static %}
+<header>
+  <div id="site-title">
+    <span id="site-logo">
+      <a href="{% url 'main:index' %}">
+        <img src="{% static 'assets/img/app-logo.svg' %}">
+      </a>
+    </span>
+  </div>
+
+  <nav>
+    <ul>
+      {% if 'dnd5' in apps %}
+        <li><a href="{% url 'dnd5:index' %}">D&D 5</a></li>
+      {% endif %}
+
+      {% if 'smb' in apps %}
+        <li><a href="{% url 'smb:index' %}">SMB</a></li>
+      {% endif %}
+
+      {% if 'soundboard' in apps %}
+        <li><a href="{% url 'soundboard:index' %}">
+          Soundboard
+        </a></li>
+      {% endif %}
+
+      {% if 'gurps4' in apps %}
+        <li><a href="">GURPS 4</a></li>
+      {% endif %}
+
+      {% if 'rpgm2k' in apps %}
+        <li><a href="">RPGM 2K</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+</header>
